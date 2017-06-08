@@ -1,2 +1,5 @@
-# compacSecretCode
-Part 4 Project, which compac is sponsoring. 
+# Christina & Abby | Part IV Project
+
+This Repository will hold the code to our Frontend. 
+
+Thanks for reading. 
