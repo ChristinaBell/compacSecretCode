@@ -20,3 +20,13 @@ footer {
 
 }
 
+.myChart{
+    height: 550px !important;
+    width: 900px !important;
+}
+
+
+.canvas-container{
+    padding-left: 300px;
+    padding-top: 60px;
+}
