@@ -11,8 +11,27 @@ footer {
   padding: 25px;
 }
 
-.home-page-menu-button{
+#home-page-container{
+    margin-left: 23%;
+    margin-top: 20px;
+    width: 54%;
+    height: 100%;
+}
 
+.home-page-menu-button{
+    background-color: white;
+    border-width: 0px;
+    border-radius: 8px;
+}
+
+.home-page-menu-button:hover {
+    color: white;
+    border-width: 1px;
+    border-color: #eeeeee;
+}
+
+.img-responsive{
+    border-color: white;
 }
 
 #map-container{
