@@ -21,9 +21,28 @@ $( document ).ready(function() {
         prompt(error);
       } else {
         pullResults = JSON.parse(data.Payload);
-        console.log(pullResults);
+        reloadTable(pullResults);
       }
     });
+
+    function reloadTable(data){
+        for (item in data){
+            var obj = JSON.parse(data[item]);
+            var date = new Date((item.split("/")[1])*1000);
+//            var row = [date.toString(), obj["Packhouse"], obj["Machine"], obj["Error"]];
+            var row = [];
+
+            dict = {
+                Date: date.toString(),
+                Packhouse: obj["Packhouse"],
+                Machine: obj["Machine"],
+                Error: obj["Error"]
+            };
+            $('#logging-table').bootstrapTable("append", dict);
+
+        }
+    }
+
 
 
 });

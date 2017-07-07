@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
     <script src="Javascript.js"></script>
+    <script src="Logging.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.77.0.min.js"></script>
 
 
 </head>
@@ -44,91 +48,19 @@
 <div>
     <div class="container">
         <h2>Compac Machine Logging</h2>
-        <table class="table table-hover table-bordered">
+        <table id="logging-table" class="table table-hover table-bordered" data-toggle="table">
             <thead>
             <br>
             <br>
             <tr>
-                <th>Date</th>
-                <th>Pack house</th>
-                <th>Machine</th>
-                <th>Error</th>
+
+                <th data-field="Date">Date</th>
+                <th data-field="Packhouse">Packhouse</th>
+                <th data-field="Machine">Machine</th>
+                <th data-field="Error">Error</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Fatal: Cup crash</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Washer Rd</td>
-                <td>Vision</td>
-                <td>Warning: warning error....</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Error: some other error here ... </td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Fatal: Cup crash</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Washer Rd</td>
-                <td>Vision</td>
-                <td>Warning: warning error....</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Error: some other error here ... </td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Fatal: Cup crash</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Washer Rd</td>
-                <td>Vision</td>
-                <td>Warning: warning error....</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Error: some other error here ... </td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Fatal: Cup crash</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Washer Rd</td>
-                <td>Vision</td>
-                <td>Warning: warning error....</td>
-            </tr>
-            <tr>
-                <td>20-06-2017 15:05 </td>
-                <td>East Pack Quarry Rd</td>
-                <td>Sizer</td>
-                <td>Error: some other error here ... </td>
-            </tr>
-
 
 
             </tbody>
