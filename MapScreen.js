@@ -3,9 +3,9 @@ $( document ).ready(function() {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    // Instantiate the Leaflet maps API - centering at Auckland
+    // Instantiate the Leaflet maps API - centering around NZ
     var mymap = L.map('map-container', {
-        center: [5, 174.7633],
+        center: [5, 190.7633],
         zoom: 2.5
     });
 
@@ -56,12 +56,44 @@ $( document ).ready(function() {
         // Reload table with results from S3 lambda function call
         packhouses = pullResults.Items;
 
+        var greenIcon = L.icon({
+                        iconUrl: 'icons/green_pin.png',
+                        iconSize:     [25, 40], // size of the icon
+                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    });
+
+        var orangeIcon = L.icon({
+                        iconUrl: 'icons/orange_pin.png',
+                        iconSize:     [25, 40], // size of the icon
+                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    });
+
+        var redIcon = L.icon({
+                        iconUrl: 'icons/red_pin.png',
+                        iconSize:     [25, 40], // size of the icon
+                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    });
+
         for (item in packhouses){
             packhouse = packhouses[item];
-            var marker = L.marker([packhouse.Latitude, packhouse.Longitude]).addTo(mymap);
-            marker.bindPopup(packhouse.Packhouse);
-            var marker = L.marker([packhouse.Latitude, packhouse.Longitude+ 360]).addTo(mymap);
-            marker.bindPopup(packhouse.Packhouse);
+
+            var util = Math.random();
+            if (util > 0.4){
+                icon = redIcon;
+            } else {
+                icon = greenIcon;
+            }
+            utilization = Math.round(util * 1000) / 10;
+
+            var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
+            var list = "<dl><dt>Packhouse:</dt>"
+                       + "<dd>" + packhouse.Packhouse + "</dd>"
+                       + "<dt>Utilization:</dt>"
+                       + "<dd>" + utilization + "</dd>"
+            marker.bindPopup(list);
+
+            var marker = L.marker([packhouse.Latitude, packhouse.Longitude+ 360], {icon: icon}).addTo(mymap);
+            marker.bindPopup(list);
         }
       }
     });
