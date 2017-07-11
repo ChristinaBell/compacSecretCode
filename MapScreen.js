@@ -8,6 +8,8 @@ $( document ).ready(function() {
         center: [5, 190.7633],
         zoom: 2.5
     });
+    mymap.options.minZoom = 1.8;
+
 
     // Get the Leaflet maps API - and set the access token
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -29,6 +31,25 @@ $( document ).ready(function() {
 
     // ----------------------------------------------------------------------------------------------------------------
 
+    // Define the red, green and orange pins for representing the proportion of utilisation
+    var greenIcon = L.icon({
+                    iconUrl: 'icons/green_pin.png',
+                    iconSize:     [25, 40], // size of the icon
+                    iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                });
+
+    var orangeIcon = L.icon({
+                    iconUrl: 'icons/orange_pin.png',
+                    iconSize:     [25, 40], // size of the icon
+                    iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                });
+
+    var redIcon = L.icon({
+                    iconUrl: 'icons/red_pin.png',
+                    iconSize:     [25, 40], // size of the icon
+                    iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                });
+
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -49,31 +70,16 @@ $( document ).ready(function() {
     var pullResults;
 
     lambda.invoke(pullParams, function(error, data) {
-      if (error) {
-        prompt(error);
-      } else {
-        pullResults = JSON.parse(data.Payload);
-        // Reload table with results from S3 lambda function call
-        packhouses = pullResults.Items;
+        if (error) {
+            prompt(error);
+        } else {
+            pullResults = JSON.parse(data.Payload);
+            updateMap(pullResults.Items);
+        }
+    });
 
-        var greenIcon = L.icon({
-                        iconUrl: 'icons/green_pin.png',
-                        iconSize:     [25, 40], // size of the icon
-                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    });
-
-        var orangeIcon = L.icon({
-                        iconUrl: 'icons/orange_pin.png',
-                        iconSize:     [25, 40], // size of the icon
-                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    });
-
-        var redIcon = L.icon({
-                        iconUrl: 'icons/red_pin.png',
-                        iconSize:     [25, 40], // size of the icon
-                        iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    });
-
+    // Function to
+    function updateMap(packhouses){
         for (item in packhouses){
             packhouse = packhouses[item];
 
@@ -95,11 +101,7 @@ $( document ).ready(function() {
             var marker = L.marker([packhouse.Latitude, packhouse.Longitude+ 360], {icon: icon}).addTo(mymap);
             marker.bindPopup(list);
         }
-      }
-    });
-
-
-
+    }
 
 
 
