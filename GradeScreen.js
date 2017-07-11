@@ -49,11 +49,6 @@ $( document ).ready(function() {
       //TODO Make sure that the sampledGrade is what we want.
       //if(VisionGrade == necessaryGrade){}
 
-      console.log(items.length);
-      console.log(classes[1]);
-      console.log(classes.length);
-      console.log(sampledGrade);
-
       //Push the vision grades onto the x axis.
       for (var j = 0; j < classes.length; j++) {
 
