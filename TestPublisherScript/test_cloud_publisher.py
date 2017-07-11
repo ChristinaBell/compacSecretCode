@@ -137,7 +137,7 @@ def start_batch():
 
 
 def publish_fruit():
-    json_s = json.dumps(test_msg)
+    json_s = json.dumps(fruit_msg)
     client.publish(topic='presize/fruit/pfs/stored',
                    qos=qos_setting,
                    payload=json_s.encode('utf-8'))
@@ -145,11 +145,7 @@ def publish_fruit():
 
 
 fruit_id_seed = 123459876
-test_msg = {
-    "ID": str(fruit_id_seed),
-    "Method": "PUT",
-    "Data": str("Some Data")
-}
+
 fruit_msg = {
     "ID": str(fruit_id_seed),
     "Method": "PUT",
@@ -178,7 +174,7 @@ fruit_msg = {
         }
     },
     "Status": "200",
-    "StatusMessage": ""
+    "StatusMessage": "OK"
 }
 
 
@@ -197,32 +193,31 @@ def get_fruit_defects():
 
 
 def new_fruit():
-    test_msg['ID'] = str(int(test_msg['ID']) + 1)
-    test_msg['Data'] = str("Some more data ") + test_msg['ID']
 
-    # fruit_msg['ID'] = int(fruit_msg['ID']) + 1
-    # fruit_msg['Data']['DatasetId'] = int(fruit_msg['Data']['DatasetId']) + 1
-    #
-    # old_pulse = fruit_msg['Data']['Identifier']['Pulse']
-    # new_pulse = (old_pulse + 100) % 256
-    # fruit_msg['Data']['Identifier']['Pulse'] = new_pulse
-    # d1 = round(50 + random.random() * 10, 2)
-    # d2 = round(50 + random.random() * 10, 2)
-    # w = round(80 + random.random() * 80, 2)
-    # sz = str(int((1 / w) * 4000 / 4) * 4)  # 80 grams is '48', 160 grams is '24'
-    #
-    # fruit_msg['Data']['Identifier']['MajorDiameter'] = d1
-    # fruit_msg['Data']['Identifier']['MinorDiameter'] = d2
-    # fruit_msg['Data']['WeightGrams'] = w
-    # fruit_msg['Data']['Size'] = sz
-    # fruit_msg['Data']['Defects'] = get_fruit_defects()
-    #
-    # fruit_msg['Data']['PackRun']['StartTime'] = current_batch_start_time
-    # fruit_msg['Data']['PackRun']['EndTime'] = '0001-01-01T00:00:00'
-    # fruit_msg['Data']['PackRun']['Name'] = batch_name + '_' + str(batch_msg['Data']['Id'])
-    #
-    # fruit_msg['Data']['CaptureFilename'] = '{0:04}_{1:04}_Fruit.capx'.format(batch_msg['Data']['Id'],
-    #                                                fruit_msg['Data']['Identifier']['FruitId'] - fruit_id_seed)
+    fruit_msg['ID'] = str(int(fruit_msg['ID']) + 1)
+    fruit_msg['Data']['DatasetId'] = str(int(fruit_msg['Data']['DatasetId']) + 1)
+
+    old_pulse = int(fruit_msg['Data']['Identifier']['Pulse'])
+    new_pulse = (old_pulse + 100) % 256
+    fruit_msg['Data']['Identifier']['Pulse'] = str(new_pulse)
+    d1 = round(50 + random.random() * 10, 2)
+    d2 = round(50 + random.random() * 10, 2)
+    w = round(80 + random.random() * 80, 2)
+    sz = str(int((1 / w) * 4000 / 4) * 4)  # 80 grams is '48', 160 grams is '24'
+
+    fruit_msg['Data']['Identifier']['MajorDiameter'] = str(d1)
+    fruit_msg['Data']['Identifier']['MinorDiameter'] = str(d2)
+    fruit_msg['Data']['WeightGrams'] = str(w)
+    fruit_msg['Data']['Size'] = str(sz)
+    fruit_msg['Data']['Defects'] = get_fruit_defects()
+
+    fruit_msg['Data']['PackRun']['StartTime'] = str(current_batch_start_time)
+    fruit_msg['Data']['PackRun']['EndTime'] = '0001-01-01T00:00:00'
+    fruit_msg['Data']['PackRun']['Name'] = batch_name + '_' + str(batch_msg['Data']['Id'])
+
+    fruit_msg['Data']['CaptureFilename'] = '{0:04}_{1:04}_Fruit.capx'.format(batch_msg['Data']['Id'],
+                                                   int(fruit_msg['Data']['Identifier']['FruitId']) - fruit_id_seed)
+    print(fruit_msg)
 
 
 bintip_msg = {
@@ -244,7 +239,7 @@ bin_msg = {
         'Bin' : 0
     },
     'Status' : 200,
-    'StatusMessage' : ''
+    'StatusMessage' : 'OK'
 }
 
 

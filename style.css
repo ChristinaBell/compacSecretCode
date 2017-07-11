@@ -1,5 +1,4 @@
 
-
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
@@ -36,7 +35,7 @@ footer {
 
 #map-container{
  height: 680px;
-
+ /* This is hard coded and when I make it a percentage it just goes to height 0??*/
 }
 
 .myChart{
@@ -44,12 +43,10 @@ footer {
     width: 900px !important;
 }
 
-
 .canvas-container{
     padding-left: 300px;
     padding-top: 60px;
 }
-
 
 #logging-table{
     white-space: pre-wrap; /* css-3 */
