@@ -9,10 +9,13 @@ $( document ).ready(function() {
     // Create Lambda object
     var lambda = new AWS.Lambda({region: 'ap-southeast-2', apiVersion: '2015-03-31'});
 
+    var filters = {"Machine": ["sizer"] };
+
     // create JSON object for parameters for invoking Lambda function
     var pullParams = {
-      FunctionName : 'readLogsFromS3',
+      FunctionName : 'getLogsFiltered',
       InvocationType : 'RequestResponse',
+      Payload: JSON.stringify(filters),
       LogType : 'None'
     };
 
