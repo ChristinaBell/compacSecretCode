@@ -137,10 +137,12 @@ def start_batch():
 
 
 def publish_fruit():
+    # publish the fruit
     json_s = json.dumps(fruit_msg)
-    client.publish(topic='presize/fruit/pfs/stored',
+    client.publish(topic='machinename/presize/fruit/pfs/stored',
                    qos=qos_setting,
                    payload=json_s.encode('utf-8'))
+
     #client.loop()
 
 
@@ -160,9 +162,9 @@ fruit_msg = {
         },
         "WeightGrams": "363.35",
         "Size": "36",
-        'DatasetId' : "0",
+        'DatasetId': "0",
         "VisionGrade": "Class 2",
-        "SampledGrade": "Class 1",
+        "SampledGrade": "Class 2",
         "CaptureFilename": 'TODO: capx_file_name goes here',
         "Capture": "TODO: Put .capx file contents here",
         "PackRun": {
@@ -176,7 +178,6 @@ fruit_msg = {
     "Status": "200",
     "StatusMessage": "OK"
 }
-
 
 def get_fruit_defects():
     defects = ('Dirt', 'SkinRub', 'Sunburn', 'Fungal', 'SootyMould', 'Overripe', 'Cut')

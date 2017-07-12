@@ -27,6 +27,7 @@ $( document ).ready(function() {
         prompt(error);
       } else {
         pullResults = JSON.parse(data.Payload);
+        console.log(pullResults);
         // Reload table with results from S3 lambda function call
         reloadTable(pullResults);
       }
