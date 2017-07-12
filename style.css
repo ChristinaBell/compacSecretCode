@@ -55,3 +55,7 @@ footer {
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word;
 }
+
+#log-table-container{
+    width: 100%;
+}

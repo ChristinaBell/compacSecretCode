@@ -18,6 +18,32 @@ qos_setting = 1
 
 client = None
 
+current_batch_start_time = ''
+current_batch_end_time = ''
+
+
+class TestClient:
+
+    def __init__(self, client_id, clean_session):
+        self.on_connect = None
+
+    def connect(self, a, b, c):
+        pass
+
+    def publish(self, topic='',
+                qos=1,
+                payload=b''):
+        print('########## topic: '+topic)
+        pprint.pprint(json.loads(payload.decode('utf-8')))
+
+    def loop(self):
+        pass
+
+
+
+def on_connect(client, userdata, flags, rc):
+    print("test_cloud connected with result code " + str(rc))
+
 
 def connect(client_class):
     global client
@@ -36,42 +62,80 @@ def connect(client_class):
     client.loop_start()
 
 
-def on_connect(client, userdata, flags, rc):
-    print("test_cloud connected with result code " + str(rc))
-
-
 def on_disconnect(client, userdata, rc):
     print("Disconnected with code " + str(rc))
 
 
 def msg_published(client, userdate, mid):
-    print("Published message with id " + str(mid))
+    pass
+    # print("Published message with id " + str(mid))
 
 
-def publish_log(sizer_log_msg):
-    # publish a log file
-    print(sizer_log_msg)
-    sizer_log = json.dumps(sizer_log_msg)
-    client.publish(topic='sizer/log',
-                   qos=qos_setting,
-                   payload=sizer_log.encode('utf-8'))
-    #client.loop()
+def now_iso():
+    return datetime.datetime.now().isoformat()
 
 
 def generate(batches=10, bins = 5, fruit=10):
+    for i in range(batches):
+        client.publish(topic="test", qos=1, payload="dfaf")
+        print('batch ' + str(i + 1))
+        for bin in range(bins):
+            for f in range(fruit):
+                time.sleep(5)
+                print(f, )
+                # publish_fruit()
+                with open("sizerlog.txt") as f:
+                    content = f.readlines()
+
+                error = re.compile("^\s*\d+\)\s+\((\w+)\)((\s|\d|-|:|\.)+)\t*(.+)")
+
+                for line in content:
+
+                    if error.match(line):
+                        match = error.match(line)
+                        logType = (match.group(1))
+                        date = match.group(2)
+                        msg = match.group(4)
+
+                        sizer_log_msg = {
+                            "LogType": logType,
+                            "LogMessage": msg,
+                            "Date": date,
+                            "Machine": "Sizer",
+                            "Packhouse": "Zirkle Selah",
+                            "Customer": "Zirkle Fruit Co"
+                        }
+                        publish_log(sizer_log_msg)
+        print()
+        time.sleep(10)
+    print('Done')
+    print()
+
+
+def publish_log(sizer_log_msg):
+    json_s = json.dumps(sizer_log_msg)
+    client.publish(topic='sizer/log',
+                   qos=qos_setting,
+                   payload=json_s.encode('utf-8'))
+    print("pub..")
+
+
+CLIENT_CLASS = mqtt.Client #TestClient  # or mqtt.Client
+
+
+def generate_log():
+    client.publish(topic="test", qos=1, payload="dfaf")
+    publish_fruit()
     with open("sizerlog.txt") as f:
         content = f.readlines()
-
     error = re.compile("^\s*\d+\)\s+\((\w+)\)((\s|\d|-|:|\.)+)\t*(.+)")
 
     for line in content:
-
         if error.match(line):
             match = error.match(line)
             logType = (match.group(1))
             date = match.group(2)
             msg = match.group(4)
-
             sizer_log_msg = {
                 "LogType": logType,
                 "LogMessage": msg,
@@ -81,9 +145,9 @@ def generate(batches=10, bins = 5, fruit=10):
                 "Customer": "EastPack"
             }
 
-            publish_log(sizer_log_msg)
+            # publish_log(sizer_log_msg)
 
 
 if __name__ == '__main__':
-    connect(mqtt.Client)
+    connect(CLIENT_CLASS)
     generate()

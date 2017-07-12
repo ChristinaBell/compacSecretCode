@@ -27,7 +27,6 @@ $( document ).ready(function() {
         prompt(error);
       } else {
         pullResults = JSON.parse(data.Payload);
-        console.log(pullResults);
         // Reload table with results from S3 lambda function call
         reloadTable(pullResults);
       }
@@ -39,10 +38,12 @@ $( document ).ready(function() {
             var obj = JSON.parse(data[item]);
             var date = new Date((item.split("/")[1])*1000);
             dict = {
-                Date: date.toString(),
+                Date: obj["Date"],
+                Customer: obj["Customer"],
                 Packhouse: obj["Packhouse"],
                 Machine: obj["Machine"],
-                Error: obj["Error"]
+                Error: obj["LogType"],
+                Message: obj["LogMessage"]
             };
             $('#logging-table').bootstrapTable("append", dict);
         }
