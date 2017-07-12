@@ -19,6 +19,10 @@ $( document ).ready(function() {
 
   // Create variable to hold data returned by the Lambda function
   var pullResults;
+  var classes = ['Export', 'Class 1', 'Class 2', 'Culls'];
+  var p1 = [0,0,0,0];
+  var p2 = [5,6,5,6,6];
+  var p3 = [5,6,5,6,6];
 
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
@@ -33,10 +37,6 @@ $( document ).ready(function() {
   //TODO set up for the grades for each packhouse.
 
   function sortData(packhouse1, packhouse2, packhouse3, data, necessaryGrade, necessaryFruitVariety){
-    var classes = ['Export', 'Class 1', 'Class 2', 'Culls'];
-    var p1 = [0,0,0,0];
-    var p2 = [0,0,0,0];
-    var p3 = [0,0,0,0];
 
     for (var i = 0; i < data.Items.length; i++) {
       var currItem = data.Items[i];
@@ -50,15 +50,9 @@ $( document ).ready(function() {
 
       if ((necessaryFruitVariety == fruitVariety) && (necessaryGrade == visionGrade)){
 
-        if (packhouse == packhouse1) {
-          currTally = p1;
-        }
-        if (packhouse == packhouse2) {
-          currTally = p2;
-        }
-        if (packhouse == packhouse3) {
-          currTally = p3;
-        }
+        if (packhouse == packhouse1) { currTally = p1; }
+        if (packhouse == packhouse2) { currTally = p2; }
+        if (packhouse == packhouse3) { currTally = p3; }
 
         for (var j = 0; j < classes.length; j++) {
           if(classes[j] == actualGrade){
@@ -66,6 +60,7 @@ $( document ).ready(function() {
             classed = true;
           }
         }
+        // If the class does not exist in the current classes, then add it to the thingo.
         if (!classed) {
           classes.push(actualGrade);
           currTally.push(1);
@@ -73,9 +68,26 @@ $( document ).ready(function() {
           p3.push(0);
         }
       }
-
      }
+
+    makePercentage([p1,p2,p3]);
     drawGraph(p1,p2,p3, classes);
+  }
+
+  function makePercentage(packhouses){
+
+    for (var z = 0; z < packhouses.length; z++) {
+      var currTally = packhouses[z];
+      sum = 0;
+
+      for (var y = 0; y < currTally.length; y++) {
+        sum = currTally[y] + sum;
+      }
+
+      for (var x = 0; x < currTally.length; x++) {
+        currTally[x] = (currTally[x] / sum) * 100 ;
+      }
+    }
   }
 
   function drawGraph(p1,p2,p3,classes){
@@ -97,14 +109,14 @@ $( document ).ready(function() {
                  backgroundColor: '#667279',
                  borderColor: '#44535B',
                  borderWidth: 2,
-                 data: [5,6,5,6,6]
+                 data: p2
              },
              {
                  label: "Green",
                  backgroundColor: '#C8E2F5',
                  borderColor: '#1CA0FF',
                  borderWidth: 2,
-                 data: [5,6,5,6,6]
+                 data: p3
              }
            ]
         },
