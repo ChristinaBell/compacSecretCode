@@ -26,65 +26,94 @@ $( document ).ready(function() {
     } else {
       pullResults = JSON.parse(data.Payload);
       // reload the graph with results from the dynamoDB lambda function call
-      reloadGraph(pullResults);
+      sortData("p1", "p2", "p3", pullResults, "Class 2", "Kiwi Green");
     }
   });
 
+  //TODO set up for the grades for each packhouse.
 
-  function reloadGraph(data){
-    var classes = ['Class 1', 'Class 2', 'Culls', 'Mierda'];
-    var tally = [0, 0, 0, 0];
+  function sortData(packhouse1, packhouse2, packhouse3, data, necessaryGrade, necessaryFruitVariety){
+    var classes = ['Export', 'Class 1', 'Class 2', 'Culls'];
+    var p1 = [0,0,0,0];
+    var p2 = [0,0,0,0];
+    var p3 = [0,0,0,0];
 
-    var items = data.Items;
+    for (var i = 0; i < data.Items.length; i++) {
+      var currItem = data.Items[i];
+      var classed = false;
 
-    for (var i = 0; i < items.length; i++) {
-      var currItem = items[i];
-
-      var sampledGrade = currItem.payload.Data.SampledGrade;
-      var actualGrade = currItem.payload.Data.VisionGrade;
+      var actualGrade = currItem.payload.Data.SampledGrade;
+      var visionGrade = currItem.payload.Data.VisionGrade;
       var fruitVariety = currItem.payload.Data.PackRun.FruitVariety;
+      var packhouse = "p1";
+      //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
 
-      //TODO Make sure that the fruit variety is what we want. Should make an input too the function.
+      if ((necessaryFruitVariety == fruitVariety) && (necessaryGrade == visionGrade)){
 
-      //TODO Make sure that the sampledGrade is what we want.
-      //if(VisionGrade == necessaryGrade){}
+        if (packhouse == packhouse1) {
+          currTally = p1;
+        }
+        if (packhouse == packhouse2) {
+          currTally = p2;
+        }
+        if (packhouse == packhouse3) {
+          currTally = p3;
+        }
 
-      //Push the vision grades onto the x axis.
-      for (var j = 0; j < classes.length; j++) {
-
-        if(classes[j] == sampledGrade){
-          tally[j] = tally[j] + 1;
+        for (var j = 0; j < classes.length; j++) {
+          if(classes[j] == actualGrade){
+            currTally[j] = currTally[j] + 1;
+            classed = true;
+          }
+        }
+        if (!classed) {
+          classes.push(actualGrade);
+          currTally.push(1);
+          p2.push(0);
+          p3.push(0);
         }
       }
 
-      console.log(tally);
+     }
+    drawGraph(p1,p2,p3, classes);
+  }
 
-      //TODO We also need the packhouses too.
-    }
-
-
+  function drawGraph(p1,p2,p3,classes){
     // Bar chart
     new Chart($(".myChart"), {
         type: 'bar',
         data: {
           labels: classes,
           datasets: [
-            {
-              label: "Accuracy",
-              backgroundColor: 'rgba(200, 200, 200, 0.75)',
-    					borderColor: 'rgba(200, 200, 200, 0.75)',
-    					hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-    					hoverBorderColor: 'rgba(200, 200, 200, 1)',
-              data: tally
-            }
-          ]
+             {
+                 label: "Blue",
+                 backgroundColor: '#9BDA64',
+                 borderColor: '#78B543',
+                 borderWidth: 2,
+                 data: p1
+             },
+             {
+                 label: "Red",
+                 backgroundColor: '#667279',
+                 borderColor: '#44535B',
+                 borderWidth: 2,
+                 data: [5,6,5,6,6]
+             },
+             {
+                 label: "Green",
+                 backgroundColor: '#C8E2F5',
+                 borderColor: '#1CA0FF',
+                 borderWidth: 2,
+                 data: [5,6,5,6,6]
+             }
+           ]
         },
         options: {
           legend: { display: false },
           title: {
             display: true,
             text: 'Accuracy breakdown per quality grade category',
-            fontSize: 30,
+            fontSize: 25,
           }
         }
     });
