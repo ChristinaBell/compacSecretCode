@@ -75,7 +75,6 @@ $( document ).ready(function() {
   }
 
   function makePercentage(packhouses){
-
     for (var z = 0; z < packhouses.length; z++) {
       var currTally = packhouses[z];
       sum = 0;
@@ -121,6 +120,7 @@ $( document ).ready(function() {
            ]
         },
         options: {
+          xAxisID: 'heyoooooo',
           legend: { display: false },
           title: {
             display: true,
