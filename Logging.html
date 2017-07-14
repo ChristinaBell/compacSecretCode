@@ -16,6 +16,10 @@
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.77.0.min.js"></script>
     <link rel="icon" href="icons/icon.png">
 
+    <!--date picker-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 
 
 </head>
@@ -89,7 +93,15 @@
                     </div>
                     <br>
                 </div>
-
+                <br class="col-md-15 col-xs-3">
+                    <label>Date Range:</label>
+                    <div class="input-group input-daterange">
+                        <input type="text" class="form-control" name="date" value="12-07-2017">
+                        <div class="input-group-addon">to</div>
+                        <input type="text" class="form-control" name="date" value="15-07-2017">
+                    </div>
+                    <br>
+                </div>
 
                 <div class="col-md-15 col-xs-3">
                     <button id="update_logs" class="btn btn-default">Update</button>

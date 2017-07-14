@@ -81,8 +81,12 @@ $( document ).ready(function() {
         updateTable(filters);
     });
 
-
-
+//    var date_input=$('input[name="date"]');
+//    date_input.datepicker({
+//                format: 'dd/mm/yyyy',
+//                autoclose: true,
+//            });
+    $('.input-daterange').datepicker({});
 
 
 
