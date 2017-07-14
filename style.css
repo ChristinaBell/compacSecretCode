@@ -43,7 +43,10 @@ footer {
     height: 550px !important;
     width: 900px !important;
 }
-
+.col-centered{
+float: none;
+margin: 0 auto;
+}
 
 .canvas-container{
     padding-left: 300px;

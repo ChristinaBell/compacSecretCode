@@ -46,19 +46,23 @@
     </div>
 </nav>
 <!------------------------------------------------------------------------------------------------------------------->
+<div class="container-fluid">
 
-<div class="canvas-container">
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-      <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">HTML</a></li>
-        <li><a href="#">CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-      </ul>
+    <div class="row">
+      <div class="col-md-8 col-centered col-xs-12 ">
+        <div class="dropdown">
+          <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Site Select<span class="caret"></span></a>
+            <ul class="dropdown-menu" id="projectSelectorDropdown">
+        </div>
+      </div>
     </div>
-    <canvas class="myChart"></canvas>
-</div>
 
+    <div class="row">
+      <div class="col-centered">
+        <canvas class="myChart"></canvas>
+      </div>
+    </div>
+
+</div>
 </body>
 </html>

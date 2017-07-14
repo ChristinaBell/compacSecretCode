@@ -92,6 +92,8 @@ $( document ).ready(function() {
   function drawGraph(p1,p2,p3,classes){
     // Bar chart
     new Chart($(".myChart"), {
+        maintainAspectRatio: true,
+        responsive: true,
         type: 'bar',
         data: {
           labels: classes,
@@ -99,28 +101,24 @@ $( document ).ready(function() {
              {
                  label: "Blue",
                  backgroundColor: '#9BDA64',
-                 borderColor: '#78B543',
                  borderWidth: 2,
                  data: p1
              },
              {
                  label: "Red",
                  backgroundColor: '#667279',
-                 borderColor: '#44535B',
                  borderWidth: 2,
                  data: p2
              },
              {
                  label: "Green",
                  backgroundColor: '#C8E2F5',
-                 borderColor: '#1CA0FF',
                  borderWidth: 2,
                  data: p3
              }
            ]
         },
         options: {
-          xAxisID: 'heyoooooo',
           legend: { display: false },
           title: {
             display: true,
@@ -130,5 +128,20 @@ $( document ).ready(function() {
         }
     });
   }
+
+  var list = document.getElementById("projectSelectorDropdown");
+          for (var i = 0; i < rows; i++){
+              var opt = table.getValue(i, 0);
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(opt);
+              link.appendChild("hey");
+              link.href = "#";
+              li.appendChild(link);
+              list.appendChild(li);
+            }
+
+
+
 
 });
