@@ -30,38 +30,42 @@ $( document ).ready(function() {
     } else {
       pullResults = JSON.parse(data.Payload);
       // reload the graph with results from the dynamoDB lambda function call
-      sortData("p1", "p2", "p3", pullResults, "Class 2", "Kiwi Green");
+      sortData("p1", "p2", "p3", pullResults, "Kiwi Green");
     }
   });
 
-  //TODO set up for the grades for each packhouse.
 
-  function sortData(packhouse1, packhouse2, packhouse3, data, necessaryGrade, necessaryFruitVariety){
+  function sortData(packhouse1, packhouse2, packhouse3, data, necessaryFruitVariety){
 
     for (var i = 0; i < data.Items.length; i++) {
       var currItem = data.Items[i];
-      var classed = false;
+      var isDefect = false;  // That there is a defect that hasn't been added to the list.
 
-      var actualGrade = currItem.payload.Data.SampledGrade;
-      var visionGrade = currItem.payload.Data.VisionGrade;
       var fruitVariety = currItem.payload.Data.PackRun.FruitVariety;
+      var defects = currItem.payload.Data.PackRun.FruitVariety; // CHANGE THIS TO FRUIT DEFECT
+
       var packhouse = "p1";
       //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
 
-      if ((necessaryFruitVariety == fruitVariety) && (necessaryGrade == visionGrade)){
+      if (necessaryFruitVariety == fruitVariety){
 
         if (packhouse == packhouse1) { currTally = p1; }
         if (packhouse == packhouse2) { currTally = p2; }
         if (packhouse == packhouse3) { currTally = p3; }
 
+        // TODO find the defect of the fruit. and increment that one.
         for (var j = 0; j < classes.length; j++) {
-          if(classes[j] == actualGrade){
-            currTally[j] = currTally[j] + 1;
-            classed = true;
-          }
+
+          // TODO loop through the defects if needed.
+          for()
+            if(classes[j] == actualGrade){
+              currTally[j] = currTally[j] + 1;
+              classed = true;
+            }
         }
-        // If the class does not exist in the current classes, then add it to the thingo.
-        if (!classed) {
+
+        // If the defect does not exist in the current classes, then add it to the thingo.
+        if (!isDefect  /* && THERE IS A DEFECT */ ) {
           classes.push(actualGrade);
           currTally.push(1);
           p2.push(0);

@@ -19,7 +19,7 @@ $( document ).ready(function() {
 
   // Create variable to hold data returned by the Lambda function
   var pullResults;
-  var classes = ['Export', 'Class 1', 'Class 2', 'Culls'];
+  var classes = ["Export", "Class 1", "Class 2", "Culls"];
   var p1 = [0,0,0,0];
   var p2 = [5,6,5,6,6];
   var p3 = [5,6,5,6,6];
@@ -29,6 +29,8 @@ $( document ).ready(function() {
       prompt(error);
     } else {
       pullResults = JSON.parse(data.Payload);
+
+      console.log(pullResults);
       // reload the graph with results from the dynamoDB lambda function call
       sortData("p1", "p2", "p3", pullResults, "Class 2", "Kiwi Green");
     }
@@ -130,8 +132,8 @@ $( document ).ready(function() {
   }
 
   var list = document.getElementById("projectSelectorDropdown");
-          for (var i = 0; i < rows; i++){
-              var opt = classes.getValue(i, 0);
+          for (var m = 0; m < classes.length; m++){
+              var opt = classes[m];
               var li = document.createElement("li");
               var link = document.createElement("a");
               var text = document.createTextNode(opt);
