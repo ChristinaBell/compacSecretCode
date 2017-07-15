@@ -8,10 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="Javascript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js:2:30313"></script>
+    <script src="DefectScreen.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js:2:30313"></script>
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.77.0.min.js"></script>
 </head>
 <body>
 
@@ -43,8 +46,25 @@
 </nav>
 <!------------------------------------------------------------------------------------------------------------------->
 
-<div class="canvas-container">
-    <!--canvas class="myChart"></canvas-->
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-8 col-centered col-xs-12 ">
+      <div class="dropdown">
+        <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Site Select<span class="caret"></span></a>
+          <ul class="dropdown-menu" id="projectSelectorDropdown">
+            <li>Class 1</li>
+            <li>Class 2</li>
+            <li>Culls</li>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-centered">
+      <canvas class="myChart"></canvas>
+    </div>
+  </div>
 </div>
 
 </body>

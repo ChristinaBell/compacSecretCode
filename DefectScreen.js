@@ -19,7 +19,7 @@ $( document ).ready(function() {
 
   // Create variable to hold data returned by the Lambda function
   var pullResults;
-  var classes = ['Export', 'Class 1', 'Class 2', 'Culls'];
+  var classes = ['Defect 1', 'Defect 2', 'Defect 3', 'Defect 4'];
   var p1 = [0,0,0,0];
   var p2 = [5,6,5,6,6];
   var p3 = [5,6,5,6,6];
