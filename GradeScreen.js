@@ -138,7 +138,7 @@ $( document ).ready(function() {
               link.appendChild(text);
               link.href = "#";
               li.appendChild(link);
-              list.appendChild(li);
+              filter.appendChild(li);
           }
 
 });
