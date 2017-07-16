@@ -129,12 +129,12 @@ $( document ).ready(function() {
     });
   }
 
-  var list = document.getElementById("classFilter");
+  var filter = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
-              var opt = classes[m];
+              var currentClass = classes[m];
               var li = document.createElement("li");
               var link = document.createElement("a");
-              var text = document.createTextNode(opt);
+              var text = document.createTextNode(currentClass);
               link.appendChild(text);
               link.href = "#";
               li.appendChild(link);
