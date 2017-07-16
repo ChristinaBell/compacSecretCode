@@ -133,16 +133,4 @@ $( document ).ready(function() {
     });
   }
 
-  var list = document.getElementById("projectSelectorDropdown");
-          for (var i = 0; i < rows; i++){
-              var opt = classes.getValue(i, 0);
-              var li = document.createElement("li");
-              var link = document.createElement("a");
-              var text = document.createTextNode(opt);
-              link.appendChild(text);
-              link.href = "#";
-              li.appendChild(link);
-              list.appendChild(li);
-          }
-
 });

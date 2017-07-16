@@ -30,13 +30,11 @@ $( document ).ready(function() {
     } else {
       pullResults = JSON.parse(data.Payload);
 
-      console.log(pullResults);
       // reload the graph with results from the dynamoDB lambda function call
       sortData("p1", "p2", "p3", pullResults, "Class 2", "Kiwi Green");
     }
   });
 
-  //TODO set up for the grades for each packhouse.
 
   function sortData(packhouse1, packhouse2, packhouse3, data, necessaryGrade, necessaryFruitVariety){
 
@@ -131,7 +129,7 @@ $( document ).ready(function() {
     });
   }
 
-  var list = document.getElementById("projectSelectorDropdown");
+  var list = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
               var opt = classes[m];
               var li = document.createElement("li");
