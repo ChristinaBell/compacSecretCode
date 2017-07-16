@@ -111,3 +111,15 @@ footer {
         float: left;
     }
 }
+
+#log-date-range-filter {
+    width: 100%;
+}
+
+#logging-filter-panel{
+    cursor: pointer ;
+}
+
+#logging-drop-down-icon{
+    text-align:center
+}

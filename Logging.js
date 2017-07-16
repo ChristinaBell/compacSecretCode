@@ -5,6 +5,12 @@ $( document ).ready(function() {
         "ERROR":  "ERROR",
         "WARNING": "WARNING"
     }
+    var MACHINE = {
+        "VISION": "VISION",
+        "SIZER": "SIZER",
+        "EXODUS": "EXODUS",
+        "NEXUS": "NEXUS"
+    }
 
 
     // AWS Lambda call
@@ -16,7 +22,7 @@ $( document ).ready(function() {
     //Call function to update the table with selected filters
     var filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
-        "Machine": ["SIZER"]
+        "MachineType": ["SIZER"]
     };
     updateTable(filters);
 
@@ -51,24 +57,28 @@ $( document ).ready(function() {
     // Function to reload logging table with data from S3
     function reloadTable(data){
         $('#logging-table').bootstrapTable("removeAll");
-        for (item in data){
-            var obj = JSON.parse(data[item]);
-            var date = new Date((item.split("/")[1])*1000);
-            dict = {
-                Date: obj["Date"],
-                Customer: obj["Customer"],
-                Packhouse: obj["Packhouse"],
-                Machine: obj["Machine"],
-                Error: obj["LogType"],
-                Message: obj["LogMessage"]
-            };
-            $('#logging-table').bootstrapTable("append", dict);
+        if (Object.keys(data).length > 0){
+            for (item in data){
+                var obj = JSON.parse(data[item]);
+                var date = new Date((item.split("/")[1])*1000);
+                dict = {
+                    Date: obj["Date"],
+                    Customer: obj["Customer"],
+                    Packhouse: obj["Packhouse"],
+                    Machine: obj["Machine"],
+                    Error: obj["LogType"],
+                    Message: obj["LogMessage"]
+                };
+                $('#logging-table').bootstrapTable("append", dict);
+            }
         }
     }
 
     $('#update_logs').click(function() {
         var errorTypes = [];
+        var machineTypes = [];
 
+        // check the selected error types for the filter
         if ($('#errorCheckbox').is(":checked")){
             errorTypes.push(ERRORTYPE.ERROR);
         }
@@ -76,16 +86,29 @@ $( document ).ready(function() {
             errorTypes.push(ERRORTYPE.WARNING);
         }
 
+        // Check the selected machine types for the filter
+        if ($('#visionCheckBox').is(":checked")){
+            machineTypes.push(MACHINE.VISION);
+        }
+        if ($('#sizerCheckbox').is(":checked")){
+            machineTypes.push(MACHINE.SIZER);
+        }
+        if ($('#exodusCheckbox').is(":checked")){
+            machineTypes.push(MACHINE.EXODUS);
+        }
+        if ($('#nexusCheckbox').is(":checked")){
+            machineTypes.push(MACHINE.NEXUS);
+        }
+
 //        console.log(errorTypes);
         filters.ErrorType = errorTypes;
+        filters.MachineType = machineTypes;
         updateTable(filters);
     });
 
-//    var date_input=$('input[name="date"]');
-//    date_input.datepicker({
-//                format: 'dd/mm/yyyy',
-//                autoclose: true,
-//            });
+
+
+
     $('.input-daterange').datepicker({});
 
 
