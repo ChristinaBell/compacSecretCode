@@ -130,15 +130,15 @@ $( document ).ready(function() {
   }
 
   var filter = document.getElementById("classFilter");
-          for (var m = 0; m < classes.length; m++){
-              var currentClass = classes[m];
-              var li = document.createElement("li");
-              var link = document.createElement("a");
-              var text = document.createTextNode(currentClass);
-              link.appendChild(text);
-              link.href = "#";
-              li.appendChild(link);
-              filter.appendChild(li);
-          }
+        for (var m = 0; m < classes.length; m++){
+            var currentClass = classes[m];
+            var li = document.createElement("li");
+            var link = document.createElement("a");
+            var text = document.createTextNode(currentClass);
+            link.appendChild(text);
+            link.href = "#";
+            li.appendChild(link);
+            filter.appendChild(li);
+        }
 
 });
