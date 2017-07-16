@@ -35,8 +35,7 @@ footer {
 }
 
 #map-container{
- height: 680px;
-
+   height: 680px;
 }
 
 .myChart{
@@ -44,13 +43,32 @@ footer {
     width: 900px !important;
 }
 .col-centered{
-float: none;
-margin: 0 auto;
+    float: none;
+    margin: 0 auto;
 }
 
 .canvas-container{
     padding-left: 300px;
     padding-top: 60px;
+}
+
+.dropdown-packhouse {
+     width: 100%;
+     border-radius: 0px!important;
+}
+
+.packhouse-containter {
+    padding: 0px;
+}
+
+.packhosue1 {
+     background-color: blue!important;
+}
+.packhosue2 {
+    background-color: yellow!important;
+}
+.packhosue3 {
+    background-color: green!important;
 }
 
 
