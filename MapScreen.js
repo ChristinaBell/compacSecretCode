@@ -74,6 +74,7 @@ $( document ).ready(function() {
             prompt(error);
         } else {
             pullResults = JSON.parse(data.Payload);
+//            console.log(pullResults);
             updateMap(pullResults.Items);
         }
     });
@@ -83,19 +84,23 @@ $( document ).ready(function() {
         for (item in packhouses){
             packhouse = packhouses[item];
 
-            var util = Math.random();
-            if (util > 0.4){
+            var util = packhouse["Line 1 Cupfill"];
+            if (util > 0.3){
                 icon = redIcon;
+            } else if (util > 0.5){
+                icon = orangeIcon;
             } else {
                 icon = greenIcon;
             }
             utilization = Math.round(util * 1000) / 10;
 
             var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
-            var list = "<dl><dt>Packhouse:</dt>"
+            var list = "<dl><dt>Customer:</dt>"
+                       + "<dd>" + packhouse.Customer + "</dd>"
+                       + "<dt>Packhouse:</dt>"
                        + "<dd>" + packhouse.Packhouse + "</dd>"
-                       + "<dt>Utilization:</dt>"
-                       + "<dd>" + utilization + "</dd>"
+                       + "<dt>Cupfill:</dt>"
+                       + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
             marker.bindPopup(list);
 
             var marker = L.marker([packhouse.Latitude, packhouse.Longitude+ 360], {icon: icon}).addTo(mymap);
