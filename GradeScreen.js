@@ -141,4 +141,16 @@ $( document ).ready(function() {
             filter.appendChild(li);
         }
 
+    var packhouse1Filter = document.getElementById("packhouse1Filter");
+          for (var m = 0; m < classes.length; m++){
+              var currentClass = classes[m];
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(currentClass);
+              link.appendChild(text);
+              link.href = "#";
+              li.appendChild(link);
+              packhouse1Filter.appendChild(li);
+          }
+
 });
