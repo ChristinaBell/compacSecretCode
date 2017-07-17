@@ -4,15 +4,22 @@
     <title>Compac Machine Performance </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script src="Javascript.js"></script>
     <script src="Logging.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.77.0.min.js"></script>
     <link rel="icon" href="icons/icon.png">
+
+    <!--date picker-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 
 
 </head>
@@ -46,8 +53,77 @@
 </nav>
 <!------------------------------------------------------------------------------------------------------------------->
 
-<div>
-    <div class="container">
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div id="logging-filter-panel" data-toggle="collapse" href="#collapse1" class="panel-heading">
+            <h4 id="logging-drop-down-icon" class="panel-title">
+                 Filter Logs  &#9660
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-15 col-xs-3">
+                    <label>Error Type:</label>
+                    <div class="checkbox">
+                        <label><input checked id="errorCheckbox" type="checkbox" name="ErrorType" value="Error"> Error </label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input checked id="warningCheckbox" type="checkbox" name="ErrorType" value="Warning"> Warning</label>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-md-15 col-xs-3">
+                    <label>Machine</label>
+                    <div class="checkbox">
+                        <label><input checked id="visionCheckBox" type="checkbox" name="Vision" value="Vision"> Vision </label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input checked id="sizerCheckbox" type="checkbox" name="Sizer" value="Sizer"> Sizer</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input checked id="exodusCheckbox" type="checkbox" name="Exodus" value="Exodus"> Exodus</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input checked id="nexusCheckbox" type="checkbox" name="Nexus" value="Nexus"> Nexus</label>
+                    </div>
+
+                    <br>
+                </div>
+                <!--<div class="col-md-15 col-xs-3">-->
+                    <!--&lt;!&ndash;TO DO: this needs to be done programmatically&ndash;&gt;-->
+                    <!--<label>Customer:</label>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label><input checked type="checkbox" name="Customer" value="EastPack"> EastPack </label>-->
+                    <!--</div>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label><input checked type="checkbox" name="Customer" value="TitanFarms"> Titan Farms</label>-->
+                    <!--</div>-->
+                    <!--<br>-->
+                <!--</div>-->
+                <div class="col-md-15 col-xs-3">
+                    <label>Date Range:</label>
+                    <div id="log-date-range-filter" class="input-group input-daterange">
+                        <input id="startDate" type="text" class="form-control" name="date" value="2016-06-20">
+                        <div class="input-group-addon">to</div>
+                        <input id="endDate" type="text" class="form-control" name="date" value="2017-07-15">
+                    </div>
+                    <br>
+                </div>
+
+                <div class="col-md-15 col-xs-3">
+                    <label>Update Results</label>
+                    <div>
+                        <button id="update_logs" class="btn btn-default">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="log-page-content">
+    <div id="log-table-container" >
         <h2>Compac Machine Error and Warning Logging</h2>
         <table id="logging-table" class="table table-hover table-bordered" data-toggle="table">
             <thead>
@@ -55,9 +131,11 @@
             <br>
             <tr>
                 <th data-field="Date">Date</th>
+                <th data-field="Customer">Customer</th>
                 <th data-field="Packhouse">Packhouse</th>
                 <th data-field="Machine">Machine</th>
                 <th data-field="Error">Error</th>
+                <th data-field="Message">Message</th>
             </tr>
             </thead>
             <tbody>
