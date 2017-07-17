@@ -57,7 +57,7 @@
     <div class="panel panel-default">
         <div id="logging-filter-panel" data-toggle="collapse" href="#collapse1" class="panel-heading">
             <h4 id="logging-drop-down-icon" class="panel-title">
-                &#9660
+                 Filter Logs  &#9660
             </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
@@ -89,17 +89,17 @@
 
                     <br>
                 </div>
-                <div class="col-md-15 col-xs-3">
-                    <!--TO DO: this needs to be done programmatically-->
-                    <label>Customer:</label>
-                    <div class="checkbox">
-                        <label><input checked type="checkbox" name="Customer" value="EastPack"> EastPack </label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input checked type="checkbox" name="Customer" value="TitanFarms"> Titan Farms</label>
-                    </div>
-                    <br>
-                </div>
+                <!--<div class="col-md-15 col-xs-3">-->
+                    <!--&lt;!&ndash;TO DO: this needs to be done programmatically&ndash;&gt;-->
+                    <!--<label>Customer:</label>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label><input checked type="checkbox" name="Customer" value="EastPack"> EastPack </label>-->
+                    <!--</div>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label><input checked type="checkbox" name="Customer" value="TitanFarms"> Titan Farms</label>-->
+                    <!--</div>-->
+                    <!--<br>-->
+                <!--</div>-->
                 <div class="col-md-15 col-xs-3">
                     <label>Date Range:</label>
                     <div id="log-date-range-filter" class="input-group input-daterange">
@@ -111,7 +111,10 @@
                 </div>
 
                 <div class="col-md-15 col-xs-3">
-                    <button id="update_logs" class="btn btn-default">Update</button>
+                    <label>Update Results</label>
+                    <div>
+                        <button id="update_logs" class="btn btn-default">Update</button>
+                    </div>
                 </div>
             </div>
             <div class="panel-footer"></div>
