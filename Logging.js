@@ -13,6 +13,7 @@ $( document ).ready(function() {
     }
 
 
+
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -22,7 +23,9 @@ $( document ).ready(function() {
     //Call function to update the table with selected filters
     var filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
-        "MachineType": ["SIZER"]
+        "MachineType": ["SIZER"],
+        "StartDate": $('#startDate').val(),
+        "EndDate": $('#endDate').val()
     };
     updateTable(filters);
 
@@ -47,7 +50,7 @@ $( document ).ready(function() {
             prompt(error);
           } else {
             pullResults = JSON.parse(data.Payload);
-//            console.log(pullResults);
+            console.log(pullResults);
             // Reload table with results from S3 lambda function call
             reloadTable(pullResults);
           }
@@ -103,14 +106,16 @@ $( document ).ready(function() {
 //        console.log(errorTypes);
         filters.ErrorType = errorTypes;
         filters.MachineType = machineTypes;
+        filters.StartDate = $('#startDate').val();
+        filters.EndDate = $('#endDate').val();
         updateTable(filters);
     });
 
 
 
-
-    $('.input-daterange').datepicker({});
-
+    $('.input-daterange').datepicker({
+        format: 'yyyy-mm-dd'
+    });
 
 
 });
