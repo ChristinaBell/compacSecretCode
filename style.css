@@ -38,14 +38,7 @@ footer {
    height: 680px;
 }
 
-.myChart{
-    height: 550px !important;
-    width: 900px !important;
-}
-.col-centered{
-    float: none;
-    margin: 0 auto;
-}
+
 
 .canvas-container{
     padding-left: 300px;
@@ -57,6 +50,12 @@ footer {
      border-radius: 0px!important;
      padding: 7px;
 }
+
+
+
+
+/******************************* GRAPHING STYLING ******************************/
+
 
 .packhouse-containter {
     padding: 0px;
@@ -73,6 +72,36 @@ footer {
 .btn-packhouse3 {
     background-color: rgba(28, 160, 255, 0.8);
     color: white;
+}
+
+
+.title-row {
+    padding: 20px;
+    padding-left: 10%!important;
+}
+
+.btn-class-select {
+    margin-top: 30px!important;
+    border-radius: 0px!important;
+    color: rgba(68, 83, 91, 1);
+    box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
+    padding: 7px 60px;
+}
+
+
+.myChart{
+    height: 550px !important;
+    width: 900px !important;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+
+
+p, h2, h1, h3 {
+  color: rgba(68, 83, 91, 1);
 }
 
 

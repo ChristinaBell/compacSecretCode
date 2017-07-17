@@ -118,12 +118,20 @@ $( document ).ready(function() {
              }
            ]
         },
+
         options: {
           legend: { display: false },
           title: {
             display: true,
-            text: 'Accuracy breakdown per quality grade category',
+
             fontSize: 25,
+          },
+          scales : {
+              xAxes : [ {
+                  gridLines : {
+                      display : false
+                  }
+              } ]
           }
         }
     });
