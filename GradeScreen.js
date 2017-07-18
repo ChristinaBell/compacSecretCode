@@ -99,22 +99,25 @@ $( document ).ready(function() {
           labels: classes,
           datasets: [
              {
-                 label: "Blue",
-                 backgroundColor: '#9BDA64',
-                 borderWidth: 2,
-                 data: p1
+                 label: "Packhouse 1",
+                 data: p1,
+                 backgroundColor: 'rgba(120, 181, 67, 0.8)',
+                 pointColor: 'rgba(68, 83, 91, 1)',
+                 highlightFill: '#fff',
              },
              {
-                 label: "Red",
-                 backgroundColor: '#667279',
-                 borderWidth: 2,
-                 data: p2
+                 label: "Packhouse 2",
+                 data: p2,
+                 backgroundColor: 'rgba(68, 83, 91, 1)',
+                 pointColor: 'rgba(68, 83, 91, 1)',
+                 highlightFill: '#fff',
              },
              {
-                 label: "Green",
-                 backgroundColor: '#C8E2F5',
-                 borderWidth: 2,
-                 data: p3
+                 label: "Packhouse 3",
+                 data: p3,
+                 backgroundColor: 'rgba(28, 160, 255, 0.8)',
+                 pointColor: 'rgba(68, 83, 91, 1)',
+                 highlightFill: '#fff',
              }
            ]
         },
