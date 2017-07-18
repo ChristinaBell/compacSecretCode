@@ -20,14 +20,6 @@ $( document ).ready(function() {
     }).addTo(mymap);
 
 
-    // Create a circle to mark an area on the map
-//    var circle = L.circle([-36.8485, 174.7633], {
-//        color: 'red',
-//        fillColor: '#f03',
-//        fillOpacity: 0.4,
-//        radius: 10000
-//    }).addTo(mymap);
-
 
     // ----------------------------------------------------------------------------------------------------------------
 
@@ -79,15 +71,15 @@ $( document ).ready(function() {
         }
     });
 
-    // Function to
+    // Function to add pins to map
     function updateMap(packhouses){
         for (item in packhouses){
             packhouse = packhouses[item];
 
             var util = packhouse["Line 1 Cupfill"];
-            if (util > 0.3){
+            if (util < 0.3){
                 icon = redIcon;
-            } else if (util > 0.5){
+            } else if (util < 0.5){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
