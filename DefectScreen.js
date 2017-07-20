@@ -37,12 +37,15 @@ $( document ).ready(function() {
 
   function sortData(packhouse1, packhouse2, packhouse3, data, necessaryFruitVariety){
 
+    console.log(data);
+
     for (var i = 0; i < data.Items.length; i++) {
       var currItem = data.Items[i];
       var isDefect = false;  // That there is a defect that hasn't been added to the list.
 
       var fruitVariety = currItem.payload.Data.PackRun.FruitVariety;
-      var defects = currItem.payload.Data.PackRun.FruitVariety; // CHANGE THIS TO FRUIT DEFECT
+      var defects = currItem.payload.Data.PackRun.Defects; // CHANGE THIS TO FRUIT DEFECT
+      console.log(defects);
 
       var packhouse = "p1";
       //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
@@ -57,11 +60,13 @@ $( document ).ready(function() {
         for (var j = 0; j < classes.length; j++) {
 
           // TODO loop through the defects if needed.
-          for()
-            if(classes[j] == actualGrade){
+          for(var k = 0; k < classes.length; k++){
+            //if(classes[j] == defects.){
               currTally[j] = currTally[j] + 1;
-              classed = true;
-            }
+              isDefect = true;
+            //}
+          }
+
         }
 
         // If the defect does not exist in the current classes, then add it to the thingo.
@@ -102,32 +107,41 @@ $( document ).ready(function() {
         data: {
           labels: classes,
           datasets: [
-             {
-                 label: "Blue",
-                 backgroundColor: '#9BDA64',
-                 borderWidth: 2,
-                 data: p1
-             },
-             {
-                 label: "Red",
-                 backgroundColor: '#667279',
-                 borderWidth: 2,
-                 data: p2
-             },
-             {
-                 label: "Green",
-                 backgroundColor: '#C8E2F5',
-                 borderWidth: 2,
-                 data: p3
-             }
+            {
+                label: "Packhouse 1",
+                data: p1,
+                backgroundColor: 'rgba(120, 181, 67, 0.8)',
+                pointColor: 'rgba(68, 83, 91, 1)',
+                highlightFill: '#fff',
+            },
+            {
+                label: "Packhouse 2",
+                data: p2,
+                backgroundColor: 'rgba(68, 83, 91, 1)',
+                pointColor: 'rgba(68, 83, 91, 1)',
+                highlightFill: '#fff',
+            },
+            {
+                label: "Packhouse 3",
+                data: p3,
+                backgroundColor: 'rgba(28, 160, 255, 0.8)',
+                pointColor: 'rgba(68, 83, 91, 1)',
+                highlightFill: '#fff',
+            }
            ]
         },
         options: {
           legend: { display: false },
           title: {
             display: true,
-            text: 'Accuracy breakdown per quality grade category',
             fontSize: 25,
+          },
+          scales : {
+              xAxes : [ {
+                  gridLines : {
+                      display : false
+                  }
+              } ]
           }
         }
     });
