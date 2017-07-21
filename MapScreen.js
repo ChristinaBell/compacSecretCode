@@ -19,6 +19,8 @@ $( document ).ready(function() {
         accessToken: 'pk.eyJ1IjoiY2hyaXN0aW5hbG91aXNlYmVsbCIsImEiOiJjajRxaTg5NWYwdWhkMzNwbG1zbDl4dzI5In0.jRVieoturPwTTrNscrJNnQ'
     }).addTo(mymap);
 
+    var oms = new OverlappingMarkerSpiderfier(mymap);
+
 
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -93,10 +95,30 @@ $( document ).ready(function() {
                        + "<dd>" + packhouse.Packhouse + "</dd>"
                        + "<dt>Cupfill:</dt>"
                        + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
-            marker.bindPopup(list);
+            var popup = L.popup()
+                            .setLatLng([packhouse.Latitude, packhouse.Longitude])
+                            .setContent(list)
+                            .openOn(mymap);
+
+            oms.addMarker(marker);
+            oms.addListener('click', function(marker) {
+                          popup.setContent(marker.desc);
+                          popup.setLatLng(marker.getLatLng());
+                          mymap.openPopup(popup);
+                        });
 
             var marker = L.marker([packhouse.Latitude, packhouse.Longitude+ 360], {icon: icon}).addTo(mymap);
-            marker.bindPopup(list);
+            var popup = L.popup()
+                .setLatLng([packhouse.Latitude, packhouse.Longitude])
+                .setContent(list)
+                .openOn(mymap);
+
+            oms.addMarker(marker);
+            oms.addListener('click', function(marker) {
+              popup.setContent(marker.desc);
+              popup.setLatLng(marker.getLatLng());
+              mymap.openPopup(popup);
+            });
         }
     }
 
