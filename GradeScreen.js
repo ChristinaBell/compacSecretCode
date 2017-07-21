@@ -21,33 +21,36 @@ $( document ).ready(function() {
   var pullResults;
 
   //
-  var classes = ["Export", "Class 1", "Class 2", "Culls"];
-  var packhouse1_Data = [0,0,0,0];
-  var packhouse2_Data = [5,6,5,6,6];
-  var packhouse3_Data = [5,6,5,6,6];
+  var classes = ["Export", "Class 1", "Class 2", "p1"];
+  var packhouse1_Data;
+  var packhouse2_Data;
+  var packhouse3_Data;
   var packhouse1_Name = "p1";
   var packhouse2_Name = "EastPack";
   var packhouse3_Name = "EastPack";
   var selectedClass = "Class 2";
   var selectedFruitVariety = "Kiwi Green";
+  var currentData;
 
 
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
       prompt(error);
     } else {
-      pullResults = JSON.parse(data.Payload);
-
+      currentData = JSON.parse(data.Payload);
       // reload the graph with results from the dynamoDB lambda function call
-      sortData(pullResults);
+      sortData();
     }
   });
 
 
-  function sortData(data){
+  function sortData(){
+    var packhouse1_Data = [0,0,0,0,0];
+    var packhouse2_Data = [6, 5, 6, 2];
+    var packhouse3_Data = [5, 8, 3, 9];
 
-    for (var i = 0; i < data.Items.length; i++) {
-      var currItem = data.Items[i];
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currItem = currentData.Items[i];
       var classed = false;
 
       var actualGrade = currItem.payload.Data.SampledGrade;
@@ -206,24 +209,28 @@ $( document ).ready(function() {
        $(".btn-class-select:first-child").val($(this).text());
        $(".title-row h2").html("What the fruit were at " + $(this).text());
        selectedClass = $(this).text();
+       sortData();
      });
 
      $("#packhouse1Filter").on('click', 'li a', function(){
        $(".btn-packhouse1:first-child").text($(this).text());
        $(".btn-packhouse1:first-child").val($(this).text());
        packhouse1_Name = $(this).text();
+       sortData();
      });
 
      $("#packhouse2Filter").on('click', 'li a', function(){
        $(".btn-packhouse2:first-child").text($(this).text());
        $(".btn-packhouse2:first-child").val($(this).text());
        packhouse2_Name = $(this).text();
+       sortData();
      });
 
      $("#packhouse3Filter").on('click', 'li a', function(){
        $(".btn-packhouse3:first-child").text($(this).text());
        $(".btn-packhouse3:first-child").val($(this).text());
        packhouse3_Name = $(this).text();
+       sortData();
      });
 
   //*****************************************************************************/
