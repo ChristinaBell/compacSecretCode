@@ -140,19 +140,9 @@ $( document ).ready(function() {
     });
   }
 
-  var filter = document.getElementById("classFilter");
-        for (var m = 0; m < classes.length; m++){
-            var currentClass = classes[m];
-            var li = document.createElement("li");
-            var link = document.createElement("a");
-            var text = document.createTextNode(currentClass);
-            link.appendChild(text);
-            link.href = "#";
-            li.appendChild(link);
-            filter.appendChild(li);
-        }
+  //******************************* The dropdown js ******************************/
 
-    var packhouse1Filter = document.getElementById("packhouse1Filter");
+    var filter = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
               var currentClass = classes[m];
               var li = document.createElement("li");
@@ -161,7 +151,70 @@ $( document ).ready(function() {
               link.appendChild(text);
               link.href = "#";
               li.appendChild(link);
+              filter.appendChild(li);
+          }
+
+    var packhouse1Filter = document.getElementById("packhouse1Filter");
+          for (var iP1 = 0; iP1 < classes.length; iP1++){
+              var currentClass = classes[iP1];
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(currentClass);
+              link.appendChild(text);
+              link.href = "#";
+              li.appendChild(link);
               packhouse1Filter.appendChild(li);
           }
+
+    var packhouse2Filter = document.getElementById("packhouse2Filter");
+          for (var iP2 = 0; iP2 < classes.length; iP2++){
+              var currentClass = classes[iP2];
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(currentClass);
+              link.appendChild(text);
+              link.href = "#";
+              li.appendChild(link);
+              packhouse2Filter.appendChild(li);
+          }
+
+      var packhouse3Filter = document.getElementById("packhouse3Filter");
+            for (var iP3 = 0; iP3 < classes.length; iP3++){
+                var currentClass = classes[iP3];
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentClass);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                packhouse3Filter.appendChild(li);
+            }
+
+          // TODO select packhouse
+      $("#classFilter").on('click', 'li a', function(){
+        $(".btn-class-select:first-child").text($(this).text());
+        $(".btn-class-select:first-child").val($(this).text());
+      });
+
+
+     $("#packhouse1Filter").on('click', 'li a', function(){
+       $(".btn-packhouse1:first-child").text($(this).text());
+       $(".btn-packhouse1:first-child").val($(this).text());
+     });
+
+
+     $("#packhouse2Filter").on('click', 'li a', function(){
+       $(".btn-packhouse2:first-child").text($(this).text());
+       $(".btn-packhouse2:first-child").val($(this).text());
+     });
+
+
+     $("#packhouse3Filter").on('click', 'li a', function(){
+       $(".btn-packhouse3:first-child").text($(this).text());
+       $(".btn-packhouse3:first-child").val($(this).text());
+     });
+
+  //*****************************************************************************/
+
 
 });
