@@ -19,10 +19,18 @@ $( document ).ready(function() {
 
   // Create variable to hold data returned by the Lambda function
   var pullResults;
+
+  //
   var classes = ["Export", "Class 1", "Class 2", "Culls"];
-  var p1 = [0,0,0,0];
-  var p2 = [5,6,5,6,6];
-  var p3 = [5,6,5,6,6];
+  var packhouse1_Tally = [0,0,0,0];
+  var packhouse2_Tally = [5,6,5,6,6];
+  var packhouse3_Tally = [5,6,5,6,6];
+  var packhouse1_Name = "p1";
+  var packhouse2_Name = "EastPack";
+  var packhouse3_Name = "EastPack";
+  var selectedClass = "Class 2";
+  var selectedFruitVariety = "Kiwi Green";
+
 
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
@@ -31,12 +39,12 @@ $( document ).ready(function() {
       pullResults = JSON.parse(data.Payload);
 
       // reload the graph with results from the dynamoDB lambda function call
-      sortData("p1", "p2", "p3", pullResults, "Class 2", "Kiwi Green");
+      sortData(pullResults);
     }
   });
 
 
-  function sortData(packhouse1, packhouse2, packhouse3, data, necessaryGrade, necessaryFruitVariety){
+  function sortData(data){
 
     for (var i = 0; i < data.Items.length; i++) {
       var currItem = data.Items[i];
@@ -48,11 +56,12 @@ $( document ).ready(function() {
       var packhouse = "p1";
       //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
 
-      if ((necessaryFruitVariety == fruitVariety) && (necessaryGrade == visionGrade)){
+      // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
+      if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
 
-        if (packhouse == packhouse1) { currTally = p1; }
-        if (packhouse == packhouse2) { currTally = p2; }
-        if (packhouse == packhouse3) { currTally = p3; }
+        if (packhouse == packhouse1_Name) { currTally = packhouse1_Tally; }
+        if (packhouse == packhouse2_Name) { currTally = packhouse2_Tally; }
+        if (packhouse == packhouse3_Name) { currTally = packhouse3_Tally; }
 
         for (var j = 0; j < classes.length; j++) {
           if(classes[j] == actualGrade){
@@ -64,27 +73,29 @@ $( document ).ready(function() {
         if (!classed) {
           classes.push(actualGrade);
           currTally.push(1);
-          p2.push(0);
-          p3.push(0);
+
+          // Need to be added to the right packhouse Tallies.
+          packhouse2_Tally.push(0);
+          packhouse3_Tally.push(0);
         }
       }
      }
 
-    makePercentage([p1,p2,p3]);
-    drawGraph(p1,p2,p3, classes);
+    makePercentage([packhouse1_Tally, packhouse2_Tally, packhouse3_Tally]);
+    drawGraph(packhouse1_Tally, packhouse2_Tally, packhouse3_Tally, classes);
   }
 
   function makePercentage(packhouses){
     for (var z = 0; z < packhouses.length; z++) {
-      var currTally = packhouses[z];
+      var currSum = packhouses[z];
       sum = 0;
 
-      for (var y = 0; y < currTally.length; y++) {
-        sum = currTally[y] + sum;
+      for (var y = 0; y < currSum.length; y++) {
+        sum = currSum[y] + sum;
       }
 
-      for (var x = 0; x < currTally.length; x++) {
-        currTally[x] = (currTally[x] / sum) * 100 ;
+      for (var x = 0; x < currSum.length; x++) {
+        currSum[x] = (currSum[x] / sum) * 100 ;
       }
     }
   }
@@ -190,28 +201,32 @@ $( document ).ready(function() {
                 packhouse3Filter.appendChild(li);
             }
 
-          // TODO select packhouse
       $("#classFilter").on('click', 'li a', function(){
         $(".btn-class-select:first-child").text($(this).text());
         $(".btn-class-select:first-child").val($(this).text());
+        selectedClass = $(this).text();
       });
 
 
      $("#packhouse1Filter").on('click', 'li a', function(){
        $(".btn-packhouse1:first-child").text($(this).text());
        $(".btn-packhouse1:first-child").val($(this).text());
+       packhouse1_Name = $(this).text();
+
      });
 
 
      $("#packhouse2Filter").on('click', 'li a', function(){
        $(".btn-packhouse2:first-child").text($(this).text());
        $(".btn-packhouse2:first-child").val($(this).text());
+       packhouse2_Name = $(this).text();
      });
 
 
      $("#packhouse3Filter").on('click', 'li a', function(){
        $(".btn-packhouse3:first-child").text($(this).text());
        $(".btn-packhouse3:first-child").val($(this).text());
+       packhouse3_Name = $(this).text();
      });
 
   //*****************************************************************************/
