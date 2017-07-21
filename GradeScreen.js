@@ -22,9 +22,9 @@ $( document ).ready(function() {
 
   //
   var classes = ["Export", "Class 1", "Class 2", "Culls"];
-  var packhouse1_Tally = [0,0,0,0];
-  var packhouse2_Tally = [5,6,5,6,6];
-  var packhouse3_Tally = [5,6,5,6,6];
+  var packhouse1_Data = [0,0,0,0];
+  var packhouse2_Data = [5,6,5,6,6];
+  var packhouse3_Data = [5,6,5,6,6];
   var packhouse1_Name = "p1";
   var packhouse2_Name = "EastPack";
   var packhouse3_Name = "EastPack";
@@ -59,9 +59,9 @@ $( document ).ready(function() {
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
       if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
 
-        if (packhouse == packhouse1_Name) { currTally = packhouse1_Tally; }
-        if (packhouse == packhouse2_Name) { currTally = packhouse2_Tally; }
-        if (packhouse == packhouse3_Name) { currTally = packhouse3_Tally; }
+        if (packhouse == packhouse1_Name) { currTally = packhouse1_Data; }
+        if (packhouse == packhouse2_Name) { currTally = packhouse2_Data; }
+        if (packhouse == packhouse3_Name) { currTally = packhouse3_Data; }
 
         for (var j = 0; j < classes.length; j++) {
           if(classes[j] == actualGrade){
@@ -75,14 +75,14 @@ $( document ).ready(function() {
           currTally.push(1);
 
           // Need to be added to the right packhouse Tallies.
-          packhouse2_Tally.push(0);
-          packhouse3_Tally.push(0);
+          packhouse2_Data.push(0);
+          packhouse3_Data.push(0);
         }
       }
      }
 
-    makePercentage([packhouse1_Tally, packhouse2_Tally, packhouse3_Tally]);
-    drawGraph(packhouse1_Tally, packhouse2_Tally, packhouse3_Tally, classes);
+    makePercentage([packhouse1_Data, packhouse2_Data, packhouse3_Data]);
+    drawGraph(packhouse1_Data, packhouse2_Data, packhouse3_Data, classes);
   }
 
   function makePercentage(packhouses){
@@ -100,7 +100,7 @@ $( document ).ready(function() {
     }
   }
 
-  function drawGraph(p1,p2,p3,classes){
+  function drawGraph(p1_Data, p2_Data, p3_Data, classes){
     // Bar chart
     new Chart($(".myChart"), {
         maintainAspectRatio: true,
@@ -110,22 +110,22 @@ $( document ).ready(function() {
           labels: classes,
           datasets: [
              {
-                 label: "Packhouse 1",
-                 data: p1,
+                 label: packhouse1_Name,
+                 data: p1_Data,
                  backgroundColor: 'rgba(120, 181, 67, 0.8)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',
              },
              {
-                 label: "Packhouse 2",
-                 data: p2,
+                 label: packhouse2_Name,
+                 data: p2_Data,
                  backgroundColor: 'rgba(68, 83, 91, 1)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',
              },
              {
-                 label: "Packhouse 3",
-                 data: p3,
+                 label: packhouse3_Name,
+                 data: p3_Data,
                  backgroundColor: 'rgba(28, 160, 255, 0.8)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',
@@ -208,21 +208,17 @@ $( document ).ready(function() {
        selectedClass = $(this).text();
      });
 
-
      $("#packhouse1Filter").on('click', 'li a', function(){
        $(".btn-packhouse1:first-child").text($(this).text());
        $(".btn-packhouse1:first-child").val($(this).text());
        packhouse1_Name = $(this).text();
-
      });
-
 
      $("#packhouse2Filter").on('click', 'li a', function(){
        $(".btn-packhouse2:first-child").text($(this).text());
        $(".btn-packhouse2:first-child").val($(this).text());
        packhouse2_Name = $(this).text();
      });
-
 
      $("#packhouse3Filter").on('click', 'li a', function(){
        $(".btn-packhouse3:first-child").text($(this).text());
