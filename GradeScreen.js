@@ -201,11 +201,12 @@ $( document ).ready(function() {
                 packhouse3Filter.appendChild(li);
             }
 
-      $("#classFilter").on('click', 'li a', function(){
-        $(".btn-class-select:first-child").text($(this).text());
-        $(".btn-class-select:first-child").val($(this).text());
-        selectedClass = $(this).text();
-      });
+     $("#classFilter").on('click', 'li a', function(){
+       $(".btn-class-select:first-child").text($(this).text());
+       $(".btn-class-select:first-child").val($(this).text());
+       $(".title-row h2").html("What the fruit were at " + $(this).text());
+       selectedClass = $(this).text();
+     });
 
 
      $("#packhouse1Filter").on('click', 'li a', function(){
