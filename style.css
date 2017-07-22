@@ -61,7 +61,7 @@ footer {
 .bootstrap-table{
     max-height: 500px;
     overflow: auto;
-    border: 1px solid #ddd;;
+    border: 0.8px solid rgba(68,83,91,0.8);
     border-radius: 5px;
 }
 
@@ -122,4 +122,18 @@ footer {
 
 #logging-drop-down-icon{
     text-align:center
+}
+
+th {
+    background-color: #44535B;
+    color: white;
+}
+
+#update-btn-div {
+
+}
+
+
+#date-range-div{
+    padding-right: 10%;
 }

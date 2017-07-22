@@ -57,7 +57,7 @@
     <div class="panel panel-default">
         <div id="logging-filter-panel" data-toggle="collapse" href="#collapse1" class="panel-heading">
             <h4 id="logging-drop-down-icon" class="panel-title">
-                 Filter Logs  &#9660
+                 Filters  &#9660
             </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
@@ -100,7 +100,7 @@
                     <!--</div>-->
                     <!--<br>-->
                 <!--</div>-->
-                <div class="col-md-15 col-xs-3">
+                <div class="col-md-15 col-xs-3" id="date-range-div">
                     <label>Date Range:</label>
                     <div id="log-date-range-filter" class="input-group input-daterange">
                         <input id="startDate" type="text" class="form-control" name="date" value="2016-06-20">
@@ -110,10 +110,10 @@
                     <br>
                 </div>
 
-                <div class="col-md-15 col-xs-3">
+                <div class="col-md-15 col-xs-3" id="update-btn-div">
                     <label>Update Results</label>
                     <div>
-                        <button id="update_logs" class="btn btn-default">Update</button>
+                        <button id="update_logs" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,9 @@
 
 <div id="log-page-content">
     <div id="log-table-container" >
-        <h2>Compac Machine Error and Warning Logging</h2>
+        <!--<h2>-->
+            <!--<center>Compac Machine Logs</center>-->
+        <!--</h2>-->
         <table id="logging-table" class="table table-hover table-bordered" data-toggle="table">
             <thead>
             <br>
