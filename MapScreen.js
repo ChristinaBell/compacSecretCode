@@ -88,24 +88,13 @@ $( document ).ready(function() {
             }
             utilization = Math.round(util * 1000) / 10;
 
-//            var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
             var list = "<dl><dt>Customer:</dt>"
                        + "<dd>" + packhouse.Customer + "</dd>"
                        + "<dt>Packhouse:</dt>"
                        + "<dd>" + packhouse.Packhouse + "</dd>"
                        + "<dt>Cupfill:</dt>"
                        + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
-//            var popup = L.popup()
-//                            .setLatLng([packhouse.Latitude, packhouse.Longitude])
-//                            .setContent(list)
-//                            .openOn(mymap);
-//
-//            oms.addMarker(marker);
-//            oms.addListener('click', function(marker) {
-//                          popup.setContent(marker.desc);
-//                          popup.setLatLng(marker.getLatLng());
-//                          mymap.openPopup(popup);
-//                        });
+
 
             if (packhouse.Longitude < 0){
                 packhouse.Longitude = packhouse.Longitude + 360;
