@@ -35,7 +35,9 @@ $( document ).ready(function() {
   var selectedFruitVariety = "Kiwi Green";
   var currentData;
 
-  var isPercentageData = false;
+  var isPercentageData = true;
+  var yAxisLabel = "Percentage of Fruit of each grade";
+
   var isFirstGraph = true;
 
 
@@ -117,10 +119,17 @@ $( document ).ready(function() {
   $("#percentageToggle").on('click', 'li a', function(){
     isPercentageData = !isPercentageData;
 
+    if (isPercentageData) {
+      yAxisLabel = "Percentage of Fruit of each grade";
+    } else {
+      yAxisLabel = "Tally of Fruit of each grade";
+    }
+
     sortData();
   });
 
 
+  // Draw the graph for the inputted data and class names.
   function drawGraph(p1_Data, p2_Data, p3_Data, classes){
     // Bar chart
     if (!isFirstGraph){
@@ -162,13 +171,22 @@ $( document ).ready(function() {
           legend: { display: false },
           title: {
             display: true,
-
             fontSize: 25,
           },
           scales : {
               xAxes : [ {
                   gridLines : {
                       display : false
+                  },
+                  scaleLabel : {
+                      display : true,
+                      labelString : 'The grades at the outlet'
+                  }
+              } ],
+              yAxes : [ {
+                  scaleLabel : {
+                      display : true,
+                      labelString : yAxisLabel
                   }
               } ]
           }
