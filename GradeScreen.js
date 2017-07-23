@@ -32,6 +32,8 @@ $( document ).ready(function() {
   var selectedFruitVariety = "Kiwi Green";
   var currentData;
 
+  var firstGraph = true;
+
 
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
@@ -105,7 +107,11 @@ $( document ).ready(function() {
 
   function drawGraph(p1_Data, p2_Data, p3_Data, classes){
     // Bar chart
-    new Chart($(".myChart"), {
+    if (!firstGraph){
+      myChart.destroy();
+    }
+    firstGraph = false;
+    myChart = new Chart($(".myChart"), {
         maintainAspectRatio: true,
         responsive: true,
         type: 'bar',
@@ -207,7 +213,7 @@ $( document ).ready(function() {
      $("#classFilter").on('click', 'li a', function(){
        $(".btn-class-select:first-child").text($(this).text());
        $(".btn-class-select:first-child").val($(this).text());
-       $(".title-row h2").html("What the fruit were at " + $(this).text());
+       $(".title-row h2").html("What the fruit were at the " + $(this).text() + " outlets.");
        selectedClass = $(this).text();
        sortData();
      });
