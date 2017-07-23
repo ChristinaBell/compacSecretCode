@@ -25,6 +25,9 @@ $( document ).ready(function() {
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
+  var packhouse1_Percentage_Data;
+  var packhouse2_Percentage_Data;
+  var packhouse3_Percentage_Data;
   var packhouse1_Name = "p1";
   var packhouse2_Name = "EastPack";
   var packhouse3_Name = "EastPack";
@@ -32,7 +35,8 @@ $( document ).ready(function() {
   var selectedFruitVariety = "Kiwi Green";
   var currentData;
 
-  var firstGraph = true;
+  var isPercentageData = false;
+  var isFirstGraph = true;
 
 
   lambda.invoke(pullParams, function(error, data) {
@@ -84,33 +88,45 @@ $( document ).ready(function() {
           packhouse3_Data.push(0);
         }
       }
-     }
+    }
 
-    makePercentage([packhouse1_Data, packhouse2_Data, packhouse3_Data]);
+    if (isPercentageData){
+      makePercentage([packhouse1_Data, packhouse2_Data, packhouse3_Data]);
+    }
+
     drawGraph(packhouse1_Data, packhouse2_Data, packhouse3_Data, classes);
   }
 
+  // changing the data to
   function makePercentage(packhouses){
     for (var z = 0; z < packhouses.length; z++) {
-      var currSum = packhouses[z];
+      var currentPercentageData = packhouses[z];
       sum = 0;
 
-      for (var y = 0; y < currSum.length; y++) {
-        sum = currSum[y] + sum;
+      for (var y = 0; y < currentPercentageData.length; y++) {
+        sum = currentPercentageData[y] + sum;
       }
 
-      for (var x = 0; x < currSum.length; x++) {
-        currSum[x] = (currSum[x] / sum) * 100 ;
+      for (var x = 0; x < currentPercentageData.length; x++) {
+        currentPercentageData[x] = (currentPercentageData[x] / sum) * 100 ;
       }
     }
   }
 
+  // Toggling the percentaged data toggle, when flipping the toggle.
+  $("#percentageToggle").on('click', 'li a', function(){
+    isPercentageData = !isPercentageData;
+
+    sortData();
+  });
+
+
   function drawGraph(p1_Data, p2_Data, p3_Data, classes){
     // Bar chart
-    if (!firstGraph){
+    if (!isFirstGraph){
       myChart.destroy();
     }
-    firstGraph = false;
+    isFirstGraph = false;
     myChart = new Chart($(".myChart"), {
         maintainAspectRatio: true,
         responsive: true,
