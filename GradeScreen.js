@@ -20,17 +20,17 @@ $( document ).ready(function() {
   // Create variable to hold data returned by the Lambda function
   var pullResults;
 
-  //
-  var classes = ["Export", "Class 1", "Class 2", "p1"];
+  var classes = [];
+  var packhouses = [];
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
   var packhouse1_Percentage_Data;
   var packhouse2_Percentage_Data;
   var packhouse3_Percentage_Data;
-  var packhouse1_Name = "p1";
-  var packhouse2_Name = "EastPack";
-  var packhouse3_Name = "EastPack";
+  var packhouse1_Name = "EastPack";
+  var packhouse2_Name = "EastPack2";
+  var packhouse3_Name = "EastPack3";
   var selectedClass = "Class 2";
   var selectedFruitVariety = "Kiwi Green";
   var currentData;
@@ -41,53 +41,74 @@ $( document ).ready(function() {
   var isFirstGraph = true;
 
 
+  // Lambda for getting the data from the dynamo db
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
       prompt(error);
     } else {
       currentData = JSON.parse(data.Payload);
       // reload the graph with results from the dynamoDB lambda function call
+      getPackhouses_getClasses();
       sortData();
     }
   });
 
+  function getPackhouses_getClasses(){
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currentItem = currentData.Items[i];
+      
+      var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+      if (packhouses.indexOf(packhouse) == -1){
+         packhouses.push(packhouse);
+      }
+
+      var actualGrade = currentItem.payload.Data.SampledGrade;
+      if (classes.indexOf(actualGrade) == -1){
+         classes.push(actualGrade);
+      }
+
+      var visionGrade = currentItem.payload.Data.VisionGrade;
+      if (classes.indexOf(visionGrade) == -1){
+         classes.push(visionGrade);
+      }
+    }
+
+    fillinDropdowns();
+  }
 
   function sortData(){
-    var packhouse1_Data = [0,0,0,0,0];
-    var packhouse2_Data = [6, 5, 6, 2];
-    var packhouse3_Data = [5, 8, 3, 9];
+    //initialise the packhouse data arrays
+    packhouse1_Data = new Array(classes.length+1).join('0').split('').map(parseFloat);
+    packhouse2_Data = new Array(classes.length+1).join('0').split('').map(parseFloat);
+    packhouse3_Data = new Array(classes.length+1).join('0').split('').map(parseFloat);
 
     for (var i = 0; i < currentData.Items.length; i++) {
-      var currItem = currentData.Items[i];
-      var classed = false;
+      var currentItem = currentData.Items[i];
 
-      var actualGrade = currItem.payload.Data.SampledGrade;
-      var visionGrade = currItem.payload.Data.VisionGrade;
-      var fruitVariety = currItem.payload.Data.PackRun.FruitVariety;
-      var packhouse = "p1";
-      //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
+      var actualGrade = currentItem.payload.Data.SampledGrade;
+      var visionGrade = currentItem.payload.Data.VisionGrade;
+      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+      var packhouse = currentItem.payload.Data.PackRun.Packhouse;
 
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
       if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
 
-        if (packhouse == packhouse1_Name) { currTally = packhouse1_Data; }
-        if (packhouse == packhouse2_Name) { currTally = packhouse2_Data; }
-        if (packhouse == packhouse3_Name) { currTally = packhouse3_Data; }
-
-        for (var j = 0; j < classes.length; j++) {
-          if(classes[j] == actualGrade){
-            currTally[j] = currTally[j] + 1;
-            classed = true;
-          }
+        if (packhouse == packhouse1_Name) {
+          currTally = packhouse1_Data;
+        } else if (packhouse == packhouse2_Name) {
+          currTally = packhouse2_Data;
+        } else if (packhouse == packhouse3_Name) {
+          currTally = packhouse3_Data;
+        } else {
+          currTally = null;
         }
-        // If the class does not exist in the current classes, then add it to the thingo.
-        if (!classed) {
-          classes.push(actualGrade);
-          currTally.push(1);
 
-          // Need to be added to the right packhouse Tallies.
-          packhouse2_Data.push(0);
-          packhouse3_Data.push(0);
+        if (currTally != null) {
+          for (var j = 0; j < classes.length; j++) {
+            if(classes[j] == actualGrade){
+              currTally[j] = currTally[j] + 1;
+            }
+          }
         }
       }
     }
@@ -118,13 +139,11 @@ $( document ).ready(function() {
   // Toggling the percentaged data toggle, when flipping the toggle.
   $("#percentageToggle").on('click', 'li a', function(){
     isPercentageData = !isPercentageData;
-
     if (isPercentageData) {
       yAxisLabel = "Percentage of Fruit of each grade";
     } else {
       yAxisLabel = "Tally of Fruit of each grade";
     }
-
     sortData();
   });
 
@@ -195,7 +214,7 @@ $( document ).ready(function() {
   }
 
   //******************************* The dropdown js ******************************/
-
+  function fillinDropdowns(){
     var filter = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
               var currentClass = classes[m];
@@ -209,11 +228,11 @@ $( document ).ready(function() {
           }
 
     var packhouse1Filter = document.getElementById("packhouse1Filter");
-          for (var iP1 = 0; iP1 < classes.length; iP1++){
-              var currentClass = classes[iP1];
+          for (var iP1 = 0; iP1 < packhouses.length; iP1++){
+              var currentPackhouse = packhouses[iP1];
               var li = document.createElement("li");
               var link = document.createElement("a");
-              var text = document.createTextNode(currentClass);
+              var text = document.createTextNode(currentPackhouse);
               link.appendChild(text);
               link.href = "#";
               li.appendChild(link);
@@ -221,11 +240,11 @@ $( document ).ready(function() {
           }
 
     var packhouse2Filter = document.getElementById("packhouse2Filter");
-          for (var iP2 = 0; iP2 < classes.length; iP2++){
-              var currentClass = classes[iP2];
+          for (var iP2 = 0; iP2 < packhouses.length; iP2++){
+              var currentPackhouse = packhouses[iP2];
               var li = document.createElement("li");
               var link = document.createElement("a");
-              var text = document.createTextNode(currentClass);
+              var text = document.createTextNode(currentPackhouse);
               link.appendChild(text);
               link.href = "#";
               li.appendChild(link);
@@ -233,45 +252,47 @@ $( document ).ready(function() {
           }
 
       var packhouse3Filter = document.getElementById("packhouse3Filter");
-            for (var iP3 = 0; iP3 < classes.length; iP3++){
-                var currentClass = classes[iP3];
+            for (var iP3 = 0; iP3 < packhouses.length; iP3++){
+                var currentPackhouse = packhouses[iP3];
                 var li = document.createElement("li");
                 var link = document.createElement("a");
-                var text = document.createTextNode(currentClass);
+                var text = document.createTextNode(currentPackhouse);
                 link.appendChild(text);
                 link.href = "#";
                 li.appendChild(link);
                 packhouse3Filter.appendChild(li);
             }
+  }
 
-     $("#classFilter").on('click', 'li a', function(){
-       $(".btn-class-select:first-child").text($(this).text());
-       $(".btn-class-select:first-child").val($(this).text());
-       $(".title-row h2").html("What the fruit were at the " + $(this).text() + " outlets.");
-       selectedClass = $(this).text();
-       sortData();
-     });
+  // Dropdown on click functions
+   $("#classFilter").on('click', 'li a', function(){
+     $(".btn-class-select:first-child").text($(this).text());
+     $(".btn-class-select:first-child").val($(this).text());
+     $(".title-row h2").html("What the fruit were at the " + $(this).text() + " outlets.");
+     selectedClass = $(this).text();
+     sortData();
+   });
 
-     $("#packhouse1Filter").on('click', 'li a', function(){
-       $(".btn-packhouse1:first-child").text($(this).text());
-       $(".btn-packhouse1:first-child").val($(this).text());
-       packhouse1_Name = $(this).text();
-       sortData();
-     });
+   $("#packhouse1Filter").on('click', 'li a', function(){
+     $(".btn-packhouse1:first-child").text($(this).text());
+     $(".btn-packhouse1:first-child").val($(this).text());
+     packhouse1_Name = $(this).text();
+     sortData();
+   });
 
-     $("#packhouse2Filter").on('click', 'li a', function(){
-       $(".btn-packhouse2:first-child").text($(this).text());
-       $(".btn-packhouse2:first-child").val($(this).text());
-       packhouse2_Name = $(this).text();
-       sortData();
-     });
+   $("#packhouse2Filter").on('click', 'li a', function(){
+     $(".btn-packhouse2:first-child").text($(this).text());
+     $(".btn-packhouse2:first-child").val($(this).text());
+     packhouse2_Name = $(this).text();
+     sortData();
+   });
 
-     $("#packhouse3Filter").on('click', 'li a', function(){
-       $(".btn-packhouse3:first-child").text($(this).text());
-       $(".btn-packhouse3:first-child").val($(this).text());
-       packhouse3_Name = $(this).text();
-       sortData();
-     });
+   $("#packhouse3Filter").on('click', 'li a', function(){
+     $(".btn-packhouse3:first-child").text($(this).text());
+     $(".btn-packhouse3:first-child").val($(this).text());
+     packhouse3_Name = $(this).text();
+     sortData();
+   });
 
   //*****************************************************************************/
 
