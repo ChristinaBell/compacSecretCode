@@ -118,5 +118,19 @@ $( document ).ready(function() {
     }
 
 
+    $('#new-page-btn').click(function() {
+        console.log(window.location.search );
+
+        var name = $(this).data('username');
+
+        if (customer != undefined && customer != null) {
+            current_location = window.location.toString();
+            lastIndex = current_location.lastIndexOf('/');
+            relative_location = current_location.substr(0, lastIndex);
+            console.log(relative_location);
+            window.location = relative_location + '/DashboardPage.html?customer=' + customer;
+        }
+    });
+
 
 });

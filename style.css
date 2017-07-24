@@ -137,3 +137,8 @@ th {
 #date-range-div{
     padding-right: 10%;
 }
+
+#dashboard-title {
+    height: 20%;
+    width: 100%;
+}
