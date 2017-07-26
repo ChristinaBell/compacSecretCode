@@ -88,13 +88,14 @@ $( document ).ready(function() {
             }
             utilization = Math.round(util * 1000) / 10;
 
-            var list = "<dl><dt>Customer:</dt>"
-                       + "<dd>" + packhouse.Customer + "</dd>"
+            var list = "<div class='popup-content'> "
+                       + "<dl><dt>Customer:</dt>"
+                       + "<dd class='popup-customer'>" + packhouse.Customer + "</dd>"
                        + "<dt>Packhouse:</dt>"
-                       + "<dd>" + packhouse.Packhouse + "</dd>"
+                       + "<dd class='popup-packhouse'>" + packhouse.Packhouse + "</dd>"
                        + "<dt>Cupfill:</dt>"
                        + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
-
+                       + "</div>"
 
             if (packhouse.Longitude < 0){
                 packhouse.Longitude = packhouse.Longitude + 360;
@@ -118,18 +119,15 @@ $( document ).ready(function() {
     }
 
 
-    $('#new-page-btn').click(function() {
-        console.log(window.location.search );
-
-        var name = $(this).data('username');
-
-        if (customer != undefined && customer != null) {
+    mymap.on('popupopen', function() {
+        $('.popup-content').click(function() {
+            customer =  $(this).find('.popup-customer').text();
+            packhouse =  $(this).find('.popup-packhouse').text();
             current_location = window.location.toString();
             lastIndex = current_location.lastIndexOf('/');
             relative_location = current_location.substr(0, lastIndex);
-            console.log(relative_location);
-            window.location = relative_location + '/DashboardPage.html?customer=' + customer;
-        }
+            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
+        });
     });
 
 

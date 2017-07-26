@@ -139,6 +139,13 @@ th {
 }
 
 #dashboard-title {
+    padding-top: 10px;
     height: 20%;
     width: 100%;
+    font-size: 30px;
+    text-align: center;
+}
+
+.popup-content {
+    cursor: pointer ;
 }
