@@ -56,7 +56,7 @@ $( document ).ready(function() {
   function getPackhouses_getClasses(){
     for (var i = 0; i < currentData.Items.length; i++) {
       var currentItem = currentData.Items[i];
-      
+
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
       if (packhouses.indexOf(packhouse) == -1){
          packhouses.push(packhouse);
@@ -137,7 +137,7 @@ $( document ).ready(function() {
   }
 
   // Toggling the percentaged data toggle, when flipping the toggle.
-  $("#percentageToggle").on('click', 'li a', function(){
+  $('#percentageToggle').change(function(){
     isPercentageData = !isPercentageData;
     if (isPercentageData) {
       yAxisLabel = "Percentage of Fruit of each grade";

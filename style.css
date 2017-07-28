@@ -51,6 +51,10 @@ footer {
      padding: 7px;
 }
 
+.toggle-percentage {
+     padding: 18px;
+}
+
 
 
 
@@ -90,6 +94,7 @@ footer {
 .myChart{
     height: 550px !important;
     width: 900px !important;
+    margin: auto;
 }
 .col-centered{
     float: none;
