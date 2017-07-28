@@ -10,6 +10,11 @@ footer {
   padding: 25px;
 }
 
+p, h2, h1, h3, h4 {
+  color: rgba(68, 83, 91, 1);
+}
+
+
 #home-page-container{
     margin-left: 23%;
     margin-top: 20px;
@@ -39,6 +44,33 @@ footer {
 
 
 
+
+
+
+
+
+
+
+
+/******************************* GRAPHING STYLING ******************************/
+
+/******************************* GRAPHING STYLING ******************************/
+.grade-filter{
+    background-color: rgba(68, 83, 91, 0.1);
+    display: -webkit-box;
+    box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
+    padding: 13px 10% ;
+}
+
+.btn-commodity-filter {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 0px!important;
+  color: rgba(68, 83, 91, 1);
+  box-shadow: -2px -2px 4px rgba(68, 83, 91, 0.1) inset;
+  padding: 7px 60px;
+  border: none;
+}
+
 .canvas-container{
     padding-left: 300px;
     padding-top: 60px;
@@ -54,10 +86,6 @@ footer {
      padding: 18px;
 }
 
-
-
-
-/******************************* GRAPHING STYLING ******************************/
 .packhouse-containter {
     padding: 0px;
 }
@@ -103,14 +131,10 @@ footer {
 
 /******************************************************************************/
 
-p, h2, h1, h3 {
-  color: rgba(68, 83, 91, 1);
-}
-.canvas-container{
-    padding-left: 300px;
-    padding-top: 60px;
-}
 
+
+
+/************************************* LOGGING *****************************************/
 
 #logging-table{
     white-space: pre-wrap; /* css-3 */
