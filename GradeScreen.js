@@ -28,10 +28,10 @@ $( document ).ready(function() {
   var packhouse1_Percentage_Data;
   var packhouse2_Percentage_Data;
   var packhouse3_Percentage_Data;
-  var packhouse1_Name = "EastPack";
-  var packhouse2_Name = "EastPack2";
-  var packhouse3_Name = "EastPack3";
-  var selectedClass = "Class 2";
+  var packhouse1_Name;
+  var packhouse2_Name;
+  var packhouse3_Name;
+  var selectedClass;
   var selectedFruitVariety = "Kiwi Green";
   var currentData;
 
@@ -72,6 +72,29 @@ $( document ).ready(function() {
          classes.push(visionGrade);
       }
     }
+
+    $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
+    selectedClass = classes[0];
+
+    packhouse1_Name = packhouses[0];
+    packhouse2_Name = packhouses[1];
+    packhouse3_Name = packhouses[2];
+
+// put in function
+    $(".btn-packhouse1:first-child").text(packhouse1_Name);
+    $(".btn-packhouse1:first-child").val(packhouse1_Name);
+
+    $(".btn-packhouse2:first-child").text(packhouse2_Name);
+    $(".btn-packhouse2:first-child").val(packhouse2_Name);
+
+    $(".btn-packhouse3:first-child").text(packhouse3_Name);
+    $(".btn-packhouse3:first-child").val(packhouse3_Name);
+
+    $(".btn-class-select:first-child").text(classes[0]);
+    $(".btn-class-select:first-child").val(classes[0]);
+
+    //set classd and packhouses from array
+
 
     fillinDropdowns();
   }
@@ -293,6 +316,9 @@ $( document ).ready(function() {
      packhouse3_Name = $(this).text();
      sortData();
    });
+
+
+
 
   //*****************************************************************************/
 
