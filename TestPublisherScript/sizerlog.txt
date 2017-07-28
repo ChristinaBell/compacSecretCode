@@ -1,0 +1,125 @@
+Started: 2016-08-12 04:58:19
+    1)   (Warning)  2016-08-12 04:58:19.968	Version: 10.6.2016.0420
+    2)   (Warning)  2016-08-12 04:58:20.874	No I/O state poll replies will be handled before a full SSP synchronization happened
+    3)   (Warning)  2016-08-12 04:58:51.015	Started handling I/O state poll replies
+    4)   (Error)  2016-08-12 05:06:05.443	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+    5)   (Error)  2016-08-12 05:06:05.443	Lock failed in SioChannel::CheckForPendingReply
+    6)   (Warning)  2016-08-12 06:33:08.057	DropAFruit again: outlet 16, lane 3, cup 796
+    7)   (Warning)  2016-08-12 06:51:00.968	DropAFruit again: outlet 27, lane 8, cup 474
+    8)   (Warning)  2016-08-12 06:51:00.968	DropAFruit again: outlet 19, lane 6, cup 559
+    9)   (Error)  2016-08-12 07:01:42.719	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   10)   (Error)  2016-08-12 07:01:42.719	Lock failed in SioChannel::CheckForPendingReply
+   11)   (Warning)  2016-08-12 07:06:20.626	DropAFruit again: outlet 10, lane 2, cup 807
+   12)   (Warning)  2016-08-12 07:06:24.126	DropAFruit again: outlet 13, lane 6, cup 703
+   13)   (Warning)  2016-08-12 07:12:45.440	DropAFruit again: outlet 25, lane 1, cup 187
+   14)   (Warning)  2016-08-12 07:23:45.472	DropAFruit again: outlet 13, lane 7, cup 397
+   15)   (Warning)  2016-08-12 07:23:46.238	DropAFruit again: outlet 16, lane 6, cup 364
+   16)   (Warning)  2016-08-12 07:27:19.645	DropAFruit again: outlet 27, lane 7, cup 253
+   17)   (Warning)  2016-08-12 07:27:19.645	DropAFruit again: outlet 19, lane 5, cup 338
+   18)   (Warning)  2016-08-12 08:15:41.948	DropAFruit again: outlet 25, lane 3, cup 626
+   19)   (Warning)  2016-08-12 08:20:11.636	DropAFruit again: outlet 31, lane 8, cup 842
+   20)   (Error)  2016-08-12 08:25:00.293	LOCK(CommsLock): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 5ms; thread 4388 (SioMessageProcessor) won't release it
+   21)   (Error)  2016-08-12 08:46:25.048	LOCK(CommsLock): Thread 4388 (SioMessageProcessor) could not acquire lock after 5ms; thread 4336 (Sol 1 ReceiveThread) won't release it
+   22)   (Warning)  2016-08-12 09:03:25.364	DropAFruit again: outlet 25, lane 8, cup 42
+   23)   (Warning)  2016-08-12 09:08:33.913	DropAFruit again: outlet 34, lane 2, cup 928
+   24)   (Warning)  2016-08-12 11:22:51.873	DropAFruit again: outlet 10, lane 5, cup 770
+   25)   (Warning)  2016-08-12 11:22:52.529	DropAFruit again: outlet 16, lane 2, cup 945
+   26)   (Warning)  2016-08-12 11:22:56.686	DropAFruit again: outlet 13, lane 5, cup 757
+   27)   (Warning)  2016-08-12 11:31:28.687	DropAFruit again: outlet 10, lane 2, cup 502
+   28)   (Warning)  2016-08-12 11:31:29.390	DropAFruit again: outlet 16, lane 7, cup 199
+   29)   (Warning)  2016-08-12 11:33:00.234	DropAFruit again: outlet 22, lane 5, cup 147
+   30)   (Warning)  2016-08-12 11:40:32.969	DropAFruit again: outlet 22, lane 4, cup 353
+   31)   (Warning)  2016-08-12 12:07:04.582	DropAFruit again: outlet 13, lane 7, cup 425
+   32)   (Error)  2016-08-12 12:17:55.849	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   33)   (Error)  2016-08-12 12:17:55.849	Lock failed in SioChannel::CheckForPendingReply
+   34)   (Error)  2016-08-12 12:25:39.663	LOCK(CommsLock): Thread 4364 (Sol 2 ReceiveThread) could not acquire lock after 5ms; thread 4388 (SioMessageProcessor) won't release it
+   35)   (Error)  2016-08-12 13:30:44.148	LOCK(CommsLock): Thread 4364 (Sol 2 ReceiveThread) could not acquire lock after 5ms; thread 4388 (SioMessageProcessor) won't release it
+   36)   (Warning)  2016-08-13 08:33:50.675	Notification message received (and ignored) with same count: 0 at Sam: 5, IOpoint: 24, Frame: 2, Edge: leading
+   37)   (Warning)  2016-08-13 08:34:19.635	Notification message received (and ignored) with same count: 0 at Sam: 5, IOpoint: 13, Frame: 1, Edge: leading
+   38)   (Warning)  2016-08-15 05:15:16.843	DropAFruit again: outlet 13, lane 2, cup 832
+   39)   (Warning)  2016-08-15 05:19:05.280	DropAFruit again: outlet 22, lane 6, cup 358
+   40)   (Error)  2016-08-15 05:27:41.665	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   41)   (Error)  2016-08-15 05:27:41.665	Lock failed in SioChannel::CheckForPendingReply
+   42)   (Error)  2016-08-15 06:00:17.349	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   43)   (Error)  2016-08-15 06:00:17.349	Lock failed in SioChannel::CheckForPendingReply
+   44)   (Warning)  2016-08-15 06:08:22.904	DropAFruit again: outlet 34, lane 2, cup 733
+   45)   (Warning)  2016-08-15 07:52:45.042	DropAFruit again: outlet 22, lane 3, cup 166
+   46)   (Warning)  2016-08-15 07:52:45.182	DropAFruit again: outlet 33, lane 7, cup 538
+   47)   (Warning)  2016-08-15 07:52:45.182	DropAFruit again: outlet 19, lane 8, cup 687
+   48)   (Warning)  2016-08-15 07:53:08.089	DropAFruit again: outlet 16, lane 6, cup 900
+   49)   (Warning)  2016-08-15 07:53:51.618	DropAFruit again: outlet 33, lane 4, cup 281
+   50)   (Warning)  2016-08-15 08:07:41.914	DropAFruit again: outlet 16, lane 6, cup 818
+   51)   (Warning)  2016-08-15 08:08:40.854	DropAFruit again: outlet 22, lane 5, cup 764
+   52)   (Warning)  2016-08-15 08:08:40.854	DropAFruit again: outlet 19, lane 5, cup 799
+   53)   (Warning)  2016-08-15 08:08:41.057	DropAFruit again: outlet 31, lane 4, cup 197
+   54)   (Warning)  2016-08-15 08:08:41.057	DropAFruit again: outlet 22, lane 3, cup 290
+   55)   (Error)  2016-08-15 08:23:25.631	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   56)   (Error)  2016-08-15 08:23:25.631	Lock failed in SioChannel::CheckForPendingReply
+   57)   (Warning)  2016-08-15 08:57:42.603	DropAFruit again: outlet 16, lane 6, cup 168
+   58)   (Warning)  2016-08-15 08:57:42.603	DropAFruit again: outlet 16, lane 7, cup 168
+   59)   (Warning)  2016-08-15 08:58:16.146	DropAFruit again: outlet 22, lane 4, cup 659
+   60)   (Warning)  2016-08-15 08:58:33.473	DropAFruit again: outlet 16, lane 5, cup 301
+   61)   (Warning)  2016-08-15 09:23:56.208	DropAFruit again: outlet 31, lane 7, cup 565
+   62)   (Warning)  2016-08-15 09:53:48.300	DropAFruit again: outlet 22, lane 2, cup 710
+   63)   (Warning)  2016-08-15 09:53:49.659	DropAFruit again: outlet 25, lane 8, cup 107
+   64)   (Warning)  2016-08-15 09:53:50.290	DropAFruit again: outlet 27, lane 7, cup 88
+   65)   (Error)  2016-08-15 11:29:56.724	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   66)   (Error)  2016-08-15 11:29:56.724	Lock failed in SioChannel::CheckForPendingReply
+   67)   (Error)  2016-08-16 05:04:06.611	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   68)   (Error)  2016-08-16 05:04:06.611	Lock failed in SioChannel::CheckForPendingReply
+   69)   (Error)  2016-08-16 05:12:58.105	Error Sending to SSP: 0x800706BA - The RPC server is unavailable.
+
+   70)   (Warning)  2016-08-16 05:22:39.064	DropAFruit again: outlet 13, lane 2, cup 484
+   71)   (Warning)  2016-08-16 05:22:39.189	DropAFruit again: outlet 31, lane 6, cup 407
+   72)   (Warning)  2016-08-16 05:54:56.612	DropAFruit again: outlet 10, lane 8, cup 889
+   73)   (Warning)  2016-08-16 06:49:59.682	DropAFruit again: outlet 31, lane 8, cup 222
+   74)   (Warning)  2016-08-16 06:58:30.825	DropAFruit again: outlet 13, lane 6, cup 350
+   75)   (Error)  2016-08-16 07:00:36.180	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   76)   (Error)  2016-08-16 07:00:36.180	Lock failed in SioChannel::CheckForPendingReply
+   77)   (Error)  2016-08-16 09:35:38.417	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   78)   (Error)  2016-08-16 09:35:38.417	Lock failed in SioChannel::CheckForPendingReply
+   79)   (Warning)  2016-08-16 09:45:58.514	DropAFruit again: outlet 10, lane 3, cup 745
+   80)   (Warning)  2016-08-16 09:46:02.266	DropAFruit again: outlet 13, lane 7, cup 685
+   81)   (Warning)  2016-08-16 10:44:12.090	DropAFruit again: outlet 50, lane 1, cup 182
+   82)   (Warning)  2016-08-16 10:55:08.480	DropAFruit again: outlet 10, lane 1, cup 371
+   83)   (Error)  2016-08-17 05:42:55.026	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   84)   (Error)  2016-08-17 05:42:55.026	Lock failed in SioChannel::CheckForPendingReply
+   85)   (Error)  2016-08-17 06:54:17.314	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   86)   (Error)  2016-08-17 06:54:17.314	Lock failed in SioChannel::CheckForPendingReply
+   87)   (Warning)  2016-08-17 06:55:35.028	DropAFruit again: outlet 25, lane 7, cup 428
+   88)   (Warning)  2016-08-17 07:03:23.748	DropAFruit again: outlet 31, lane 1, cup 142
+   89)   (Warning)  2016-08-17 07:04:14.363	DropAFruit again: outlet 19, lane 2, cup 378
+   90)   (Error)  2016-08-17 07:24:53.430	LOCK(SioReply[1]): Thread 4336 (Sol 1 ReceiveThread) could not acquire lock after 25ms; thread 4392 (SioChannelReplyMonitorJob:1) won't release it
+   91)   (Error)  2016-08-17 07:24:53.430	Lock failed in SioChannel::CheckForPendingReply
+   92)   (Error)  2016-08-17 08:42:54.117	Notification message not handled: Sam: 5, IOpoint: 11, frame 2, edge leading
+   93)   (Warning)  2016-08-17 08:44:04.961	DropAFruit again: outlet 19, lane 5, cup 685
+   94)   (Warning)  2016-08-17 09:16:36.834	DropAFruit again: outlet 22, lane 2, cup 593
+   95)   (Warning)  2016-08-17 09:16:36.834	DropAFruit again: outlet 19, lane 1, cup 628
+   96)   (Warning)  2016-08-17 09:16:37.022	DropAFruit again: outlet 34, lane 8, cup 494
+   97)   (Warning)  2016-08-17 09:29:38.964	DropAFruit again: outlet 34, lane 2, cup 697
+   98)   (Warning)  2016-08-17 09:29:39.105	DropAFruit again: outlet 22, lane 6, cup 848
+   99)   (Error)  2016-08-17 09:35:19.280	LOCK(CommsLock): Thread 4364 (Sol 2 ReceiveThread) could not acquire lock after 5ms; thread 4388 (SioMessageProcessor) won't release it
+  100)   (Warning)  2016-08-17 11:17:00.026	Shutting down: 10.6.2016.0420
+----------(normal close)---------S
+
+Started: 2016-08-17 11:19:30
+    1)   (Warning)  2016-08-17 11:19:30.568	Version: 10.6.2016.0420
+    2)   (Warning)  2016-08-17 11:19:31.471	No I/O state poll replies will be handled before a full SSP synchronization happened
+    3)   (Warning)  2016-08-17 11:19:40.261	Notification message received (and ignored) with same count: 0 at Sam: 1, IOpoint: 9, Frame: 2, Edge: leading
+    4)   (Warning)  2016-08-17 11:20:15.573	Started handling I/O state poll replies
+    5)   (Error)  2016-08-18 05:20:58.837	LOCK(CommsLock): Thread 4408 (SioMessageProcessor) could not acquire lock after 5ms; thread 4972 (Sol 2 ReceiveThread) won't release it
+    6)   (Error)  2016-08-18 05:31:21.637	LOCK(CommsLock): Thread 4408 (SioMessageProcessor) could not acquire lock after 5ms; thread 4972 (Sol 2 ReceiveThread) won't release it
+    7)   (Error)  2016-08-18 05:36:03.814	LOCK(CommsLock): Thread 4408 (SioMessageProcessor) could not acquire lock after 5ms; thread 4948 (Sol 1 ReceiveThread) won't release it
+    8)   (Warning)  2016-08-18 06:35:03.024	DropAFruit again: outlet 51, lane 5, cup 284
+    9)   (Warning)  2016-08-18 06:35:03.024	DropAFruit again: outlet 51, lane 6, cup 284
+   10)   (Warning)  2016-08-18 06:35:03.024	DropAFruit again: outlet 22, lane 8, cup 661
+   11)   (Warning)  2016-08-18 08:07:30.153	DropAFruit again: outlet 51, lane 1, cup 28
+   12)   (Warning)  2016-08-18 08:08:18.938	DropAFruit again: outlet 51, lane 7, cup 374
+   13)   (Warning)  2016-08-18 08:08:18.970	DropAFruit again: outlet 51, lane 1, cup 206
+   14)   (Warning)  2016-08-18 08:15:26.240	DropAFruit again: outlet 51, lane 6, cup 223
+   15)   (Warning)  2016-08-18 08:15:26.240	DropAFruit again: outlet 22, lane 7, cup 600
+   16)   (Warning)  2016-08-18 09:05:11.902	DropAFruit again: outlet 22, lane 3, cup 306
+   17)   (Warning)  2016-08-18 11:06:33.554	DropAFruit again: outlet 51, lane 6, cup 596
+   18)   (Warning)  2016-08-18 11:36:25.067	DropAFruit again: outlet 25, lane 2, cup 294
+   19)   (Warning)  2016-08-18 15:42:21.472	Shutting down: 10.6.2016.0420
+----------(normal close)---------
