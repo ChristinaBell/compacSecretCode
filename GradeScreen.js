@@ -22,6 +22,7 @@ $( document ).ready(function() {
 
   var classes = [];
   var packhouses = [];
+  var commodities = [];
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
@@ -71,6 +72,11 @@ $( document ).ready(function() {
       if (classes.indexOf(visionGrade) == -1){
          classes.push(visionGrade);
       }
+
+      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+      if (commodities.indexOf(fruitVariety) == -1){
+         commodities.push(fruitVariety);
+      }
     }
 
     $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
@@ -92,6 +98,9 @@ $( document ).ready(function() {
 
     $(".btn-class-select:first-child").text(classes[0]);
     $(".btn-class-select:first-child").val(classes[0]);
+
+    $(".btn-commodity-filtert:first-child").text(commodities[0]);
+    $(".btn-commodity-filter:first-child").val(commodities[0]);
 
     //set classd and packhouses from array
 
@@ -285,6 +294,18 @@ $( document ).ready(function() {
                 li.appendChild(link);
                 packhouse3Filter.appendChild(li);
             }
+
+      var gradeCommodity = document.getElementById("gradeCommodity");
+            for (var iC = 0; iC < commodities.length; iC++){
+                var currentCommodity = commodities[iC];
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentCommodity);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                packhouse2Filter.appendChild(li);
+            }
   }
 
   // Dropdown on click functions
@@ -316,6 +337,14 @@ $( document ).ready(function() {
      packhouse3_Name = $(this).text();
      sortData();
    });
+
+   $("#gradeCommodity").on('click', 'li a', function(){
+     $(".btn-commodity-filter:first-child").text($(this).text());
+     $(".btn-commodity-filter:first-child").val($(this).text());
+     selectedFruitVariety = $(this).text();
+     sortData();
+   });
+
 
 
 
