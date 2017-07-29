@@ -10,7 +10,7 @@ footer {
   padding: 25px;
 }
 
-p, h2, h1, h3, h4 {
+p, h2, h1, h3, h4, h5 {
   color: rgba(68, 83, 91, 1);
 }
 
@@ -51,12 +51,7 @@ p, h2, h1, h3, h4 {
     background-color: rgba(68, 83, 91, 0.1);
     display: -webkit-box;
     box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
-    padding: 13px 10% ;
-}
-
-.commodity-caret {
-    padding: 0px;
-    display: inline-flex;
+        padding: 13px 10% 0 10%;
 }
 
 .btn-commodity-filter {
@@ -77,10 +72,6 @@ p, h2, h1, h3, h4 {
      width: 100%;
      border-radius: 0px!important;
      padding: 7px;
-}
-
-.toggle-percentage {
-     padding: 18px;
 }
 
 .packhouse-containter {
