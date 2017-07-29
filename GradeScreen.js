@@ -81,6 +81,7 @@ $( document ).ready(function() {
 
     $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
     selectedClass = classes[0];
+    selectedFruitVariety = commodities[0];
 
     packhouse1_Name = packhouses[0];
     packhouse2_Name = packhouses[1];
@@ -99,8 +100,8 @@ $( document ).ready(function() {
     $(".btn-class-select:first-child").text(classes[0]);
     $(".btn-class-select:first-child").val(classes[0]);
 
-    $(".btn-commodity-filtert:first-child").text(commodities[0]);
-    $(".btn-commodity-filter:first-child").val(commodities[0]);
+    $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
+    $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
 
     //set classd and packhouses from array
 
@@ -304,7 +305,7 @@ $( document ).ready(function() {
                 link.appendChild(text);
                 link.href = "#";
                 li.appendChild(link);
-                packhouse2Filter.appendChild(li);
+                gradeCommodity.appendChild(li);
             }
   }
 
