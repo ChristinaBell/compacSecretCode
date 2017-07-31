@@ -56,11 +56,11 @@ p, h2, h1, h3, h4, h5 {
 
 .btn-commodity-filter {
     background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 0px!important;
     color: rgba(68, 83, 91, 1);
-    box-shadow: -2px -2px 4px rgba(68, 83, 91, 0.1) inset;
+    box-shadow: 2px 2px 4px rgba(68, 83, 91, 0.1) inset;
     padding: 7px 60px;
-    border: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 
 .canvas-container{
