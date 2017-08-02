@@ -46,6 +46,8 @@ $( document ).ready(function() {
       currentData = JSON.parse(data.Payload);
       // reload the graph with results from the dynamoDB lambda function call
       getPackhouses_getClasses();
+      setUp();
+      fillinDropdowns();
       sortData();
     }
   });
@@ -75,35 +77,32 @@ $( document ).ready(function() {
       }
 
     }
+  }
 
-    $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
-    selectedClass = classes[0];
-    selectedFruitVariety = commodities[0];
+  function setUp(){
+      $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
+      selectedClass = classes[0];
+      selectedFruitVariety = commodities[0];
 
-    packhouse1_Name = packhouses[0];
-    packhouse2_Name = packhouses[1];
-    packhouse3_Name = packhouses[2];
+      packhouse1_Name = packhouses[0];
+      packhouse2_Name = packhouses[1];
+      packhouse3_Name = packhouses[2];
 
-    // put in function
-    $(".btn-packhouse1:first-child").text(packhouse1_Name);
-    $(".btn-packhouse1:first-child").val(packhouse1_Name);
+      // put in function
+      $(".btn-packhouse1:first-child").text(packhouse1_Name);
+      $(".btn-packhouse1:first-child").val(packhouse1_Name);
 
-    $(".btn-packhouse2:first-child").text(packhouse2_Name);
-    $(".btn-packhouse2:first-child").val(packhouse2_Name);
+      $(".btn-packhouse2:first-child").text(packhouse2_Name);
+      $(".btn-packhouse2:first-child").val(packhouse2_Name);
 
-    $(".btn-packhouse3:first-child").text(packhouse3_Name);
-    $(".btn-packhouse3:first-child").val(packhouse3_Name);
+      $(".btn-packhouse3:first-child").text(packhouse3_Name);
+      $(".btn-packhouse3:first-child").val(packhouse3_Name);
 
-    $(".btn-class-select:first-child").text(classes[0]);
-    $(".btn-class-select:first-child").val(classes[0]);
+      $(".btn-class-select:first-child").text(classes[0]);
+      $(".btn-class-select:first-child").val(classes[0]);
 
-    $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
-    $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
-
-    //set classd and packhouses from array
-
-
-    fillinDropdowns();
+      $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
+      $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
   }
 
   function sortData(){
@@ -119,8 +118,6 @@ $( document ).ready(function() {
       var visionGrade = currentItem.payload.Data.VisionGrade;
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
-
-        console.log(selectedClass, visionGrade, selectedFruitVariety, fruitVariety);
 
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
       if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
@@ -141,8 +138,6 @@ $( document ).ready(function() {
               currTally[j] = currTally[j] + 1;
             }
           }
-          console.log("in the loop" + packhouse1_Data, packhouse2_Data, packhouse3_Data);
-
         }
       }
     }
@@ -151,7 +146,7 @@ $( document ).ready(function() {
       makePercentage([packhouse1_Data, packhouse2_Data, packhouse3_Data]);
     }
 
-    drawGraph(packhouse1_Data, packhouse2_Data, packhouse3_Data, classes);
+    drawGraph();
   }
 
   // changing the data to
@@ -183,7 +178,7 @@ $( document ).ready(function() {
 
 
   // Draw the graph for the inputted data and class names.
-  function drawGraph(p1_Data, p2_Data, p3_Data, classes){
+  function drawGraph(){
     // Bar chart
     if (!isFirstGraph){
       myChart.destroy();
@@ -198,21 +193,21 @@ $( document ).ready(function() {
           datasets: [
              {
                  label: packhouse1_Name,
-                 data: p1_Data,
+                 data: packhouse1_Data,
                  backgroundColor: 'rgba(120, 181, 67, 0.8)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',
              },
              {
                  label: packhouse2_Name,
-                 data: p2_Data,
+                 data: packhouse2_Data,
                  backgroundColor: 'rgba(68, 83, 91, 1)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',
              },
              {
                  label: packhouse3_Name,
-                 data: p3_Data,
+                 data: packhouse3_Data,
                  backgroundColor: 'rgba(28, 160, 255, 0.8)',
                  pointColor: 'rgba(68, 83, 91, 1)',
                  highlightFill: '#fff',

@@ -23,9 +23,9 @@ $( document ).ready(function() {
   var commodities = [];
   var defects = [];
 
-  var packhouse1_Data = [0,0,0,0];
-  var packhouse2_Data = [5,6,5,6,6];
-  var packhouse3_Data = [5,6,5,6,6];
+  var packhouse1_Data = [];
+  var packhouse2_Data = [];
+  var packhouse3_Data = [];
   var packhouse1_Name;
   var packhouse2_Name;
   var packhouse3_Name;
@@ -44,6 +44,8 @@ $( document ).ready(function() {
     } else {
       currentData = JSON.parse(data.Payload);
       getPackhouses_getClasses();
+      setUp();
+      fillinDropdowns()
       // reload the graph with results from the dynamoDB lambda function call
       sortData();
     }
@@ -63,7 +65,9 @@ $( document ).ready(function() {
          commodities.push(fruitVariety);
       }
     }
+  }
 
+  function setUp(){
     selectedFruitVariety = commodities[0];
 
     packhouse1_Name = packhouses[0];
@@ -82,58 +86,51 @@ $( document ).ready(function() {
 
     $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
     $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
-
-    //set classd and packhouses from array
-
   }
 
 
   function sortData(){
+    //initialise the packhouse data arrays
+    packhouse1_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
+    packhouse2_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
+    packhouse3_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
 
-    console.log(data);
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currentItem = currentData.Items[i];
 
-    for (var i = 0; i < data.Items.length; i++) {
-      var currItem = data.Items[i];
-      var isDefect = false;  // That there is a defect that hasn't been added to the list.
-
-      var fruitVariety = currItem.payload.Data.PackRun.FruitVariety;
-      var defects = currItem.payload.Data.PackRun.Defects; // CHANGE THIS TO FRUIT DEFECT
+      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+      var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+      var defect = currentItem.payload.Data.PackRun.Defects; // CHANGE THIS TO FRUIT DEFECT
       console.log(defects);
 
-      var packhouse = "p1";
-      //var packhouse = currItem.payload.Data.PackRun.FruitVariety;
 
-      if (necessaryFruitVariety == fruitVariety){
+      if (selectedFruitVariety == fruitVariety){
 
-        if (packhouse == packhouse1) { currTally = p1; }
-        if (packhouse == packhouse2) { currTally = p2; }
-        if (packhouse == packhouse3) { currTally = p3; }
-
-        // TODO find the defect of the fruit. and increment that one.
-        for (var j = 0; j < classes.length; j++) {
-
-          // TODO loop through the defects if needed.
-          for(var k = 0; k < classes.length; k++){
-            //if(classes[j] == defects.){
-              currTally[j] = currTally[j] + 1;
-              isDefect = true;
-            //}
-          }
-
+        if (packhouse == packhouse1_Name) {
+          currTally = packhouse1_Data;
+        } else if (packhouse == packhouse2_Name) {
+          currTally = packhouse2_Data;
+        } else if (packhouse == packhouse3_Name) {
+          currTally = packhouse3_Data;
+        } else {
+          currTally = null;
         }
 
-        // If the defect does not exist in the current classes, then add it to the thingo.
-        if (!isDefect  /* && THERE IS A DEFECT */ ) {
-          classes.push(actualGrade);
-          currTally.push(1);
-          p2.push(0);
-          p3.push(0);
+        if (currTally != null) {
+          for (var j = 0; j < defects.length; j++) {
+            if(defects[j] == defect){
+              currTally[j] = currTally[j] + 1;
+            }
+          }
         }
       }
      }
 
-    makePercentage([p1,p2,p3]);
-    drawGraph(p1,p2,p3, classes);
+     if (isPercentageData){
+       makePercentage([packhouse1_Data, packhouse2_Data, packhouse3_Data]);
+     }
+
+     drawGraph();
   }
 
   function makePercentage(packhouses){
@@ -151,7 +148,19 @@ $( document ).ready(function() {
     }
   }
 
-  function drawGraph(p1,p2,p3,classes){
+  // Toggling the percentaged data toggle, when flipping the toggle.
+  $('#percentageToggle').change(function(){
+    isPercentageData = !isPercentageData;
+    if (isPercentageData) {
+      yAxisLabel = "Percentage of Fruit of each grade";
+    } else {
+      yAxisLabel = "Tally of Fruit of each grade";
+    }
+    sortData();
+  });
+
+
+  function drawGraph(){
     // Bar chart
     if (!isFirstGraph){
       myChart.destroy();
@@ -166,21 +175,21 @@ $( document ).ready(function() {
           datasets: [
             {
                 label: packhouse1_Name,
-                data: p1_Data,
+                data: packhouse1_Data,
                 backgroundColor: 'rgba(120, 181, 67, 0.8)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
             },
             {
                 label: packhouse2_Name,
-                data: p2_Data,
+                data: packhouse2_Data,
                 backgroundColor: 'rgba(68, 83, 91, 1)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
             },
             {
                 label: packhouse3_Name,
-                data: p3_Data,
+                data: packhouse3_Data,
                 backgroundColor: 'rgba(28, 160, 255, 0.8)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
@@ -203,6 +212,85 @@ $( document ).ready(function() {
         }
     });
   }
+
+  function fillinDropdowns(){
+    var packhouse1Filter = document.getElementById("packhouse1Filter");
+          for (var iP1 = 0; iP1 < packhouses.length; iP1++){
+              var currentPackhouse = packhouses[iP1];
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(currentPackhouse);
+              link.appendChild(text);
+              link.href = "#";
+              li.appendChild(link);
+              packhouse1Filter.appendChild(li);
+          }
+
+    var packhouse2Filter = document.getElementById("packhouse2Filter");
+          for (var iP2 = 0; iP2 < packhouses.length; iP2++){
+              var currentPackhouse = packhouses[iP2];
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var text = document.createTextNode(currentPackhouse);
+              link.appendChild(text);
+              link.href = "#";
+              li.appendChild(link);
+              packhouse2Filter.appendChild(li);
+          }
+
+      var packhouse3Filter = document.getElementById("packhouse3Filter");
+            for (var iP3 = 0; iP3 < packhouses.length; iP3++){
+                var currentPackhouse = packhouses[iP3];
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentPackhouse);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                packhouse3Filter.appendChild(li);
+            }
+
+      var gradeCommodity = document.getElementById("gradeCommodity");
+            for (var iC = 0; iC < commodities.length; iC++){
+                var currentCommodity = commodities[iC];
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentCommodity);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                gradeCommodity.appendChild(li);
+            }
+  }
+
+  // Dropdown on click functions
+  $("#packhouse1Filter").on('click', 'li a', function(){
+    $(".btn-packhouse1:first-child").text($(this).text());
+    $(".btn-packhouse1:first-child").val($(this).text());
+    packhouse1_Name = $(this).text();
+    sortData();
+  });
+
+  $("#packhouse2Filter").on('click', 'li a', function(){
+    $(".btn-packhouse2:first-child").text($(this).text());
+    $(".btn-packhouse2:first-child").val($(this).text());
+    packhouse2_Name = $(this).text();
+    sortData();
+  });
+
+  $("#packhouse3Filter").on('click', 'li a', function(){
+    $(".btn-packhouse3:first-child").text($(this).text());
+    $(".btn-packhouse3:first-child").val($(this).text());
+    packhouse3_Name = $(this).text();
+    sortData();
+  });
+
+  $("#gradeCommodity").on('click', 'li a', function(){
+    $(".btn-commodity-filter:first-child").text($(this).text());
+    $(".btn-commodity-filter:first-child").val($(this).text());
+    selectedFruitVariety = $(this).text();
+    sortData();
+  });
 
   $('.input-daterange').datepicker({
       format: 'yyyy-mm-dd'
