@@ -18,24 +18,77 @@ $( document ).ready(function() {
   };
 
   // Create variable to hold data returned by the Lambda function
-  var pullResults;
-  var classes = ['Defect 1', 'Defect 2', 'Defect 3', 'Defect 4'];
-  var p1 = [0,0,0,0];
-  var p2 = [5,6,5,6,6];
-  var p3 = [5,6,5,6,6];
+  var currentData;
+  var packhouses = [];
+  var commodities = [];
+  var defects = [];
+
+  var packhouse1_Data = [0,0,0,0];
+  var packhouse2_Data = [5,6,5,6,6];
+  var packhouse3_Data = [5,6,5,6,6];
+  var packhouse1_Name;
+  var packhouse2_Name;
+  var packhouse3_Name;
+
+  var selectedFruitVariety = "Kiwi Green";
+
+  var isPercentageData = true;
+  var yAxisLabel = "Percentage of Fruit of each grade";
+
+  var isFirstGraph = true;
+
 
   lambda.invoke(pullParams, function(error, data) {
     if (error) {
       prompt(error);
     } else {
-      pullResults = JSON.parse(data.Payload);
+      currentData = JSON.parse(data.Payload);
+      getPackhouses_getClasses();
       // reload the graph with results from the dynamoDB lambda function call
-      sortData("p1", "p2", "p3", pullResults, "Kiwi Green");
+      sortData();
     }
   });
 
+  function getPackhouses_getClasses(){
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currentItem = currentData.Items[i];
 
-  function sortData(packhouse1, packhouse2, packhouse3, data, necessaryFruitVariety){
+      var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+      if (packhouses.indexOf(packhouse) == -1){
+         packhouses.push(packhouse);
+      }
+
+      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+      if (commodities.indexOf(fruitVariety) == -1){
+         commodities.push(fruitVariety);
+      }
+    }
+
+    selectedFruitVariety = commodities[0];
+
+    packhouse1_Name = packhouses[0];
+    packhouse2_Name = packhouses[1];
+    packhouse3_Name = packhouses[2];
+
+    // put in function
+    $(".btn-packhouse1:first-child").text(packhouse1_Name);
+    $(".btn-packhouse1:first-child").val(packhouse1_Name);
+
+    $(".btn-packhouse2:first-child").text(packhouse2_Name);
+    $(".btn-packhouse2:first-child").val(packhouse2_Name);
+
+    $(".btn-packhouse3:first-child").text(packhouse3_Name);
+    $(".btn-packhouse3:first-child").val(packhouse3_Name);
+
+    $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
+    $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
+
+    //set classd and packhouses from array
+
+  }
+
+
+  function sortData(){
 
     console.log(data);
 
@@ -100,30 +153,34 @@ $( document ).ready(function() {
 
   function drawGraph(p1,p2,p3,classes){
     // Bar chart
-    new Chart($(".myChart"), {
+    if (!isFirstGraph){
+      myChart.destroy();
+    }
+    isFirstGraph = false;
+    myChart = new Chart($(".myChart"), {
         maintainAspectRatio: true,
         responsive: true,
         type: 'bar',
         data: {
-          labels: classes,
+          labels: defects,
           datasets: [
             {
-                label: "Packhouse 1",
-                data: p1,
+                label: packhouse1_Name,
+                data: p1_Data,
                 backgroundColor: 'rgba(120, 181, 67, 0.8)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
             },
             {
-                label: "Packhouse 2",
-                data: p2,
+                label: packhouse2_Name,
+                data: p2_Data,
                 backgroundColor: 'rgba(68, 83, 91, 1)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
             },
             {
-                label: "Packhouse 3",
-                data: p3,
+                label: packhouse3_Name,
+                data: p3_Data,
                 backgroundColor: 'rgba(28, 160, 255, 0.8)',
                 pointColor: 'rgba(68, 83, 91, 1)',
                 highlightFill: '#fff',
@@ -146,5 +203,9 @@ $( document ).ready(function() {
         }
     });
   }
+
+  $('.input-daterange').datepicker({
+      format: 'yyyy-mm-dd'
+  });
 
 });

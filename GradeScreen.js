@@ -18,17 +18,13 @@ $( document ).ready(function() {
   };
 
   // Create variable to hold data returned by the Lambda function
-  var pullResults;
 
   var classes = [];
   var packhouses = [];
-  var commodities = ["yooooo"];
+  var commodities = [];
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
-  var packhouse1_Percentage_Data;
-  var packhouse2_Percentage_Data;
-  var packhouse3_Percentage_Data;
   var packhouse1_Name;
   var packhouse2_Name;
   var packhouse3_Name;
@@ -77,6 +73,7 @@ $( document ).ready(function() {
       if (commodities.indexOf(fruitVariety) == -1){
          commodities.push(fruitVariety);
       }
+
     }
 
     $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
@@ -87,7 +84,7 @@ $( document ).ready(function() {
     packhouse2_Name = packhouses[1];
     packhouse3_Name = packhouses[2];
 
-// put in function
+    // put in function
     $(".btn-packhouse1:first-child").text(packhouse1_Name);
     $(".btn-packhouse1:first-child").val(packhouse1_Name);
 
@@ -123,6 +120,8 @@ $( document ).ready(function() {
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
 
+        console.log(selectedClass, visionGrade, selectedFruitVariety, fruitVariety);
+
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
       if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
 
@@ -142,6 +141,8 @@ $( document ).ready(function() {
               currTally[j] = currTally[j] + 1;
             }
           }
+          console.log("in the loop" + packhouse1_Data, packhouse2_Data, packhouse3_Data);
+
         }
       }
     }
