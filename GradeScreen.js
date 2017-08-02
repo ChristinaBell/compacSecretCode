@@ -22,7 +22,7 @@ $( document ).ready(function() {
 
   var classes = [];
   var packhouses = [];
-  var commodities = [];
+  var commodities = ["yooooo"];
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
