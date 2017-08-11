@@ -1,5 +1,6 @@
 $( document ).ready(function() {
 
+
     // Define logging filers
     var ERRORTYPE = {
         "ERROR":  "ERROR",
@@ -12,12 +13,57 @@ $( document ).ready(function() {
         "NEXUS": "NEXUS"
     }
 
-
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: 'ap-southeast-2:4d0f8a86-6998-44d5-b05b-953269d29426',
     });
+    setupPage();
+
+
+    function setupPage(){
+        var pullParams = {
+            FunctionName : 'dynamodb-write',
+            InvocationType : 'RequestResponse',
+            LogType : 'None'
+          };
+
+        var lambda = new AWS.Lambda({region: 'ap-southeast-2', apiVersion: '2015-03-31'});
+        lambda.invoke(pullParams, function(error, data) {
+            if (error) {
+              prompt(error);
+            } else {
+              currentData = JSON.parse(data.Payload);
+              getPackhouses();
+            }
+          });
+     }
+
+    function getPackhouses(){
+         var packhouses = [];
+         for (var i = 0; i < currentData.Items.length; i++) {
+           var currentItem = currentData.Items[i];
+           var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+           if (packhouses.indexOf(packhouse) == -1){
+              packhouses.push(packhouse);
+           }
+         }
+         console.log(packhouses);
+    }
+
+    function updatePackhouseList(packhouses){
+        var packhouse1Filter = document.getElementById("packhouse1Filter");
+      for (var iP1 = 0; iP1 < packhouses.length; iP1++){
+          var currentPackhouse = packhouses[iP1];
+          var li = document.createElement("li");
+          var link = document.createElement("a");
+          var text = document.createTextNode(currentPackhouse);
+          link.appendChild(text);
+          link.href = "#";
+          li.appendChild(link);
+          packhouse1Filter.appendChild(li);
+      }
+    }
 
     //Call function to update the table with selected filters
     var filters = {
@@ -35,11 +81,11 @@ $( document ).ready(function() {
 
         // create JSON object for parameters for invoking Lambda function
         var pullParams = {
-          FunctionName : 'getLogsFiltered',
-          InvocationType : 'RequestResponse',
-          Payload: JSON.stringify(filters),
-          LogType : 'None'
-        };
+                  FunctionName : 'getLogsFiltered',
+                  InvocationType : 'RequestResponse',
+                  Payload: JSON.stringify(filters),
+                  LogType : 'None'
+                };
 
         // Create variable to hold data returned by the Lambda function
         var pullResults;
