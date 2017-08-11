@@ -63,8 +63,25 @@
 
     </div>
 
-    <div id="dashboard-graph">
-`           <canvas class="dashboard-chart"></canvas>
+    <div id="dashboard-graph-container" class="flex-container">
+        <div class="dashboard-column flex-item" id="dashboard-col-1">
+            <div id="fruit-per-minute-graph">
+                <canvas id="fruit-per-minute-canvas"></canvas>
+            </div>
+            <div id="recycled-fruit-per-minute-graph">
+                <canvas id="recycled-fruit-per-minute-canvas"></canvas>
+            </div>
+        </div>
+        <div class="dashboard-column flex-item" id="dashboard-col-2">
+            <div id="uptime-hours-graph">
+                <canvas id="uptime-hours-canvas"></canvas>
+            </div>
+            <div id="alarm-numbers-graph">
+                <canvas id="alarm-numbers-canvas"></canvas>
+            </div>
+        </div>
+
+`
     </div>
 
 </div>

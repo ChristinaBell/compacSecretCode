@@ -102,10 +102,15 @@ $( document ).ready(function() {
             }
 
             var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
+
+
+
             var popup = L.popup()
                 .setLatLng([packhouse.Latitude, packhouse.Longitude])
                 .setContent(list)
                 .openOn(mymap);
+
+
 
             oms.addMarker(marker);
             oms.addListener('click', function(marker) {

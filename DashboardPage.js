@@ -11,7 +11,10 @@ $( document ).ready(function() {
         console.log(titleString);
 
         $('#dashboard-title').text(titleString);
-        drawGraph();
+        drawGraphFPM();
+        drawGraphRFPM();
+        drawGraphUptime();
+        drawGraphAlarms();
     }
 
     function getParameterByName(name, url) {
@@ -24,32 +27,101 @@ $( document ).ready(function() {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-    function drawGraph(){
-        // Bar chart
-        new Chart($(".dashboard-chart"), {
-            type: 'bar',
+    function drawGraphFPM(){
+        var ctx = $("#fruit-per-minute-canvas");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
             data: {
-              labels: ["Export", "Class1", "Class2", "Cull", "Juice"],
               datasets: [
                 {
-                  label: "Accuracy",
-                  backgroundColor: ["#1CA0FF", "#44535B","#78B543","#F47B20","#C7C8CA"],
-                  data: [2478,5267,734,784,433]
+                  label: "FPM",
+                  borderColor: "#1CA0FF",
+                  backgroundColor: "#1CA0FF",
+                  data: [2478,5267,734,784,433],
+                  fill: false
                 }
               ]
             },
             options: {
-              legend: { display: false },
               title: {
-                display: false,
-                text: 'Accuracy breakdown per quality grade category',
-                fontSize: 30,
+                display: true,
+                text: 'Fruit per minute',
               }
             }
         });
-
-
     }
+
+     function drawGraphRFPM(){
+        var ctx = $("#recycled-fruit-per-minute-canvas");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              datasets: [
+                {
+                  label: "FPM",
+                  borderColor: "#1CA0FF",
+                  backgroundColor: "#1CA0FF",
+                  data: [2478,5267,734,784,433],
+                  fill: false
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Recycled fruit per minute',
+              }
+            }
+        });
+    }
+
+    function drawGraphUptime(){
+            var ctx = $("#uptime-hours-canvas");
+            var myLineChart = new Chart(ctx, {
+                 type: 'bar',
+                 data: {
+                   labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                   datasets: [
+                     {
+                       label: "Accuracy",
+                       backgroundColor: ["#1CA0FF", "#44535B","#78B543","#F47B20","#C7C8CA"],
+                       data: [2478,5267,734,784,433]
+                     }
+                   ]
+                 },
+                 options: {
+                   legend: { display: false },
+                   title: {
+                     display: true,
+                     text: 'Uptime hours',
+                   }
+                 }
+             });
+        }
+
+    function drawGraphAlarms(){
+            var ctx = $("#alarm-numbers-canvas");
+            var myLineChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                   labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    datasets: [
+                      {
+                        label: "alarms",
+                        backgroundColor: ["#1CA0FF", "#44535B","#78B543","#F47B20","#C7C8CA"],
+                        data: [10,16,12,17,20]
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                    title: {
+                      display: true,
+                      text: 'Number of alarms',
+                    }
+                  }
+              });
+        }
 
 
 

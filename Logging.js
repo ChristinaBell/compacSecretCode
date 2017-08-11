@@ -5,13 +5,12 @@ $( document ).ready(function() {
         "ERROR":  "ERROR",
         "WARNING": "WARNING"
     }
-    var MACHINE = {
+    var SOFTWARE = {
         "VISION": "VISION",
         "SIZER": "SIZER",
         "EXODUS": "EXODUS",
         "NEXUS": "NEXUS"
     }
-
 
 
     // AWS Lambda call
@@ -23,7 +22,7 @@ $( document ).ready(function() {
     //Call function to update the table with selected filters
     var filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
-        "MachineType": ["SIZER"],
+        "SoftwareType": ["SIZER"],
         "StartDate": $('#startDate').val(),
         "EndDate": $('#endDate').val()
     };
@@ -68,7 +67,7 @@ $( document ).ready(function() {
                     Date: obj["Date"],
                     Customer: obj["Customer"],
                     Packhouse: obj["Packhouse"],
-                    Machine: obj["Machine"],
+                    Software: obj["Machine"],
                     Error: obj["LogType"],
                     Message: obj["LogMessage"]
                 };
@@ -79,7 +78,7 @@ $( document ).ready(function() {
 
     $('#update_logs').click(function() {
         var errorTypes = [];
-        var machineTypes = [];
+        var softwareTypes = [];
 
         // check the selected error types for the filter
         if ($('#errorCheckbox').is(":checked")){
@@ -91,21 +90,21 @@ $( document ).ready(function() {
 
         // Check the selected machine types for the filter
         if ($('#visionCheckBox').is(":checked")){
-            machineTypes.push(MACHINE.VISION);
+            softwareTypes.push(SOFTWARE.VISION);
         }
         if ($('#sizerCheckbox').is(":checked")){
-            machineTypes.push(MACHINE.SIZER);
+            softwareTypes.push(SOFTWARE.SIZER);
         }
         if ($('#exodusCheckbox').is(":checked")){
-            machineTypes.push(MACHINE.EXODUS);
+            softwareTypes.push(SOFTWARE.EXODUS);
         }
         if ($('#nexusCheckbox').is(":checked")){
-            machineTypes.push(MACHINE.NEXUS);
+            softwareTypes.push(SOFTWARE.NEXUS);
         }
 
 //        console.log(errorTypes);
         filters.ErrorType = errorTypes;
-        filters.MachineType = machineTypes;
+        filters.softwareTypes = softwareTypes;
         filters.StartDate = $('#startDate').val();
         filters.EndDate = $('#endDate').val();
         updateTable(filters);

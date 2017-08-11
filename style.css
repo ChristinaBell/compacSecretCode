@@ -149,3 +149,38 @@ th {
 .popup-content {
     cursor: pointer ;
 }
+
+.dashboard-column{
+    width: 50%;
+    height: 100%
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    text-align: center;
+}
+
+.flex-container > * {
+    padding: 15px;
+    -webkit-flex: 1 100%;
+    flex: 1 100%;
+}
+
+.flex-item {
+    margin: 20px;
+}
+
+@media all and (min-width: 768px) {
+    #dashboard-col-1 {-webkit-flex:5 0px;flex:5 0px;-webkit-order:1;order:1;}
+    #dashboard-col-2 {-webkit-flex:5 0px;flex:5 0px;-webkit-order:2;order:2;}
+    footer {-webkit-order:3;order:3;}
+}
+
+#fruit-per-minute-canvas {
+    width: 100px;
+}
+
+
