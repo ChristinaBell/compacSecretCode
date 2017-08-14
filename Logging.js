@@ -48,20 +48,19 @@ $( document ).ready(function() {
               packhouses.push(packhouse);
            }
          }
-         console.log(packhouses);
+         updatePackhouseList(packhouses);
     }
 
     function updatePackhouseList(packhouses){
-        var packhouse1Filter = document.getElementById("packhouse1Filter");
-      for (var iP1 = 0; iP1 < packhouses.length; iP1++){
-          var currentPackhouse = packhouses[iP1];
-          var li = document.createElement("li");
-          var link = document.createElement("a");
-          var text = document.createTextNode(currentPackhouse);
-          link.appendChild(text);
-          link.href = "#";
-          li.appendChild(link);
-          packhouse1Filter.appendChild(li);
+        var customerchecklist = $("#customer-check-list");
+
+        var html = "<label>Customer:</label>";
+          for (var i = 0; i < packhouses.length; i++){
+              var currentPackhouse = packhouses[i];
+
+              html = html + "<div class='checkbox'><label><input checked type='checkbox' name='Customer' value='EastPack'>"  + currentPackhouse + " </label> </div>"
+
+              customerchecklist.html(html);
       }
     }
 
