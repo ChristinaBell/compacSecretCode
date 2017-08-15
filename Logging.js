@@ -23,10 +23,10 @@ $( document ).ready(function() {
 
     function setupPage(){
         var pullParams = {
-            FunctionName : 'dynamodb-write',
-            InvocationType : 'RequestResponse',
-            LogType : 'None'
-          };
+              FunctionName : 'readPackhouseLocations',
+              InvocationType : 'RequestResponse',
+              LogType : 'None'
+            };
 
         var lambda = new AWS.Lambda({region: 'ap-southeast-2', apiVersion: '2015-03-31'});
         lambda.invoke(pullParams, function(error, data) {
@@ -34,35 +34,68 @@ $( document ).ready(function() {
               prompt(error);
             } else {
               currentData = JSON.parse(data.Payload);
-              getPackhouses();
+              getCustomers(currentData.Items);
+              getPackhouses(currentData.Items);
             }
           });
      }
 
-    function getPackhouses(){
+    function getCustomers(currentData){
          var packhouses = [];
-         for (var i = 0; i < currentData.Items.length; i++) {
-           var currentItem = currentData.Items[i];
-           var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+         for (item in currentData){
+           packhouse = currentData[item];
+
            if (packhouses.indexOf(packhouse) == -1){
-              packhouses.push(packhouse);
+              packhouses.push(packhouse.Customer);
            }
          }
-         updatePackhouseList(packhouses);
+         updateCustomerList(packhouses);
     }
 
-    function updatePackhouseList(packhouses){
+    function updateCustomerList(packhouses){
         var customerchecklist = $("#customer-check-list");
 
         var html = "<label>Customer:</label>";
           for (var i = 0; i < packhouses.length; i++){
               var currentPackhouse = packhouses[i];
-
-              html = html + "<div class='checkbox'><label><input checked type='checkbox' name='Customer' value='EastPack'>"  + currentPackhouse + " </label> </div>"
-
+              html = html + "<div class='checkbox'><label><input checked class='customer_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + " '>"  + currentPackhouse + " </label> </div>"
               customerchecklist.html(html);
       }
     }
+
+    function getPackhouses(){
+            checkedPackhouses = $('.customer_checkbox:checkbox:checked');
+
+             var customers = [];
+             var packhouses = [];
+
+             for (var i = 0; i < checkedPackhouses.length; i++){
+                 customers.push(checkedPackhouses[i].value);
+             }
+             customers = $.map(customers, $.trim);
+
+             for (item in currentData.Items){
+
+               packhouse = currentData.Items[item];
+
+               if ($.inArray(packhouse.Customer, customers) > -1 ){
+
+                  packhouses.push(packhouse.Packhouse);
+               }
+             }
+             updatePackhouseList(packhouses);
+        }
+
+        function updatePackhouseList(packhouses){
+            var packhousechecklist = $("#packhouse-check-list");
+            var html = "<label>Packhouses:</label>";
+              for (var i = 0; i < packhouses.length; i++){
+                  var currentPackhouse = packhouses[i];
+
+                  html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='EastPack'>"  + currentPackhouse + " </label> </div>"
+                  packhousechecklist.html(html);
+          }
+        }
 
     //Call function to update the table with selected filters
     var filters = {
@@ -122,6 +155,7 @@ $( document ).ready(function() {
     }
 
     $('#update_logs').click(function() {
+        getPackhouses();
         var errorTypes = [];
         var softwareTypes = [];
 
