@@ -88,6 +88,8 @@ $( document ).ready(function() {
 
   function setUp(){
     selectedFruitVariety = commodities[0];
+    $(".title-row h2").html("Defects in " + selectedFruitVariety);
+
 
     packhouse1_Name = packhouses[0];
     packhouse2_Name = packhouses[1];
@@ -308,6 +310,7 @@ $( document ).ready(function() {
   $("#gradeCommodity").on('click', 'li a', function(){
     $(".btn-commodity-filter:first-child").text($(this).text());
     $(".btn-commodity-filter:first-child").val($(this).text());
+    $(".title-row h2").html("Defects in " + $(this).text());
     selectedFruitVariety = $(this).text();
     sortData();
   });
