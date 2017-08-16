@@ -22,12 +22,14 @@ $( document ).ready(function() {
   var classes = [];
   var packhouses = [];
   var commodities = [];
+
   var packhouse1_Data;
   var packhouse2_Data;
   var packhouse3_Data;
   var packhouse1_Name;
   var packhouse2_Name;
   var packhouse3_Name;
+
   var selectedClass;
   var selectedFruitVariety;
   var currentData;

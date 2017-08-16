@@ -71,16 +71,15 @@ $( document ).ready(function() {
     for (var i = 0; i < currentData.Items.length; i++) {
       var currentItem = currentData.Items[i];
 
-      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+      var currentfruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
 
-      if (fruitVariety == currentCommodity) {
+      if (currentfruitVariety == selectedFruitVariety) {
 
         var currentDefects = currentItem.payload.Data.Defects;
-        if (currentDefects.length != 0) {
-          for (var i = 0; i < currentDefects.length; i++) {
-            if (defects.indexOf(currentDefects[i]) == -1){
-              defects.push(currentDefects[i]);
-            }
+
+        for (var j = 0; j < currentDefects.length; j++) {
+          if (defects.indexOf(currentDefects[j]) == -1){
+            defects.push(currentDefects[j]);
           }
         }
       }
@@ -108,8 +107,9 @@ $( document ).ready(function() {
     $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
   }
 
-
   function sortData(){
+    setUpDefects();
+
     //initialise the packhouse data arrays
     packhouse1_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
     packhouse2_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
@@ -120,7 +120,7 @@ $( document ).ready(function() {
 
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
-      var defect = currentItem.payload.Data.PackRun.Defects;
+      var defect = currentItem.payload.Data.Defects[0];
       var time = currentItem.payload.Data.PackRun.StartTime;
 
 
@@ -136,7 +136,7 @@ $( document ).ready(function() {
           currTally = null;
         }
 
-        if (currTally != null) {
+        if ((currTally != null) && (defects.length != 0)) {
           for (var j = 0; j < defects.length; j++) {
             if(defects[j] == defect){
               currTally[j] = currTally[j] + 1;
