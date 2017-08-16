@@ -160,6 +160,11 @@ $(document).ready(function() {
         }
     }
 
+    // Refresh packhouse dropdowns based on which customers are selected. 
+    $('#customer-check-list').click(function() {
+        getPackhouses();
+    });
+
     $('#update_logs').click(function() {
         getPackhouses();
         var errorTypes = [];
