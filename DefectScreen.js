@@ -45,7 +45,7 @@ $( document ).ready(function() {
       currentData = JSON.parse(data.Payload);
       getPackhouses_getClasses();
       setUp();
-      fillinDropdowns()
+      fillinDropdowns();
       // reload the graph with results from the dynamoDB lambda function call
       sortData();
     }
@@ -63,6 +63,26 @@ $( document ).ready(function() {
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       if (commodities.indexOf(fruitVariety) == -1){
          commodities.push(fruitVariety);
+      }
+    }
+  }
+
+  function setUpDefects() {
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currentItem = currentData.Items[i];
+
+      var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+
+      if (fruitVariety == currentCommodity) {
+
+        var currentDefects = currentItem.payload.Data.Defects;
+        if (currentDefects.length != 0) {
+          for (var i = 0; i < currentDefects.length; i++) {
+            if (defects.indexOf(currentDefects[i]) == -1){
+              defects.push(currentDefects[i]);
+            }
+          }
+        }
       }
     }
   }
@@ -100,8 +120,8 @@ $( document ).ready(function() {
 
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
-      var defect = currentItem.payload.Data.PackRun.Defects; // CHANGE THIS TO FRUIT DEFECT
-      console.log(defects);
+      var defect = currentItem.payload.Data.PackRun.Defects;
+      var time = currentItem.payload.Data.PackRun.StartTime;
 
 
       if (selectedFruitVariety == fruitVariety){

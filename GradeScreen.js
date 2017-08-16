@@ -29,7 +29,7 @@ $( document ).ready(function() {
   var packhouse2_Name;
   var packhouse3_Name;
   var selectedClass;
-  var selectedFruitVariety = "Kiwi Green";
+  var selectedFruitVariety;
   var currentData;
 
   var isPercentageData = true;
