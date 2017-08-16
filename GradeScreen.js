@@ -82,7 +82,7 @@ $( document ).ready(function() {
   }
 
   function setUp(){
-      $(".title-row h2").html("What the fruit were at the " + classes[0] + " outlets.");
+      $(".title-row h2").html("What the " + commodities[0] + " were at the " + classes[0] + " outlets.");
       selectedClass = classes[0];
       selectedFruitVariety = commodities[0];
 
@@ -311,7 +311,7 @@ $( document ).ready(function() {
    $("#classFilter").on('click', 'li a', function(){
      $(".btn-class-select:first-child").text($(this).text());
      $(".btn-class-select:first-child").val($(this).text());
-     $(".title-row h2").html("What the fruit were at the " + $(this).text() + " outlets.");
+     $(".title-row h2").html("What the " +  selectedFruitVariety + " were at the " + $(this).text() + " outlets.");
      selectedClass = $(this).text();
      sortData();
    });
@@ -340,6 +340,7 @@ $( document ).ready(function() {
    $("#gradeCommodity").on('click', 'li a', function(){
      $(".btn-commodity-filter:first-child").text($(this).text());
      $(".btn-commodity-filter:first-child").val($(this).text());
+     $(".title-row h2").html("What the " +  $(this).text() + " were at the " + selectedClass + " outlets.");
      selectedFruitVariety = $(this).text();
      sortData();
    });
