@@ -45,7 +45,7 @@ $( document ).ready(function() {
          for (item in currentData){
            packhouse = currentData[item];
 
-           if (packhouses.indexOf(packhouse) == -1){
+           if (packhouses.indexOf(packhouse.Customer) == -1){
               packhouses.push(packhouse.Customer);
            }
          }
