@@ -174,9 +174,9 @@ $( document ).ready(function() {
   $('#percentageToggle').change(function(){
     isPercentageData = !isPercentageData;
     if (isPercentageData) {
-      yAxisLabel = "Percentage of Fruit of each grade";
+      yAxisLabel = "Percentage of Fruit with Defect";
     } else {
-      yAxisLabel = "Tally of Fruit of each grade";
+      yAxisLabel = "Tally of Fruit with each Defect";
     }
     sortData();
   });
@@ -228,6 +228,16 @@ $( document ).ready(function() {
               xAxes : [ {
                   gridLines : {
                       display : false
+                  },
+                  scaleLabel : {
+                      display : true,
+                      labelString : 'The types of defect for the fruit'
+                  }
+              } ],
+              yAxes : [ {
+                  scaleLabel : {
+                      display : true,
+                      labelString : yAxisLabel
                   }
               } ]
           }
