@@ -68,6 +68,8 @@ $( document ).ready(function() {
   }
 
   function setUpDefects() {
+    defects = [];
+
     for (var i = 0; i < currentData.Items.length; i++) {
       var currentItem = currentData.Items[i];
 
