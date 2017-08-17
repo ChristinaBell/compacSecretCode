@@ -13,6 +13,7 @@ $(document).ready(function() {
         "NEXUS": "NEXUS"
     }
 
+
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -20,7 +21,7 @@ $(document).ready(function() {
     });
     setupPage();
 
-
+    // -----------------------------------  Set up filters dyanically --------------------------------------------------
     function setupPage() {
         var pullParams = {
             FunctionName: 'readPackhouseLocations',
@@ -78,11 +79,8 @@ $(document).ready(function() {
         customers = $.map(customers, $.trim);
 
         for (item in currentData.Items) {
-
             packhouse = currentData.Items[item];
-
             if ($.inArray(packhouse.Customer, customers) > -1) {
-
                 packhouses.push(packhouse.Packhouse);
             }
         }
@@ -95,27 +93,37 @@ $(document).ready(function() {
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
 
-            html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='EastPack'>" + currentPackhouse + " </label> </div>"
+            html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + "'>" + currentPackhouse + " </label> </div>"
             packhousechecklist.html(html);
         }
     }
 
-    //Call function to update the table with selected filters
+    // -----------------------------------------------------------------------------------------------------------------
+
+
+    // -----------------------------------  Fill the log for the first time --------------------------------------------
     var filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
         "SoftwareType": ["SIZER"],
         "StartDate": $('#startDate').val(),
-        "EndDate": $('#endDate').val()
+        "EndDate": $('#endDate').val(),
+        "Customers" : [],
+        "Packhouses": []
     };
+    getSelectedCustomersAndPackhouses();
     updateTable(filters);
 
+    //  ----------------------------------------------------------------------------------------------------------------
+
+
+    // Call function to update the table with selected filters - uses lambda to retrieve from the AWS database
     function updateTable(filters) {
         // Create Lambda object
-
         var lambda = new AWS.Lambda({
             region: 'ap-southeast-2',
             apiVersion: '2015-03-31'
         });
+//        console.log(filters);
 
         // create JSON object for parameters for invoking Lambda function
         var pullParams = {
@@ -133,15 +141,15 @@ $(document).ready(function() {
                 prompt(error);
             } else {
                 pullResults = JSON.parse(data.Payload);
-                //            console.log(pullResults);
                 // Reload table with results from S3 lambda function call
                 reloadTable(pullResults);
             }
         });
     }
 
-    // Function to reload logging table with data from S3
+    // Function to redraw the logging table with data from S3 buckets
     function reloadTable(data) {
+//        console.log(data);
         $('#logging-table').bootstrapTable("removeAll");
         if (Object.keys(data).length > 0) {
             for (item in data) {
@@ -169,6 +177,8 @@ $(document).ready(function() {
         getPackhouses();
         var errorTypes = [];
         var softwareTypes = [];
+        var customersChecked = [];
+        var packhousesChecked = [];
 
         // check the selected error types for the filter
         if ($('#errorCheckbox').is(":checked")) {
@@ -192,13 +202,54 @@ $(document).ready(function() {
             softwareTypes.push(SOFTWARE.NEXUS);
         }
 
-        //        console.log(errorTypes);
+//        customerCheckboxes = $('.customer_checkbox:checkbox:checked');
+//        for (var i = 0; i < customerCheckboxes.length; i++) {
+//            customersChecked.push(customerCheckboxes[i].value);
+//        }
+//        customersChecked = $.map(customersChecked, $.trim);
+//
+//        packhouseCheckboxes = $('.packhouse_checkbox:checkbox:checked');
+//        for (var i = 0; i < packhouseCheckboxes.length; i++) {
+//            packhousesChecked.push(packhouseCheckboxes[i].value);
+//        }
+//        packhousesChecked = $.map(packhousesChecked, $.trim);
+
+        getSelectedCustomersAndPackhouses();
+
         filters.ErrorType = errorTypes;
         filters.softwareTypes = softwareTypes;
         filters.StartDate = $('#startDate').val();
         filters.EndDate = $('#endDate').val();
+        filters.Customers = customersChecked;
+        filters.Packhouses = packhousesChecked;
+
+//        console.log(filters);
         updateTable(filters);
     });
+
+    function getSelectedCustomersAndPackhouses(){
+        var customersChecked = [];
+        var packhousesChecked = [];
+
+        customerCheckboxes = $('.customer_checkbox:checkbox:checked');
+        for (var i = 0; i < customerCheckboxes.length; i++) {
+            customersChecked.push(customerCheckboxes[i].value);
+        }
+        console.log(customersChecked);
+        customersChecked = $.map(customersChecked, $.trim);
+        customersChecked = $.map(customersChecked, $.toUpperCase);
+
+        packhouseCheckboxes = $('.packhouse_checkbox:checkbox:checked');
+        for (var i = 0; i < packhouseCheckboxes.length; i++) {
+            packhousesChecked.push(packhouseCheckboxes[i].value);
+        }
+        packhousesChecked = $.map(packhousesChecked, $.trim);
+        packhousesChecked = $.map(packhousesChecked, $.toUpperCase);
+
+        filters.Customers = customersChecked;
+        filters.Packhouses = packhousesChecked;
+
+    }
 
 
 
