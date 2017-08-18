@@ -14,6 +14,11 @@ p, h2, h1, h3, h4, h5 {
   color: rgba(68, 83, 91, 1);
 }
 
+.home_nav img {
+  padding: 11px;
+  margin-right: 21px;
+}
+
 
 #home-page-container{
     margin-left: 23%;

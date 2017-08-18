@@ -45,7 +45,7 @@ $( document ).ready(function() {
       currentData = JSON.parse(data.Payload);
       getPackhouses_getClasses();
       setUp();
-      fillinDropdowns()
+      fillinDropdowns();
       // reload the graph with results from the dynamoDB lambda function call
       sortData();
     }
@@ -67,8 +67,31 @@ $( document ).ready(function() {
     }
   }
 
+  function setUpDefects() {
+    defects = [];
+
+    for (var i = 0; i < currentData.Items.length; i++) {
+      var currentItem = currentData.Items[i];
+
+      var currentfruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
+
+      if (currentfruitVariety == selectedFruitVariety) {
+
+        var currentDefects = currentItem.payload.Data.Defects;
+
+        for (var j = 0; j < currentDefects.length; j++) {
+          if (defects.indexOf(currentDefects[j]) == -1){
+            defects.push(currentDefects[j]);
+          }
+        }
+      }
+    }
+  }
+
   function setUp(){
     selectedFruitVariety = commodities[0];
+    $(".title-row h2").html("Defects in " + selectedFruitVariety);
+
 
     packhouse1_Name = packhouses[0];
     packhouse2_Name = packhouses[1];
@@ -88,8 +111,9 @@ $( document ).ready(function() {
     $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
   }
 
-
   function sortData(){
+    setUpDefects();
+
     //initialise the packhouse data arrays
     packhouse1_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
     packhouse2_Data = new Array(defects.length+1).join('0').split('').map(parseFloat);
@@ -100,8 +124,8 @@ $( document ).ready(function() {
 
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
-      var defect = currentItem.payload.Data.PackRun.Defects; // CHANGE THIS TO FRUIT DEFECT
-      console.log(defects);
+      var defect = currentItem.payload.Data.Defects[0];
+      var time = currentItem.payload.Data.PackRun.StartTime;
 
 
       if (selectedFruitVariety == fruitVariety){
@@ -116,7 +140,7 @@ $( document ).ready(function() {
           currTally = null;
         }
 
-        if (currTally != null) {
+        if ((currTally != null) && (defects.length != 0)) {
           for (var j = 0; j < defects.length; j++) {
             if(defects[j] == defect){
               currTally[j] = currTally[j] + 1;
@@ -152,9 +176,9 @@ $( document ).ready(function() {
   $('#percentageToggle').change(function(){
     isPercentageData = !isPercentageData;
     if (isPercentageData) {
-      yAxisLabel = "Percentage of Fruit of each grade";
+      yAxisLabel = "Percentage of Fruit with Defect";
     } else {
-      yAxisLabel = "Tally of Fruit of each grade";
+      yAxisLabel = "Tally of Fruit with each Defect";
     }
     sortData();
   });
@@ -206,6 +230,16 @@ $( document ).ready(function() {
               xAxes : [ {
                   gridLines : {
                       display : false
+                  },
+                  scaleLabel : {
+                      display : true,
+                      labelString : 'The types of defect for the fruit'
+                  }
+              } ],
+              yAxes : [ {
+                  scaleLabel : {
+                      display : true,
+                      labelString : yAxisLabel
                   }
               } ]
           }
@@ -288,6 +322,7 @@ $( document ).ready(function() {
   $("#gradeCommodity").on('click', 'li a', function(){
     $(".btn-commodity-filter:first-child").text($(this).text());
     $(".btn-commodity-filter:first-child").val($(this).text());
+    $(".title-row h2").html("Defects in " + $(this).text());
     selectedFruitVariety = $(this).text();
     sortData();
   });
