@@ -13,6 +13,21 @@ $(document).ready(function() {
         "NEXUS": "NEXUS"
     }
 
+    // -----------------------------------  Fill the log for the first time --------------------------------------------
+    filters = {
+        "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
+        "SoftwareType": ["SIZER"],
+        "StartDate": $('#startDate').val(),
+        "EndDate": $('#endDate').val(),
+        "Customers" : [],
+        "Packhouses": []
+    };
+
+
+    //  ----------------------------------------------------------------------------------------------------------------
+
+
+
 
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
@@ -97,24 +112,13 @@ $(document).ready(function() {
             packhousechecklist.html(html);
         }
         console.log("wsexrdctfvgyhbjnk");
+
+        getSelectedCustomersAndPackhouses();
+        updateTable(filters);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-
-    // -----------------------------------  Fill the log for the first time --------------------------------------------
-    filters = {
-        "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
-        "SoftwareType": ["SIZER"],
-        "StartDate": $('#startDate').val(),
-        "EndDate": $('#endDate').val(),
-        "Customers" : [],
-        "Packhouses": []
-    };
-    getSelectedCustomersAndPackhouses();
-    updateTable(filters);
-
-    //  ----------------------------------------------------------------------------------------------------------------
 
 
     // Call function to update the table with selected filters - uses lambda to retrieve from the AWS database
