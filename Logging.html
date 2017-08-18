@@ -62,6 +62,13 @@
         </div>
         <div id="collapse1" class="panel-collapse collapse">
             <div class="panel-body">
+                <div id="customer-check-list" class="col-md-15 col-xs-3">
+                    <label>Customer:</label>
+                </div>
+                <div id="packhouse-check-list" class="col-md-15 col-xs-3">
+                    <label>Packhouse:</label>
+                </div>
+
                 <div class="col-md-15 col-xs-3">
                     <label>Error Type:</label>
                     <div class="checkbox">
@@ -71,9 +78,8 @@
                         <label><input checked id="warningCheckbox" type="checkbox" name="ErrorType" value="Warning"> Warning</label>
                     </div>
                     <br>
-                </div>
-                <div class="col-md-15 col-xs-3">
-                    <label>Machine</label>
+
+                    <label>Software</label>
                     <div class="checkbox">
                         <label><input checked id="visionCheckBox" type="checkbox" name="Vision" value="Vision"> Vision </label>
                     </div>
@@ -87,19 +93,8 @@
                         <label><input checked id="nexusCheckbox" type="checkbox" name="Nexus" value="Nexus"> Nexus</label>
                     </div>
 
-                    <br>
                 </div>
-                <!--<div class="col-md-15 col-xs-3">-->
-                    <!--&lt;!&ndash;TO DO: this needs to be done programmatically&ndash;&gt;-->
-                    <!--<label>Customer:</label>-->
-                    <!--<div class="checkbox">-->
-                        <!--<label><input checked type="checkbox" name="Customer" value="EastPack"> EastPack </label>-->
-                    <!--</div>-->
-                    <!--<div class="checkbox">-->
-                        <!--<label><input checked type="checkbox" name="Customer" value="TitanFarms"> Titan Farms</label>-->
-                    <!--</div>-->
-                    <!--<br>-->
-                <!--</div>-->
+
                 <div class="col-md-15 col-xs-3" id="date-range-div">
                     <label>Date Range:</label>
                     <div id="log-date-range-filter" class="input-group input-daterange">
@@ -111,6 +106,7 @@
                 </div>
 
                 <div class="col-md-15 col-xs-3" id="update-btn-div">
+                    <br>
                     <label>Update Results</label>
                     <div>
                         <button id="update_logs" class="btn btn-primary">Update</button>
@@ -135,7 +131,7 @@
                 <th data-field="Date">Date</th>
                 <th data-field="Customer">Customer</th>
                 <th data-field="Packhouse">Packhouse</th>
-                <th data-field="Machine">Machine</th>
+                <th data-field="Software">Software</th>
                 <th data-field="Error">Error</th>
                 <th data-field="Message">Message</th>
             </tr>
