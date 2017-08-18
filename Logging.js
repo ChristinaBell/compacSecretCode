@@ -96,13 +96,14 @@ $(document).ready(function() {
             html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + "'>" + currentPackhouse + " </label> </div>"
             packhousechecklist.html(html);
         }
+        console.log("wsexrdctfvgyhbjnk");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
 
     // -----------------------------------  Fill the log for the first time --------------------------------------------
-    var filters = {
+    filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
         "SoftwareType": ["SIZER"],
         "StartDate": $('#startDate').val(),
@@ -149,7 +150,6 @@ $(document).ready(function() {
 
     // Function to redraw the logging table with data from S3 buckets
     function reloadTable(data) {
-//        console.log(data);
         $('#logging-table').bootstrapTable("removeAll");
         if (Object.keys(data).length > 0) {
             for (item in data) {
@@ -173,8 +173,8 @@ $(document).ready(function() {
         getPackhouses();
     });
 
+    // Function to update the log
     $('#update_logs').click(function() {
-        getPackhouses();
         var errorTypes = [];
         var softwareTypes = [];
         var customersChecked = [];
@@ -187,7 +187,6 @@ $(document).ready(function() {
         if ($('#warningCheckbox').is(":checked")) {
             errorTypes.push(ERRORTYPE.WARNING);
         }
-
         // Check the selected machine types for the filter
         if ($('#visionCheckBox').is(":checked")) {
             softwareTypes.push(SOFTWARE.VISION);
@@ -202,28 +201,16 @@ $(document).ready(function() {
             softwareTypes.push(SOFTWARE.NEXUS);
         }
 
-//        customerCheckboxes = $('.customer_checkbox:checkbox:checked');
-//        for (var i = 0; i < customerCheckboxes.length; i++) {
-//            customersChecked.push(customerCheckboxes[i].value);
-//        }
-//        customersChecked = $.map(customersChecked, $.trim);
-//
-//        packhouseCheckboxes = $('.packhouse_checkbox:checkbox:checked');
-//        for (var i = 0; i < packhouseCheckboxes.length; i++) {
-//            packhousesChecked.push(packhouseCheckboxes[i].value);
-//        }
-//        packhousesChecked = $.map(packhousesChecked, $.trim);
-
+        // get the selected packhouse and customer checkboxes
         getSelectedCustomersAndPackhouses();
 
+        // update the filter values
         filters.ErrorType = errorTypes;
         filters.softwareTypes = softwareTypes;
         filters.StartDate = $('#startDate').val();
         filters.EndDate = $('#endDate').val();
-        filters.Customers = customersChecked;
-        filters.Packhouses = packhousesChecked;
 
-//        console.log(filters);
+        // Call the update function to display the relevant logs to the user
         updateTable(filters);
     });
 
@@ -235,22 +222,24 @@ $(document).ready(function() {
         for (var i = 0; i < customerCheckboxes.length; i++) {
             customersChecked.push(customerCheckboxes[i].value);
         }
-        console.log(customersChecked);
         customersChecked = $.map(customersChecked, $.trim);
-        customersChecked = $.map(customersChecked, $.toUpperCase);
+        $.each(customersChecked, function(index, item) {
+            customersChecked[index] = item.toUpperCase();
+        });
 
         packhouseCheckboxes = $('.packhouse_checkbox:checkbox:checked');
         for (var i = 0; i < packhouseCheckboxes.length; i++) {
             packhousesChecked.push(packhouseCheckboxes[i].value);
         }
         packhousesChecked = $.map(packhousesChecked, $.trim);
-        packhousesChecked = $.map(packhousesChecked, $.toUpperCase);
+        $.each(packhousesChecked, function(index, item) {
+            packhousesChecked[index] = item.toUpperCase();
+        });
 
         filters.Customers = customersChecked;
         filters.Packhouses = packhousesChecked;
 
     }
-
 
 
     $('.input-daterange').datepicker({
