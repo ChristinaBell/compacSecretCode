@@ -14,40 +14,91 @@ p, h2, h1, h3, h4, h5 {
   color: rgba(68, 83, 91, 1);
 }
 
+/* logo */
 .home_nav img {
   padding: 11px;
   margin-right: 21px;
 }
 
+#main-row {
+  margin: 0px;
+}
 
-#home-page-container{
-    margin-left: 23%;
-    margin-top: 20px;
-    width: 54%;
-    height: 100%;
+#home-page-container .row  {
+  width: 100%;
+}
+
+.blue-box{
+  display: none;
+}
+.word-part {
+  padding: 0px 20px 20px 20px;
+  margin: auto;
 }
 
 .home-page-menu-button{
     background-color: white;
     border-width: 0px;
-    border-radius: 8px;
+    box-shadow: 10px 5px 23px rgba(68, 83, 91, 0.3);
+    min-height: 150px;
+    width: 100%;
 }
 
 .home-page-menu-button:hover {
-    color: white;
-    border-width: 1px;
-    border-color: #eeeeee;
+  opacity: 0.6;
 }
 
-.img-responsive{
-    border-color: white;
+.navy {
+  background-color: rgba(68, 83, 91, 1);
 }
+.blue {
+  background-color: rgba(28, 160, 255, 0.8);
+}
+.green {
+  background-color: rgba(120, 181, 67, 0.8);
+}
+
+@media (min-width: 770px) {
+  .home-page-menu-button{
+      background-color: white;
+      border-width: 0px;
+      box-shadow: 10px 5px 23px rgba(68, 83, 91, 0.3);
+      min-height: 150px;
+      width: 75%;
+      padding: 0px;
+  }
+
+  .colour-box {
+    display: block;
+    height: 120px;
+    width: 100%;
+  }
+
+  .word-part {
+    padding: 10px 20px 40px 20px;
+  }
+
+  #home-page-container{
+    margin: 0px 30px 0px 30px;
+  }
+  #main-row {
+    margin: 50px 0px 50px 0px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 #map-container{
    height: 680px;
 }
-
-
 
 
 /******************************* GRAPHING STYLING *****************************/
