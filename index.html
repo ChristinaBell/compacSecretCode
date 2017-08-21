@@ -45,25 +45,54 @@
 
 <!---------------------------------------------- Menu Buttons ------------------------------------------------------->
 <div id="home-page-container">
-    <div class="container-fluid bg-12 text-center">
-      <div class="row">
-        <button id="grade_acc_button" class="col-sm-6 home-page-menu-button">
-          <img src="icons/grade.png" class="img-responsive" style="width:100%" alt="Image">
-        </button>
-        <button id="defect_acc_button" class="col-sm-6 home-page-menu-button">
-          <img src="icons/defect.png"  class="img-responsive" style="width:100%" alt="Image">
-        </button>
+    <div class="text-center">
+      <div class="row" id="main-row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <button id="grade_acc_button" class="home-page-menu-button">
+            <div class="colour-box green"></div>
+            <div class="row word-part">
+              <h3>Grade Accuracy Graph</h3>
+              <br>
+              <p>Shows accuracy of graded fruits against different packhouses.</p>
+            </div>
+          </button>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <button id="defect_acc_button" class="home-page-menu-button">
+            <div class="colour-box green"></div>
+            <div class="row word-part">
+              <h3>Fruit Defect Graph</h3>
+              <br>
+              <p>Shows defects of various fruits against different packhouses.</p>
+            </div>
+          </button>
+        </div>
       </div>
-      <br>
-      <div class="row">
-        <button id="map_button" class="col-sm-6 home-page-menu-button">
-          <img src="icons/mapping.png"  class="img-responsive" style="width:100% " alt="Image">
-        </button>
-        <button id="log_button" class="col-sm-6 home-page-menu-button">
-          <img src="icons/logging.png"  class="img-responsive" style="width:100%" alt="Image">
-        </button>
+
+
+
+      <div class="row" id="main-row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <button id="grade_acc_button" class="home-page-menu-button">
+            <div class="colour-box blue"></div>
+            <div class="row word-part">
+              <h3>World Map</h3>
+              <br>
+              <p>Map showing packhouse location and cupfill stats.</p>
+            </div>
+          </button>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <button id="log_button" class="home-page-menu-button">
+            <div class="colour-box navy"></div>
+            <div class="row word-part">
+              <h3>Logging</h3>
+              <br>
+              <p>Logs and errors on lines and machines from different packhouses. </p>
+            </div>
+          </button>
+        </div>
       </div>
-    </div>
 </div>
 
 <!------------------------------------------------------------------------------------------------------------------->
