@@ -101,23 +101,22 @@ $( document ).ready(function() {
                 packhouse.Longitude = packhouse.Longitude + 360;
             }
 
-            var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
+            marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
 
+            marker.bindPopup(list);
 
-
-            var popup = L.popup()
+            popup = L.popup()
                 .setLatLng([packhouse.Latitude, packhouse.Longitude])
                 .setContent(list)
                 .openOn(mymap);
 
-
-
             oms.addMarker(marker);
-            oms.addListener('click', function(marker) {
               popup.setContent(marker.desc);
               popup.setLatLng(marker.getLatLng());
-              mymap.openPopup(popup);
-            });
+//              mymap.openPopup(popup);
+
+            oms.addMarker(marker);
+
         }
         mymap.closePopup();
         mymap.panTo(new L.LatLng(5, 190.7633));
