@@ -224,6 +224,23 @@ p, h2, h1, h3, h4, h5 {
 
 }
 
+#log-filter-collapse-panel{
+    background-color: rgba(68, 83, 91, 0.1);
+    box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
+    padding: 0px;
+    border-width: 0px;
+}
+
+.logging-panel-body{
+    background-color: rgba(68, 83, 91, 0.1);
+}
+
+.logging-panel-body{
+    border-width: 0px !important;
+}
+
+
+
 /* --------- Logging page filters - split into 5 equal columns ----------*/
 
 .col-xs-15,
@@ -268,6 +285,17 @@ p, h2, h1, h3, h4, h5 {
 
 #logging-filter-panel{
     cursor: pointer ;
+    background-color: rgba(68, 83, 91, 0.1);
+    border: none;
+    border-width: 0px;
+}
+
+.logging-filter{
+    border: none;
+}
+
+.log-sub-heading{
+    font-size: 16px;
 }
 
 #logging-drop-down-icon{
@@ -332,5 +360,7 @@ th {
 #fruit-per-minute-canvas {
     width: 100px;
 }
+
+
 
 

@@ -75,7 +75,7 @@ $(document).ready(function() {
     function updateCustomerList(packhouses) {
         var customerchecklist = $("#customer-check-list");
 
-        var html = "<label>Customer:</label>";
+        var html = "<h4 class='log-sub-heading'>Customer:</h4>";
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
             html = html + "<div class='checkbox'><label><input checked class='customer_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + " '>" + currentPackhouse + " </label> </div>"
@@ -105,7 +105,7 @@ $(document).ready(function() {
 
     function updatePackhouseList(packhouses) {
         var packhousechecklist = $("#packhouse-check-list");
-        var html = "<label>Packhouses:</label>";
+        var html = "<h4 class='log-sub-heading'>Packhouses:</h4>";
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
 
