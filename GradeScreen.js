@@ -356,5 +356,33 @@ $( document ).ready(function() {
       format: 'dd-mm-yyyy'
   });
 
+  var initStartDate = document.getElementById("startDate").value;
+  var initEndDate = document.getElementById("endDate").value;
+
+
+
+
+  console.log(endMonth);
+
+  function withinDate(){
+    var startDate = initStartDate.split("-");
+    var endDate = initEndDate.split("-");
+
+    var startDay = parseInt(startDate[0]);
+    var startMonth = parseInt(startDate[1]);
+    var startYear = parseInt(startDate[3]);
+
+    var endDay = parseInt(endDate[0]);
+    var endMonth = parseInt(endDate[1]);
+    var endYear = parseInt(endDate[2]);
+
+    var selectedDate;
+
+  }
+
+
+
+
+
 
 });
