@@ -4,7 +4,6 @@
     <title>Compac Machine Performance </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,6 +14,8 @@
     <script src="Logging.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.77.0.min.js"></script>
     <link rel="icon" href="icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
 
     <!--date picker-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -53,24 +54,24 @@
 </nav>
 <!------------------------------------------------------------------------------------------------------------------->
 
-<div class="panel-group">
-    <div class="panel panel-default">
+<div id="log-filter-collapse-panel" class="panel-group">
+    <div class="logging-filter panel panel-default">
         <div id="logging-filter-panel" data-toggle="collapse" href="#collapse1" class="panel-heading">
-            <h4 id="logging-drop-down-icon" class="panel-title">
-                 Filters  &#9660
+            <h4 id="logging-drop-down-icon" >
+                 Filter Logs  &#9660
             </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div class="logging-panel-body panel-body">
                 <div id="customer-check-list" class="col-md-15 col-xs-3">
-                    <label>Customer:</label>
+                    <h5>Customer:</h5>
                 </div>
                 <div id="packhouse-check-list" class="col-md-15 col-xs-3">
-                    <label>Packhouse:</label>
+                    <h4>Packhouse:</h4>
                 </div>
 
                 <div class="col-md-15 col-xs-3">
-                    <label>Error Type:</label>
+                    <h4 class="log-sub-heading">Error Type:</h4>
                     <div class="checkbox">
                         <label><input checked id="errorCheckbox" type="checkbox" name="ErrorType" value="Error"> Error </label>
                     </div>
@@ -79,7 +80,11 @@
                     </div>
                     <br>
 
-                    <label>Software</label>
+                </div>
+
+                <div class="col-md-15 col-xs-3">
+
+                    <h4 class="log-sub-heading">Software:</h4>
                     <div class="checkbox">
                         <label><input checked id="visionCheckBox" type="checkbox" name="Vision" value="Vision"> Vision </label>
                     </div>
@@ -96,7 +101,7 @@
                 </div>
 
                 <div class="col-md-15 col-xs-3" id="date-range-div">
-                    <label>Date Range:</label>
+                    <h4 class="log-sub-heading">Date Range:</h4>
                     <div id="log-date-range-filter" class="input-group input-daterange">
                         <input id="startDate" type="text" class="form-control" name="date" value="2016-06-20">
                         <div class="input-group-addon">to</div>
@@ -107,22 +112,20 @@
 
                 <div class="col-md-15 col-xs-3" id="update-btn-div">
                     <br>
-                    <label>Update Results</label>
+                    <h4 class="log-sub-heading">Update Results</h4>
                     <div>
                         <button id="update_logs" class="btn btn-primary">Update</button>
                     </div>
+                    <br>
                 </div>
             </div>
-            <div class="panel-footer"></div>
         </div>
     </div>
 </div>
 
 <div id="log-page-content">
     <div id="log-table-container" >
-        <!--<h2>-->
-            <!--<center>Compac Machine Logs</center>-->
-        <!--</h2>-->
+
         <table id="logging-table" class="table table-hover table-bordered" data-toggle="table">
             <thead>
             <br>
