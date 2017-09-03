@@ -39,6 +39,33 @@ $(document).ready(function() {
 
     // -----------------------------------  Set up filters dyanically --------------------------------------------------
     function setupPage() {
+
+        // set the end date of the date picker to be the current date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var end = yyyy+'-'+mm+'-'+dd;
+        $('#endDate').val(end);
+
+        // set the start date of the date picker to be a week ago by default
+        var oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
+        var dd = oneWeekAgo.getDate();
+        var mm = oneWeekAgo.getMonth()+1; //January is 0!
+        var yyyy = oneWeekAgo.getFullYear();
+        var start = yyyy+'-'+mm+'-'+dd;
+        $('#startDate').val(start);
+
+        filters.StartDate = $('#startDate').val();
+        filters.EndDate = $('#endDate').val();
+
+        $('.input-daterange').datepicker({
+            format: 'yyyy-mm-dd'
+        }).on("change", function (e) {
+                dateChangedBoolean = true;
+        });
+
         var pullParams = {
             FunctionName: 'readPackhouseLocations',
             InvocationType: 'RequestResponse',
@@ -129,6 +156,8 @@ $(document).ready(function() {
             apiVersion: '2015-03-31'
         });
 
+        console.log(filters);
+
         // create JSON object for parameters for invoking Lambda function
         var pullParams = {
             FunctionName: 'getLogsFiltered',
@@ -150,6 +179,7 @@ $(document).ready(function() {
 
     // Function to redraw the logging table with data from S3 buckets
     function reloadTable(data) {
+        console.log(data);
         $('#logging-table').bootstrapTable("removeAll");
         if (Object.keys(data).length > 0) {
             for (item in data) {
@@ -264,7 +294,6 @@ $(document).ready(function() {
         filters.Packhouses = packhousesChecked;
 
     }
-
 
     $('.input-daterange').datepicker({
         format: 'yyyy-mm-dd'
