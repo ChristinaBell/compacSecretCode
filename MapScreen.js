@@ -25,6 +25,29 @@ $( document ).ready(function() {
 
     // ----------------------------------------------------------------------------------------------------------------
 
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (mymap) {
+
+        var div = L.DomUtil.create('div', 'info legend info-legend'),
+        grades = ["Optimum", "Moderate", "Stopped"],
+        labels = ["icons/green_pin.png", "icons/orange_pin.png", "icons/red_pin.png"];
+
+        div.innerHTML += '<h4 id="legend-title" >Legend:</h3> '
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    grades[i] + (" <img src="+ labels[i] +" height='30' width='20'>") +'<br>';
+            }
+
+
+
+    return div;
+    };
+
+    legend.addTo(mymap);
+
     // Define the red, green and orange pins for representing the proportion of utilisation
     var greenIcon = L.icon({
                     iconUrl: 'icons/green_pin.png',

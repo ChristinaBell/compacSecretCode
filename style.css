@@ -362,5 +362,20 @@ th {
 }
 
 
+.info-legend{
+    width: 110px;
+    height: 150px;
+    background-color: rgb(236, 237, 238);
+    padding-right: 15px;
+    padding-left: 15px;
+    box-shadow: 10px 5px 23px rgb(68, 83, 91);
+    text-align: right;
+
+}
+
+#legend-title{
+    text-align: center !important;
+}
+
 
 
