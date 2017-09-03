@@ -101,39 +101,38 @@ $( document ).ready(function() {
                 packhouse.Longitude = packhouse.Longitude + 360;
             }
 
-            var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
+            marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
 
+            marker.bindPopup(list);
 
-
-            var popup = L.popup()
+            popup = L.popup()
                 .setLatLng([packhouse.Latitude, packhouse.Longitude])
                 .setContent(list)
                 .openOn(mymap);
 
-
-
             oms.addMarker(marker);
-            oms.addListener('click', function(marker) {
               popup.setContent(marker.desc);
               popup.setLatLng(marker.getLatLng());
-              mymap.openPopup(popup);
-            });
+//              mymap.openPopup(popup);
+
+            oms.addMarker(marker);
+
         }
         mymap.closePopup();
         mymap.panTo(new L.LatLng(5, 190.7633));
     }
 
 
-    mymap.on('popupopen', function() {
-        $('.popup-content').click(function() {
-            customer =  $(this).find('.popup-customer').text();
-            packhouse =  $(this).find('.popup-packhouse').text();
-            current_location = window.location.toString();
-            lastIndex = current_location.lastIndexOf('/');
-            relative_location = current_location.substr(0, lastIndex);
-            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
-        });
-    });
+//    mymap.on('popupopen', function() {
+//        $('.popup-content').click(function() {
+//            customer =  $(this).find('.popup-customer').text();
+//            packhouse =  $(this).find('.popup-packhouse').text();
+//            current_location = window.location.toString();
+//            lastIndex = current_location.lastIndexOf('/');
+//            relative_location = current_location.substr(0, lastIndex);
+//            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
+//        });
+//    });
 
 
 });
