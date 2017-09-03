@@ -91,7 +91,6 @@ $( document ).ready(function() {
             prompt(error);
         } else {
             pullResults = JSON.parse(data.Payload);
-//            console.log(pullResults);
             updateMap(pullResults.Items);
         }
     });
