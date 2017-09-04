@@ -206,13 +206,18 @@ p, h2, h1, h3, h4, h5 {
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word;
     overflow: auto;
+    border-radius: 0px;
 }
 
 .bootstrap-table{
     max-height: 500px;
     overflow: auto;
     border: 0.8px solid rgba(68,83,91,0.8);
-    border-radius: 5px;
+    border-radius: 0px;
+}
+
+.bootstrap-table *{
+    border-radius: 0px;
 }
 
 #log-table-container{
@@ -226,7 +231,7 @@ p, h2, h1, h3, h4, h5 {
 
 #log-filter-collapse-panel{
     background-color: rgba(68, 83, 91, 0.1);
-    box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
+    box-shadow: 10px 5px 23px rgba(68, 83, 91, 0.3);
     padding: 0px;
     border-width: 0px;
 }
@@ -303,7 +308,7 @@ p, h2, h1, h3, h4, h5 {
 }
 
 th {
-    background-color: #44535B;
+    background-color: #44535B;  /*could try #222 - this is the log table header*/
     color: white;
 }
 
