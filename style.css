@@ -232,6 +232,11 @@ p, h2, h1, h3, h4, h5 {
     margin: 0px !important;
 }
 
+#filter-logs-collapse-caret{
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
 #log-filter-collapse-panel{
     background-color: rgba(68, 83, 91, 0.1);
     box-shadow: 10px 5px 23px rgba(68, 83, 91, 0.3);
@@ -310,7 +315,8 @@ p, h2, h1, h3, h4, h5 {
 }
 
 #logging-drop-down-icon{
-    text-align:center
+    text-align:center;
+    vertical-align: middle;
 }
 
 th {
