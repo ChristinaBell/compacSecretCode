@@ -98,7 +98,7 @@ $( document ).ready(function() {
     packhouse3_Name = packhouses[2];
 
     // put in function
-    $(".btn-packhouse1:first-child").text(packhouse1_Name);
+    $(".btn-packhouse1:first-child").text(packhouse1_Name + " &#9660");
     $(".btn-packhouse1:first-child").val(packhouse1_Name);
 
     $(".btn-packhouse2:first-child").text(packhouse2_Name);
