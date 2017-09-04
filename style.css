@@ -220,13 +220,16 @@ p, h2, h1, h3, h4, h5 {
     border-radius: 0px;
 }
 
+#logging-filter-footer{
+    background-color: rgba(68, 83, 91, 0.1);
+}
+
 #log-table-container{
     padding-top: 0px;
     padding-right: 2%;
     padding-left: 2%;
     padding-bottom: 0px;
     margin: 0px !important;
-
 }
 
 #log-filter-collapse-panel{
@@ -238,13 +241,16 @@ p, h2, h1, h3, h4, h5 {
 
 .logging-panel-body{
     background-color: rgba(68, 83, 91, 0.1);
+    padding-left: 10%;
+    padding-right: 10%;
+
 }
 
 .logging-panel-body{
     border-width: 0px !important;
 }
 
-
+-15
 
 /* --------- Logging page filters - split into 5 equal columns ----------*/
 

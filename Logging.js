@@ -69,8 +69,8 @@ $(document).ready(function() {
         var start = dd+' '+mm+' '+yyyy;
         $('#startDate').val(start);
 
-        startDateArray = $('#startDate').val().split("/");
-        endDateArray = $('#endDate').val().split("/");
+        startDateArray = $('#startDate').val().split(" ");
+        endDateArray = $('#endDate').val().split(" ");
 
         filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
         filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
@@ -263,8 +263,8 @@ $(document).ready(function() {
         filters.ErrorType = errorTypes;
         filters.softwareTypes = softwareTypes;
 
-        startDateArray = $('#startDate').val().split("/");
-        endDateArray = $('#endDate').val().split("/");
+        startDateArray = $('#startDate').val().split(" ");
+        endDateArray = $('#endDate').val().split(" ");
 
         var startMonth = monthNames.indexOf(startDateArray[1]) + 1;
         if (startMonth < 10){
@@ -277,8 +277,6 @@ $(document).ready(function() {
 
         filters.StartDate =  (startDateArray[0] + "-" + startMonth + "-" + startDateArray[2]).trim();
         filters.EndDate =  (endDateArray[0] + "-" + endMonth + "-" + endDateArray[2]).trim();
-
-        console.log(filters);
 
         // Call the update function to display the relevant logs to the user
         if (dateChangedBoolean){
