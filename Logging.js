@@ -23,10 +23,11 @@ $(document).ready(function() {
         "Packhouses": []
     };
 
+    var dateChangedBoolean = false;
+    var logResults;
+
 
     //  ----------------------------------------------------------------------------------------------------------------
-
-
 
 
     // AWS Lambda call
@@ -74,7 +75,7 @@ $(document).ready(function() {
     function updateCustomerList(packhouses) {
         var customerchecklist = $("#customer-check-list");
 
-        var html = "<label>Customer:</label>";
+        var html = "<h4 class='log-sub-heading'>Customer:</h4>";
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
             html = html + "<div class='checkbox'><label><input checked class='customer_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + " '>" + currentPackhouse + " </label> </div>"
@@ -104,17 +105,16 @@ $(document).ready(function() {
 
     function updatePackhouseList(packhouses) {
         var packhousechecklist = $("#packhouse-check-list");
-        var html = "<label>Packhouses:</label>";
+        var html = "<h4 class='log-sub-heading'>Packhouses:</h4>";
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
 
             html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + "'>" + currentPackhouse + " </label> </div>"
             packhousechecklist.html(html);
         }
-        console.log("wsexrdctfvgyhbjnk");
 
         getSelectedCustomersAndPackhouses();
-        updateTable(filters);
+        retrieveData(filters);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -122,13 +122,12 @@ $(document).ready(function() {
 
 
     // Call function to update the table with selected filters - uses lambda to retrieve from the AWS database
-    function updateTable(filters) {
+    function retrieveData(filters) {
         // Create Lambda object
         var lambda = new AWS.Lambda({
             region: 'ap-southeast-2',
             apiVersion: '2015-03-31'
         });
-//        console.log(filters);
 
         // create JSON object for parameters for invoking Lambda function
         var pullParams = {
@@ -138,16 +137,13 @@ $(document).ready(function() {
             LogType: 'None'
         };
 
-        // Create variable to hold data returned by the Lambda function
-        var pullResults;
-
         lambda.invoke(pullParams, function(error, data) {
             if (error) {
                 prompt(error);
             } else {
-                pullResults = JSON.parse(data.Payload);
+                logResults = JSON.parse(data.Payload);
                 // Reload table with results from S3 lambda function call
-                reloadTable(pullResults);
+                reloadTable(logResults);
             }
         });
     }
@@ -172,12 +168,31 @@ $(document).ready(function() {
         }
     }
 
+    // function to filter the current data without needed to retrieve more from the database.
+    function filterCurrentData(filters){
+        newResults = {};
+        for (item in logResults){
+            data = JSON.parse(logResults[item]);
+            // If the item matches the filters then add to the new log result function.
+            if ((filters.Customers.indexOf(data.Customer.toUpperCase()) > -1)
+                && (filters.Packhouses.indexOf(data.Packhouse.toUpperCase()) > -1)
+                && (filters.ErrorType.indexOf(data.LogType.toUpperCase()) > -1)
+                && (filters.SoftwareType.indexOf(data.Machine.toUpperCase()) > -1)
+            ){
+                newResults[item]= JSON.stringify(data);
+            }
+        }
+        reloadTable(newResults);
+
+    }
+
     // Refresh packhouse dropdowns based on which customers are selected. 
     $('#customer-check-list').click(function() {
         getPackhouses();
     });
 
-    // Function to update the log
+
+    // Function to update the log when the update logs button is clicked -----------------------------------------------
     $('#update_logs').click(function() {
         var errorTypes = [];
         var softwareTypes = [];
@@ -215,7 +230,12 @@ $(document).ready(function() {
         filters.EndDate = $('#endDate').val();
 
         // Call the update function to display the relevant logs to the user
-        updateTable(filters);
+        if (dateChangedBoolean){
+            retrieveData(filters);
+            dateChangedBoolean = false;
+        } else {
+            filterCurrentData(filters);
+        }
     });
 
     function getSelectedCustomersAndPackhouses(){
@@ -248,6 +268,8 @@ $(document).ready(function() {
 
     $('.input-daterange').datepicker({
         format: 'yyyy-mm-dd'
+    }).on("change", function (e) {
+            dateChangedBoolean = true;
     });
 
 
