@@ -12,12 +12,27 @@ footer {
 
 p, h2, h1, h3, h4, h5 {
   color: rgba(68, 83, 91, 1);
+  font-family: Calibri, sans-serif;
+}
+
+h2, h1, h3 {
+  font-weight: bold;
 }
 
 /* logo */
 .home_nav img {
   padding: 11px;
   margin-right: 21px;
+
+}
+
+.navbar-inverse {
+    box-shadow: 0px 2px 12px rgba(68, 83, 91, 0.7);
+}
+
+.commodities {
+   display: initial;
+   color: #555;
 }
 
 #main-row {
@@ -26,6 +41,10 @@ p, h2, h1, h3, h4, h5 {
 
 #home-page-container .row  {
   width: 100%;
+}
+
+.datepicker table tr td, .datepicker table tr th {
+  border-radius: 0px!important;
 }
 
 .blue-box{
@@ -117,12 +136,13 @@ p, h2, h1, h3, h4, h5 {
     background-color: rgba(68, 83, 91, 0.1);
     display: -webkit-box;
     box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
-    padding-top: 13px;
+    padding-top: 20px;
 }
 
 #gradeCommodity.dropdown-menu {
-    top: 37px;
-    left: 15px;
+    top: inherit;
+    left: 101px;
+    position: absolute;
 }
 
 .btn-commodity-filter {
@@ -132,6 +152,7 @@ p, h2, h1, h3, h4, h5 {
     padding: 6px 20px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    margin-left: 10px;
 }
 
 .input-group-addon {
@@ -168,15 +189,29 @@ p, h2, h1, h3, h4, h5 {
 
 
 .title-row {
-    padding: 20px;
-    padding-left: 10%!important;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+#classFilter {
+  position: absolute;
+  left: auto;
+  text-align: -webkit-center;
+}
+
+.packhouse-containter .dropdown-menu {
+  position: absolute;
+  width: -webkit-fill-available;
+  text-align: -webkit-center;
 }
 
 .btn-class-select {
-    margin-top: 15px!important;
+    margin-top: 30px!important;
     border-radius: 3px!important;
     color: rgba(68, 83, 91, 1);
-    box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
+    box-shadow: 2px 2px 5px rgba(68, 83, 91, 0.5);
     padding: 7px 60px;
 }
 
@@ -189,6 +224,7 @@ p, h2, h1, h3, h4, h5 {
 .col-centered{
     float: none;
     margin: 0 auto;
+    padding: 0px 0 62px 0;
 }
 
 
@@ -322,6 +358,7 @@ th {
     width: 100%;
     font-size: 30px;
     text-align: center;
+
 }
 
 .popup-content {

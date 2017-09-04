@@ -342,6 +342,7 @@ $( document ).ready(function() {
      $(".btn-commodity-filter:first-child").val($(this).text());
      $(".title-row h2").html("What the " +  $(this).text() + " were at the " + selectedClass + " outlets.");
      selectedFruitVariety = $(this).text();
+     console.log(selectedFruitVariety);
      sortData();
    });
 
@@ -353,8 +354,43 @@ $( document ).ready(function() {
 
 
   $('.input-daterange').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'dd-mm-yyyy'
   });
+
+  var initStartDate = document.getElementById("startDate").value;
+  var initEndDate = document.getElementById("endDate").value;
+
+
+
+
+  // function withinDate(){
+  //
+  //
+  //   var startDay = parseInt(startDate[0]);
+  //   var startMonth = parseInt(startDate[1]);
+  //   var startYear = parseInt(startDate[3]);
+  //
+  //   var endDay = parseInt(endDate[0]);
+  //   var endMonth = parseInt(endDate[1]);
+  //   var endYear = parseInt(endDate[2]);
+  //
+  //   var selectedDate;
+  //
+  //
+  //
+  // }
+
+  var startDate = initStartDate.split("-");
+  var endDate = initEndDate.split("-");
+
+  var start = startDate.join(" ");
+
+  var date = new Date(initStartDate);
+
+  console.log(date);
+  console.log(start);
+
+
 
 
 });
