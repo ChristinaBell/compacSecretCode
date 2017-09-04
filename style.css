@@ -30,6 +30,10 @@ h2, h1, h3 {
     box-shadow: 0px 2px 12px rgba(68, 83, 91, 0.7);
 }
 
+.commodities {
+   display: initial;
+}
+
 #main-row {
   margin: 0px;
 }
@@ -136,7 +140,7 @@ h2, h1, h3 {
 
 #gradeCommodity.dropdown-menu {
     top: 37px;
-    left: 15px;
+    left: 115px;
 }
 
 .btn-commodity-filter {
