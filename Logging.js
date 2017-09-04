@@ -37,8 +37,44 @@ $(document).ready(function() {
     });
     setupPage();
 
+    $('.input-daterange').datepicker({
+        format : "dd MM yyyy "
+    }).on("change", function (e) {
+            dateChangedBoolean = true;
+    });
+
     // -----------------------------------  Set up filters dyanically --------------------------------------------------
     function setupPage() {
+
+        monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December" ];
+
+        // set the end date of the date picker to be the current date
+        var today = new Date();
+        var dd = today.getDate();
+        if (dd < 10){
+            dd = "0" + dd;
+        }
+        var mm =  monthNames[today.getMonth()];
+        var yyyy = today.getFullYear();
+        var end = dd+' '+mm+' '+yyyy;
+        $('#endDate').val(end);
+
+        // set the start date of the date picker to be a week ago by default
+        var oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
+        var dd = oneWeekAgo.getDate();
+        var mm = monthNames[oneWeekAgo.getMonth()];
+        var yyyy = oneWeekAgo.getFullYear();
+        var start = dd+' '+mm+' '+yyyy;
+        $('#startDate').val(start);
+
+        startDateArray = $('#startDate').val().split(" ");
+        endDateArray = $('#endDate').val().split(" ");
+
+        filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
+        filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
+
         var pullParams = {
             FunctionName: 'readPackhouseLocations',
             InvocationType: 'RequestResponse',
@@ -226,8 +262,21 @@ $(document).ready(function() {
         // update the filter values
         filters.ErrorType = errorTypes;
         filters.softwareTypes = softwareTypes;
-        filters.StartDate = $('#startDate').val();
-        filters.EndDate = $('#endDate').val();
+
+        startDateArray = $('#startDate').val().split(" ");
+        endDateArray = $('#endDate').val().split(" ");
+
+        var startMonth = monthNames.indexOf(startDateArray[1]) + 1;
+        if (startMonth < 10){
+            startMonth = "0" + startMonth;
+        }
+        var endMonth = monthNames.indexOf(endDateArray[1]) + 1;
+        if (endMonth < 10){
+            endMonth = "0" + endMonth;
+        }
+
+        filters.StartDate =  (startDateArray[0] + "-" + startMonth + "-" + startDateArray[2]).trim();
+        filters.EndDate =  (endDateArray[0] + "-" + endMonth + "-" + endDateArray[2]).trim();
 
         // Call the update function to display the relevant logs to the user
         if (dateChangedBoolean){
@@ -262,15 +311,10 @@ $(document).ready(function() {
 
         filters.Customers = customersChecked;
         filters.Packhouses = packhousesChecked;
-
     }
 
 
-    $('.input-daterange').datepicker({
-        format: 'yyyy-mm-dd'
-    }).on("change", function (e) {
-            dateChangedBoolean = true;
-    });
+
 
 
 });
