@@ -195,6 +195,18 @@ h2, h1, h3 {
   width: fit-content;
 }
 
+#classFilter {
+  position: absolute;
+  left: auto;
+  text-align: -webkit-center;
+}
+
+.packhouse-containter .dropdown-menu {
+  position: absolute;
+  width: -webkit-fill-available;
+  text-align: -webkit-center;
+}
+
 .btn-class-select {
     margin-top: 30px!important;
     border-radius: 3px!important;
