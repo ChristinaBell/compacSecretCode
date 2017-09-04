@@ -68,7 +68,7 @@ $(document).ready(function() {
         $('#startDate').val(start);
 
         filters.StartDate = $('#startDate').val();
-        
+
         filters.EndDate = $('#endDate').val();
 
         var pullParams = {

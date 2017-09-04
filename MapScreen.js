@@ -30,17 +30,16 @@ $( document ).ready(function() {
     legend.onAdd = function (mymap) {
 
         var div = L.DomUtil.create('div', 'info legend info-legend'),
-        grades = ["Optimum", "Moderate", "Stopped"],
+        grades = ["Optimum (80-100% cupfill)", "Moderate (40-80% cupfill)", "Poor (0-40% cupfill)"],
         labels = ["icons/green_pin.png", "icons/orange_pin.png", "icons/red_pin.png"];
 
-        div.innerHTML += '<h4 id="legend-title" >Legend:</h3> '
+        div.innerHTML += '<h4 id="legend-title" >Packhouse Utilization:</h3> '
 
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=
                     grades[i] + (" <img src="+ labels[i] +" height='30' width='20'>") +'<br>';
             }
-
 
 
     return div;
@@ -116,7 +115,7 @@ $( document ).ready(function() {
                        + "<dt>Packhouse:</dt>"
                        + "<dd class='popup-packhouse'>" + packhouse.Packhouse + "</dd>"
                        + "<dt>Cupfill:</dt>"
-                       + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
+                       + "<dd>" + packhouse["Line 1 Cupfill"] + " %</dd>"
                        + "</div>"
 
             if (packhouse.Longitude < 0){
@@ -138,6 +137,12 @@ $( document ).ready(function() {
 //              mymap.openPopup(popup);
 
             oms.addMarker(marker);
+
+//            marker.bindPopup(packhouse.Customer + ", " + packhouse.Packhouse);
+//            marker.on('mouseover', function (e) {
+//                this.openPopup();
+//            });
+
 
         }
         mymap.closePopup();
