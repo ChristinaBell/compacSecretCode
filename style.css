@@ -32,6 +32,7 @@ h2, h1, h3 {
 
 .commodities {
    display: initial;
+   color: #555;
 }
 
 #main-row {
@@ -135,12 +136,13 @@ h2, h1, h3 {
     background-color: rgba(68, 83, 91, 0.1);
     display: -webkit-box;
     box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
-    padding-top: 13px;
+    padding-top: 20px;
 }
 
 #gradeCommodity.dropdown-menu {
-    top: 37px;
-    left: 115px;
+    top: inherit;
+    left: 101px;
+    position: absolute;
 }
 
 .btn-commodity-filter {
@@ -150,6 +152,7 @@ h2, h1, h3 {
     padding: 6px 20px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    margin-left: 10px;
 }
 
 .input-group-addon {

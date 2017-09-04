@@ -342,6 +342,7 @@ $( document ).ready(function() {
      $(".btn-commodity-filter:first-child").val($(this).text());
      $(".title-row h2").html("What the " +  $(this).text() + " were at the " + selectedClass + " outlets.");
      selectedFruitVariety = $(this).text();
+     console.log(selectedFruitVariety);
      sortData();
    });
 
