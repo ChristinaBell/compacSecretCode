@@ -246,64 +246,99 @@ $( document ).ready(function() {
 
   //******************************* The dropdown js ******************************/
   function fillinDropdowns(){
+    $('#packhouse1Filter').empty();
+    $('#packhouse2Filter').empty();
+    $('#packhouse3Filter').empty();
+    $('#gradeCommodity').empty();
+    $('#classFilter').empty()
+
+
+
     var filter = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
               var currentClass = classes[m];
-              var li = document.createElement("li");
-              var link = document.createElement("a");
-              var text = document.createTextNode(currentClass);
-              link.appendChild(text);
-              link.href = "#";
-              li.appendChild(link);
-              filter.appendChild(li);
+
+              if (currentClass != selectedClass) {
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentClass);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                filter.appendChild(li);
+              }
           }
 
     var packhouse1Filter = document.getElementById("packhouse1Filter");
           for (var iP1 = 0; iP1 < packhouses.length; iP1++){
               var currentPackhouse = packhouses[iP1];
-              var li = document.createElement("li");
-              var link = document.createElement("a");
-              var text = document.createTextNode(currentPackhouse);
-              link.appendChild(text);
-              link.href = "#";
-              li.appendChild(link);
-              packhouse1Filter.appendChild(li);
+
+              if (currentPackhouse != packhouse1_Name) {
+                if (currentPackhouse != packhouse2_Name) {
+                  if (currentPackhouse != packhouse3_Name) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    var text = document.createTextNode(currentPackhouse);
+                    link.appendChild(text);
+                    link.href = "#";
+                    li.appendChild(link);
+                    packhouse1Filter.appendChild(li);
+                  }
+                }
+              }
           }
 
     var packhouse2Filter = document.getElementById("packhouse2Filter");
           for (var iP2 = 0; iP2 < packhouses.length; iP2++){
               var currentPackhouse = packhouses[iP2];
-              var li = document.createElement("li");
-              var link = document.createElement("a");
-              var text = document.createTextNode(currentPackhouse);
-              link.appendChild(text);
-              link.href = "#";
-              li.appendChild(link);
-              packhouse2Filter.appendChild(li);
+
+              if (currentPackhouse != packhouse1_Name) {
+                if (currentPackhouse != packhouse2_Name) {
+                  if (currentPackhouse != packhouse3_Name) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    var text = document.createTextNode(currentPackhouse);
+                    link.appendChild(text);
+                    link.href = "#";
+                    li.appendChild(link);
+                    packhouse2Filter.appendChild(li);
+                  }
+                }
+              }
           }
 
       var packhouse3Filter = document.getElementById("packhouse3Filter");
             for (var iP3 = 0; iP3 < packhouses.length; iP3++){
                 var currentPackhouse = packhouses[iP3];
-                var li = document.createElement("li");
-                var link = document.createElement("a");
-                var text = document.createTextNode(currentPackhouse);
-                link.appendChild(text);
-                link.href = "#";
-                li.appendChild(link);
-                packhouse3Filter.appendChild(li);
+
+                if (currentPackhouse != packhouse1_Name) {
+                  if (currentPackhouse != packhouse2_Name) {
+                    if (currentPackhouse != packhouse3_Name) {
+                      var li = document.createElement("li");
+                      var link = document.createElement("a");
+                      var text = document.createTextNode(currentPackhouse);
+                      link.appendChild(text);
+                      link.href = "#";
+                      li.appendChild(link);
+                      packhouse3Filter.appendChild(li);
+                    }
+                  }
+                }
             }
 
       var gradeCommodity = document.getElementById("gradeCommodity");
             for (var iC = 0; iC < commodities.length; iC++){
                 var currentCommodity = commodities[iC];
-                var li = document.createElement("li");
-                var link = document.createElement("a");
-                var text = document.createTextNode(currentCommodity);
-                link.appendChild(text);
-                link.href = "#";
-                li.appendChild(link);
-                gradeCommodity.appendChild(li);
+
+                if (currentCommodity != selectedFruitVariety) {
+                  var li = document.createElement("li");
+                  var link = document.createElement("a");
+                  var text = document.createTextNode(currentCommodity);
+                  link.appendChild(text);
+                  link.href = "#";
+                  li.appendChild(link);
+                  gradeCommodity.appendChild(li);
+                }
             }
   }
 
@@ -313,6 +348,7 @@ $( document ).ready(function() {
      $(".btn-class-select:first-child").val($(this).text());
      $(".title-row h2").html("What the " +  selectedFruitVariety + " were at the " + $(this).text() + " outlets.");
      selectedClass = $(this).text();
+     fillinDropdowns();
      sortData();
    });
 
@@ -320,6 +356,7 @@ $( document ).ready(function() {
      $(".btn-packhouse1:first-child").text($(this).text());
      $(".btn-packhouse1:first-child").val($(this).text());
      packhouse1_Name = $(this).text();
+     fillinDropdowns();
      sortData();
    });
 
@@ -327,6 +364,7 @@ $( document ).ready(function() {
      $(".btn-packhouse2:first-child").text($(this).text());
      $(".btn-packhouse2:first-child").val($(this).text());
      packhouse2_Name = $(this).text();
+     fillinDropdowns();
      sortData();
    });
 
@@ -334,6 +372,7 @@ $( document ).ready(function() {
      $(".btn-packhouse3:first-child").text($(this).text());
      $(".btn-packhouse3:first-child").val($(this).text());
      packhouse3_Name = $(this).text();
+     fillinDropdowns();
      sortData();
    });
 
@@ -342,7 +381,7 @@ $( document ).ready(function() {
      $(".btn-commodity-filter:first-child").val($(this).text());
      $(".title-row h2").html("What the " +  $(this).text() + " were at the " + selectedClass + " outlets.");
      selectedFruitVariety = $(this).text();
-     console.log(selectedFruitVariety);
+     fillinDropdowns();
      sortData();
    });
 
