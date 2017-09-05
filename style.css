@@ -137,6 +137,8 @@ h2, h1, h3 {
     display: -webkit-box;
     box-shadow: 2px 2px 5px rgba(68, 83, 91, 1);
     padding-top: 20px;
+    text-shadow: 0 1px 0 #fff;
+    color: rgba(68, 83, 91, 1);
 }
 
 #gradeCommodity.dropdown-menu {
