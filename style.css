@@ -232,11 +232,18 @@ h2, h1, h3 {
 }
 
 
-.myChart{
-    height: 550px !important;
+#grade.myChart{
+    height: 28em !important;
     width: 900px !important;
     margin: auto;
 }
+
+#defect.myChart{
+    height: 30em !important;
+    width: 900px !important;
+    margin: auto;
+}
+
 .col-centered{
     float: none;
     margin: 0 auto;
