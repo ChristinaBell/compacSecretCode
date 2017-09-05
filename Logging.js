@@ -230,6 +230,10 @@ $(document).ready(function() {
 
     // Function to update the log when the update logs button is clicked -----------------------------------------------
     $('#update_logs').click(function() {
+
+        // close the filter
+        $('#logging-filter-panel').click()
+
         var errorTypes = [];
         var softwareTypes = [];
         var customersChecked = [];
@@ -313,6 +317,18 @@ $(document).ready(function() {
         filters.Packhouses = packhousesChecked;
     }
 
+
+//    collapse panel caret direction
+
+    $("#logging-filter-panel").click(function() {
+        if ($("#filter-logs-collapse-caret").hasClass("fa-angle-down")){
+            $("#filter-logs-collapse-caret").removeClass("fa-angle-down");
+            $("#filter-logs-collapse-caret").addClass("fa-angle-up");
+        }else if ($("#filter-logs-collapse-caret").hasClass("fa-angle-up")){
+            $("#filter-logs-collapse-caret").removeClass("fa-angle-up");
+            $("#filter-logs-collapse-caret").addClass("fa-angle-down");
+        }
+    });
 
 
 
