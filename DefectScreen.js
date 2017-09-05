@@ -29,6 +29,7 @@ $( document ).ready(function() {
   var packhouse1_Name;
   var packhouse2_Name;
   var packhouse3_Name;
+  var caret_down = "\t▼";
 
   var selectedFruitVariety;
 
@@ -98,14 +99,14 @@ $( document ).ready(function() {
     packhouse3_Name = packhouses[2];
 
     // put in function
-    $(".btn-packhouse1:first-child").text(packhouse1_Name);
-    $(".btn-packhouse1:first-child").val(packhouse1_Name);
+    $(".btn-packhouse1:first-child").text(packhouse1_Name + caret_down);
+    $(".btn-packhouse1:first-child").val(packhouse1_Name + caret_down);
 
-    $(".btn-packhouse2:first-child").text(packhouse2_Name);
-    $(".btn-packhouse2:first-child").val(packhouse2_Name);
+    $(".btn-packhouse2:first-child").text(packhouse2_Name + caret_down);
+    $(".btn-packhouse2:first-child").val(packhouse2_Name + caret_down);
 
-    $(".btn-packhouse3:first-child").text(packhouse3_Name);
-    $(".btn-packhouse3:first-child").val(packhouse3_Name);
+    $(".btn-packhouse3:first-child").text(packhouse3_Name + caret_down);
+    $(".btn-packhouse3:first-child").val(packhouse3_Name + caret_down);
 
     $(".btn-commodity-filter:first-child").text(selectedFruitVariety);
     $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
@@ -333,24 +334,24 @@ $( document ).ready(function() {
 
   // Dropdown on click functions
   $("#packhouse1Filter").on('click', 'li a', function(){
-    $(".btn-packhouse1:first-child").text($(this).text());
-    $(".btn-packhouse1:first-child").val($(this).text());
+    $(".btn-packhouse1:first-child").text($(this).text()  + caret_down);
+    $(".btn-packhouse1:first-child").val($(this).text()  + caret_down);
     packhouse1_Name = $(this).text();
     fillinDropdowns();
     sortData();
   });
 
   $("#packhouse2Filter").on('click', 'li a', function(){
-    $(".btn-packhouse2:first-child").text($(this).text());
-    $(".btn-packhouse2:first-child").val($(this).text());
+    $(".btn-packhouse2:first-child").text($(this).text() + caret_down);
+    $(".btn-packhouse2:first-child").val($(this).text() + caret_down);
     packhouse2_Name = $(this).text();
     fillinDropdowns();
     sortData();
   });
 
   $("#packhouse3Filter").on('click', 'li a', function(){
-    $(".btn-packhouse3:first-child").text($(this).text());
-    $(".btn-packhouse3:first-child").val($(this).text());
+    $(".btn-packhouse3:first-child").text($(this).text() + caret_down);
+    $(".btn-packhouse3:first-child").val($(this).text() + caret_down);
     packhouse3_Name = $(this).text();
     fillinDropdowns();
     sortData();
