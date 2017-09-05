@@ -233,14 +233,22 @@ $( document ).ready(function() {
                       display : false
                   },
                   scaleLabel : {
+                      fontSize: 25,
                       display : true,
                       labelString : 'The types of defect for the fruit'
+                  },
+                  ticks: {
+                    fontSize: 15
                   }
               } ],
               yAxes : [ {
                   scaleLabel : {
+                      fontSize: 25,
                       display : true,
                       labelString : yAxisLabel
+                  },
+                  ticks: {
+                    fontSize: 15
                   }
               } ]
           }

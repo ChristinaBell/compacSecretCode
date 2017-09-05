@@ -231,13 +231,21 @@ $( document ).ready(function() {
                   },
                   scaleLabel : {
                       display : true,
+                      fontSize : 25,
                       labelString : 'The grades at the outlet'
+                  },
+                  ticks: {
+                    fontSize: 15
                   }
               } ],
               yAxes : [ {
                   scaleLabel : {
+                      fontSize: 25,
                       display : true,
                       labelString : yAxisLabel
+                  },
+                  ticks: {
+                    fontSize: 15
                   }
               } ]
           }
