@@ -12,7 +12,7 @@ footer {
 
 p, h2, h1, h3, h4, h5 {
   color: rgba(68, 83, 91, 1);
-  font-family: Calibri, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 h2, h1, h3 {
@@ -250,6 +250,12 @@ h2, h1, h3 {
     word-wrap: break-word;
     overflow: auto;
     border-radius: 0px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.th-inner{
+    font-weight: normal !important;
+    font-size: 16px;
 }
 
 .bootstrap-table{
@@ -265,6 +271,7 @@ h2, h1, h3 {
 
 #logging-filter-footer{
     background-color: rgba(68, 83, 91, 0.1);
+    padding-bottom: 20px;
 }
 
 #log-table-container{
@@ -347,6 +354,7 @@ h2, h1, h3 {
     background-color: rgba(68, 83, 91, 0.1);
     border: none;
     border-width: 0px;
+    padding-bottom: 5px !important;
 }
 
 .logging-filter{
