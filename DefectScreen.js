@@ -30,7 +30,7 @@ $( document ).ready(function() {
   var packhouse2_Name;
   var packhouse3_Name;
 
-  var selectedFruitVariety = "Kiwi Green";
+  var selectedFruitVariety;
 
   var isPercentageData = true;
   var yAxisLabel = "Percentage of Fruit of each grade";
