@@ -30,7 +30,7 @@ $( document ).ready(function() {
     legend.onAdd = function (mymap) {
 
         var div = L.DomUtil.create('div', 'info legend info-legend'),
-        grades = ["Optimum (80-100% cupfill)", "Moderate (40-80% cupfill)", "Poor (0-40% cupfill)"],
+        grades = ["Optimum (70-100% cupfill)", "Moderate (40-70% cupfill)", "Poor (0-40% cupfill)"],
         labels = ["icons/green_pin.png", "icons/orange_pin.png", "icons/red_pin.png"];
 
         div.innerHTML += '<h4 id="legend-title" >Packhouse Utilization:</h3> '
@@ -102,7 +102,7 @@ $( document ).ready(function() {
             var util = packhouse["Line 1 Cupfill"];
             if (util < 0.3){
                 icon = redIcon;
-            } else if (util < 0.5){
+            } else if (util < 0.7){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
@@ -134,15 +134,7 @@ $( document ).ready(function() {
             oms.addMarker(marker);
               popup.setContent(marker.desc);
               popup.setLatLng(marker.getLatLng());
-//              mymap.openPopup(popup);
-
             oms.addMarker(marker);
-
-//            marker.bindPopup(packhouse.Customer + ", " + packhouse.Packhouse);
-//            marker.on('mouseover', function (e) {
-//                this.openPopup();
-//            });
-
 
         }
         mymap.closePopup();
