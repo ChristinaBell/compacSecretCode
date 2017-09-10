@@ -296,6 +296,12 @@ th {
     text-align: center;
 }
 
+#dashboard-content{
+    height: 65%;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
 .popup-content {
     cursor: pointer ;
 }
@@ -303,6 +309,8 @@ th {
 .dashboard-column{
     width: 50%;
     height: 100%
+    padding-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 .flex-container {

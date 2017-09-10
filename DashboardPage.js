@@ -85,7 +85,7 @@ $( document ).ready(function() {
                      {
                        label: "Accuracy",
                        backgroundColor: ["#1CA0FF", "#44535B","#78B543","#F47B20","#C7C8CA"],
-                       data: [2478,5267,734,784,433]
+                       data: [2478,5267,734,784,798]
                      }
                    ]
                  },
@@ -109,7 +109,7 @@ $( document ).ready(function() {
                       {
                         label: "alarms",
                         backgroundColor: ["#1CA0FF", "#44535B","#78B543","#F47B20","#C7C8CA"],
-                        data: [10,16,12,17,20]
+                        data: [15, 16,17,17,20]
                       }
                     ]
                   },
