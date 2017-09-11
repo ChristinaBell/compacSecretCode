@@ -142,16 +142,16 @@ $( document ).ready(function() {
     }
 
 
-//    mymap.on('popupopen', function() {
-//        $('.popup-content').click(function() {
-//            customer =  $(this).find('.popup-customer').text();
-//            packhouse =  $(this).find('.popup-packhouse').text();
-//            current_location = window.location.toString();
-//            lastIndex = current_location.lastIndexOf('/');
-//            relative_location = current_location.substr(0, lastIndex);
-//            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
-//        });
-//    });
+    mymap.on('popupopen', function() {
+        $('.popup-content').click(function() {
+            customer =  $(this).find('.popup-customer').text();
+            packhouse =  $(this).find('.popup-packhouse').text();
+            current_location = window.location.toString();
+            lastIndex = current_location.lastIndexOf('/');
+            relative_location = current_location.substr(0, lastIndex);
+            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
+        });
+    });
 
 
 });
