@@ -25,6 +25,28 @@ $( document ).ready(function() {
 
     // ----------------------------------------------------------------------------------------------------------------
 
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (mymap) {
+
+        var div = L.DomUtil.create('div', 'info legend info-legend'),
+        grades = ["Optimum (70-100% cupfill)", "Moderate (40-70% cupfill)", "Poor (0-40% cupfill)"],
+        labels = ["icons/green_pin.png", "icons/orange_pin.png", "icons/red_pin.png"];
+
+        div.innerHTML += '<h4 id="legend-title" >Packhouse Utilization:</h3> '
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    grades[i] + (" <img src="+ labels[i] +" height='30' width='20'>") +'<br>';
+            }
+
+
+    return div;
+    };
+
+    legend.addTo(mymap);
+
     // Define the red, green and orange pins for representing the proportion of utilisation
     var greenIcon = L.icon({
                     iconUrl: 'icons/green_pin.png',
@@ -68,7 +90,6 @@ $( document ).ready(function() {
             prompt(error);
         } else {
             pullResults = JSON.parse(data.Payload);
-//            console.log(pullResults);
             updateMap(pullResults.Items);
         }
     });
@@ -81,7 +102,7 @@ $( document ).ready(function() {
             var util = packhouse["Line 1 Cupfill"];
             if (util < 0.3){
                 icon = redIcon;
-            } else if (util < 0.5){
+            } else if (util < 0.7){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
@@ -94,46 +115,43 @@ $( document ).ready(function() {
                        + "<dt>Packhouse:</dt>"
                        + "<dd class='popup-packhouse'>" + packhouse.Packhouse + "</dd>"
                        + "<dt>Cupfill:</dt>"
-                       + "<dd>" + packhouse["Line 1 Cupfill"] + "</dd>"
+                       + "<dd>" + packhouse["Line 1 Cupfill"] + " %</dd>"
                        + "</div>"
 
             if (packhouse.Longitude < 0){
                 packhouse.Longitude = packhouse.Longitude + 360;
             }
 
-            var marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
+            marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
 
+            marker.bindPopup(list);
 
-
-            var popup = L.popup()
+            popup = L.popup()
                 .setLatLng([packhouse.Latitude, packhouse.Longitude])
                 .setContent(list)
                 .openOn(mymap);
 
-
-
             oms.addMarker(marker);
-            oms.addListener('click', function(marker) {
               popup.setContent(marker.desc);
               popup.setLatLng(marker.getLatLng());
-              mymap.openPopup(popup);
-            });
+            oms.addMarker(marker);
+
         }
         mymap.closePopup();
         mymap.panTo(new L.LatLng(5, 190.7633));
     }
 
 
-    mymap.on('popupopen', function() {
-        $('.popup-content').click(function() {
-            customer =  $(this).find('.popup-customer').text();
-            packhouse =  $(this).find('.popup-packhouse').text();
-            current_location = window.location.toString();
-            lastIndex = current_location.lastIndexOf('/');
-            relative_location = current_location.substr(0, lastIndex);
-            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
-        });
-    });
+//    mymap.on('popupopen', function() {
+//        $('.popup-content').click(function() {
+//            customer =  $(this).find('.popup-customer').text();
+//            packhouse =  $(this).find('.popup-packhouse').text();
+//            current_location = window.location.toString();
+//            lastIndex = current_location.lastIndexOf('/');
+//            relative_location = current_location.substr(0, lastIndex);
+//            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
+//        });
+//    });
 
 
 });
