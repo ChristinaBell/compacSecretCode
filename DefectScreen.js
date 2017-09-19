@@ -176,7 +176,7 @@ $( document ).ready(function() {
   // Toggling the percentaged data toggle, when flipping the toggle.
   $('#percentageToggle').change(function(){
     isPercentageData = !isPercentageData;
-    if (!isPercentageData) {
+    if (isPercentageData) {
       yAxisLabel = "Percentage of Fruit with Defect";
     } else {
       yAxisLabel = "Tally of Fruit with each Defect";
