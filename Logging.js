@@ -92,6 +92,9 @@ $(document).ready(function() {
                 currentData = JSON.parse(data.Payload);
                 getCustomers(currentData.Items);
                 getPackhouses(currentData.Items);
+                getSelectedCustomersAndPackhouses();
+                retrieveData(filters);
+
             }
         });
     }
@@ -147,8 +150,6 @@ $(document).ready(function() {
             html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + "'>" + currentPackhouse + " </label> </div>"
         }
         packhousechecklist.html(html);
-        getSelectedCustomersAndPackhouses();
-        retrieveData(filters);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -222,7 +223,6 @@ $(document).ready(function() {
 
     // Refresh packhouse dropdowns based on which customers are selected.
     $('#customer-check-list').click(function() {
-//        console.log("clicked!");
         getPackhouses();
     });
 
