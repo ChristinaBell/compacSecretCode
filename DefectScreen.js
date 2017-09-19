@@ -58,7 +58,9 @@ $( document ).ready(function() {
 
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
       if (packhouses.indexOf(packhouse) == -1){
+        if (packhouse != null) {
          packhouses.push(packhouse);
+       }
       }
 
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
