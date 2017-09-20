@@ -92,6 +92,37 @@ $( document ).ready(function() {
   }
 
   function setUp(){
+    monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December" ];
+
+    // set the end date of the date picker to be the current date
+    var today = new Date();
+    var dd = today.getDate();
+    if (dd < 10){
+        dd = "0" + dd;
+    }
+    var mm =  monthNames[today.getMonth()];
+    var yyyy = today.getFullYear();
+    var end = dd+' '+mm+' '+yyyy;
+    $('#endDate').val(end);
+
+    // set the start date of the date picker to be a week ago by default
+    var oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
+    var dd = oneWeekAgo.getDate();
+    var mm = monthNames[oneWeekAgo.getMonth()];
+    var yyyy = oneWeekAgo.getFullYear();
+    var start = dd+' '+mm+' '+yyyy;
+    $('#startDate').val(start);
+
+    startDateArray = $('#startDate').val().split(" ");
+    endDateArray = $('#endDate').val().split(" ");
+
+    filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
+    filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
+
+
+
     selectedFruitVariety = commodities[0];
     $(".title-row h2").html("Defects in " + selectedFruitVariety);
 
@@ -377,7 +408,7 @@ $( document ).ready(function() {
   });
 
   $('.input-daterange').datepicker({
-      format: 'dd-mm-yyyy'
+      format: 'dd MM yyyy'
   });
 
 });
