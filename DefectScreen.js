@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
 
+
   // AWS Lambda call
   AWS.config.region = 'ap-southeast-2'; // Region
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -30,6 +31,7 @@ $( document ).ready(function() {
   var packhouse2_Name;
   var packhouse3_Name;
   var caret_down = "\t▼";
+  var fruitDate;
 
   var selectedFruitVariety;
 
@@ -118,9 +120,6 @@ $( document ).ready(function() {
     startDateArray = $('#startDate').val().split(" ");
     endDateArray = $('#endDate').val().split(" ");
 
-    //filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
-    //filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
-
 
 
     selectedFruitVariety = commodities[0];
@@ -159,10 +158,18 @@ $( document ).ready(function() {
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
       var defect = currentItem.payload.Data.Defects[0];
-      var time = currentItem.payload.Data.PackRun.StartTime;
+      var fruitDate = currentItem.payload.Data.PackRun.StartTime;
 
 
-      if (selectedFruitVariety == fruitVariety){
+
+      dateStr = fruitDate.split("T");
+      dateArr = dateStr[0].split("-");
+      yy = parseInt(dateArr[0]);
+      mm = parseInt(dateArr[1]);
+      dd = parseInt(dateArr[2]);
+
+
+      if (withinDate(dd, mm, dd) && (selectedFruitVariety == fruitVariety)){
 
         if (packhouse == packhouse1_Name) {
           currTally = packhouse1_Data;
@@ -409,6 +416,45 @@ $( document ).ready(function() {
 
   $('.input-daterange').datepicker({
       format: 'dd MM yyyy'
+  }).on("change", function (e) {
+      sortData();
   });
+
+  function withinDate(d, m, y) {
+
+      startDateArray = $('#startDate').val().split(" ");
+      endDateArray = $('#endDate').val().split(" ");
+
+      var startDay = parseInt(startDateArray[0]);
+      var startMonth2 = monthNames.indexOf(startDateArray[1]) + 1;
+      if (startMonth2 < 10){
+          startMonth2 = "0" + startMonth2;
+      }
+      var startMonth = parseInt(startMonth2);
+      var startYear = parseInt(startDateArray[2]);
+
+      var endDay = parseInt(endDateArray[0]);
+      var endMonth2 = monthNames.indexOf(endDateArray[1]) + 1;
+      if (endMonth2 < 10){
+          endMonth2 = "0" + endMonth2;
+      }
+      var endMonth = parseInt(endMonth2);
+      var endYear = parseInt(endDateArray[2]);
+
+      //mm dd yy
+      var dateFrom = "01/08/2016";
+      var dateTo = "01/10/2016";
+      var dateCheck = "01/09/2016";
+
+      var d1 = [startMonth, startDay, startYear];
+      var d2 = [endMonth, endDay, endYear];
+      var c = [m, d, y];
+
+      var from = new Date(d1);  // -1 because months are from 0 to 11
+      var to   = new Date(d2);
+      var check = new Date(c);
+
+      return(check > from && check < to);
+  }
 
 });

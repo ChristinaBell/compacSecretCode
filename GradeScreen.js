@@ -34,6 +34,7 @@ $( document ).ready(function() {
   var selectedClass;
   var selectedFruitVariety;
   var currentData;
+  var fruitDate;
 
   var isPercentageData = true;
   var yAxisLabel = "Percentage of Fruit of each grade";
@@ -111,10 +112,6 @@ $( document ).ready(function() {
       startDateArray = $('#startDate').val().split(" ");
       endDateArray = $('#endDate').val().split(" ");
 
-      //filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
-      //filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
-
-
 
 
       $(".title-row h2").html("What the " + commodities[0] + " were at the " + classes[0] + " outlets.");
@@ -155,9 +152,18 @@ $( document ).ready(function() {
       var visionGrade = currentItem.payload.Data.VisionGrade;
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+      var fruitDate = currentItem.payload.Data.PackRun.StartTime;
+
+
+
+      dateStr = fruitDate.split("T");
+      dateArr = dateStr[0].split("-");
+      yy = parseInt(dateArr[0]);
+      mm = parseInt(dateArr[1]);
+      dd = parseInt(dateArr[2]);
 
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
-      if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
+      if ((withinDate(dd, mm, yy)) && ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade))){
 
         if (packhouse == packhouse1_Name) {
           currTally = packhouse1_Data;
@@ -437,6 +443,45 @@ $( document ).ready(function() {
 
   $('.input-daterange').datepicker({
       format: 'dd MM yyyy'
+  }).on("change", function (e) {
+      sortData();
   });
+
+  function withinDate(d, m, y) {
+
+      startDateArray = $('#startDate').val().split(" ");
+      endDateArray = $('#endDate').val().split(" ");
+
+      var startDay = parseInt(startDateArray[0]);
+      var startMonth2 = monthNames.indexOf(startDateArray[1]) + 1;
+      if (startMonth2 < 10){
+          startMonth2 = "0" + startMonth2;
+      }
+      var startMonth = parseInt(startMonth2);
+      var startYear = parseInt(startDateArray[2]);
+
+      var endDay = parseInt(endDateArray[0]);
+      var endMonth2 = monthNames.indexOf(endDateArray[1]) + 1;
+      if (endMonth2 < 10){
+          endMonth2 = "0" + endMonth2;
+      }
+      var endMonth = parseInt(endMonth2);
+      var endYear = parseInt(endDateArray[2]);
+
+      //mm dd yy
+      var dateFrom = "01/08/2016";
+      var dateTo = "01/10/2016";
+      var dateCheck = "01/09/2016";
+
+      var d1 = [startMonth, startDay, startYear];
+      var d2 = [endMonth, endDay, endYear];
+      var c = [m, d, y];
+
+      var from = new Date(d1);  // -1 because months are from 0 to 11
+      var to   = new Date(d2);
+      var check = new Date(c);
+
+      return(check > from && check < to);
+  }
 
 });
