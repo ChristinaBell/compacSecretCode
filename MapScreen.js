@@ -52,18 +52,21 @@ $( document ).ready(function() {
                     iconUrl: 'icons/green_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [20,-25]
                 });
 
     var orangeIcon = L.icon({
                     iconUrl: 'icons/orange_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [20,20]
                 });
 
     var redIcon = L.icon({
                     iconUrl: 'icons/red_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [20,20]
                 });
 
     // AWS Lambda call
@@ -127,13 +130,13 @@ $( document ).ready(function() {
             marker.bindPopup(list);
 
             popup = L.popup()
-                .setLatLng([packhouse.Latitude, packhouse.Longitude])
+                .setLatLng(L.latLng(packhouse.Latitude + 150, packhouse.Longitude + 100))
                 .setContent(list)
-                .openOn(mymap);
+//                .openOn(mymap);
 
             oms.addMarker(marker);
               popup.setContent(marker.desc);
-              popup.setLatLng(marker.getLatLng());
+              popup.setLatLng(L.latLng(packhouse.Latitude + 150, packhouse.Longitude + 100));
             oms.addMarker(marker);
 
         }
