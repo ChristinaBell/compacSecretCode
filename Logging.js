@@ -16,7 +16,7 @@ $(document).ready(function() {
     // -----------------------------------  Fill the log for the first time --------------------------------------------
     filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
-        "SoftwareType": ["SIZER"],
+        "SoftwareType": ["SIZER", "VISION"],
         "StartDate": $('#startDate').val(),
         "EndDate": $('#endDate').val(),
         "Customers" : [],
