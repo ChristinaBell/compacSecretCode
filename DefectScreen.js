@@ -441,11 +441,6 @@ $( document ).ready(function() {
       var endMonth = parseInt(endMonth2);
       var endYear = parseInt(endDateArray[2]);
 
-      //mm dd yy
-      var dateFrom = "01/08/2016";
-      var dateTo = "01/10/2016";
-      var dateCheck = "01/09/2016";
-
       var d1 = [startMonth, startDay, startYear];
       var d2 = [endMonth, endDay, endYear];
       var c = [m, d, y];
@@ -454,7 +449,7 @@ $( document ).ready(function() {
       var to   = new Date(d2);
       var check = new Date(c);
 
-      return(check > from && check < to);
+      return(check >= from && check <= to);
   }
 
 });

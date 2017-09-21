@@ -30,6 +30,8 @@ $( document ).ready(function() {
   var packhouse2_Name;
   var packhouse3_Name;
   var caret_down = "\t▼";
+  var startDateArray;
+  var endDateArray;
 
   var selectedClass;
   var selectedFruitVariety;
@@ -41,6 +43,11 @@ $( document ).ready(function() {
 
   var isFirstGraph = true;
 
+  $('.input-daterange').datepicker({
+      format: 'dd MM yyyy'
+  }).on("change", function (e) {
+      sortData();
+  });
 
   // Lambda for getting the data from the dynamo db
   lambda.invoke(pullParams, function(error, data) {
@@ -55,6 +62,8 @@ $( document ).ready(function() {
       sortData();
     }
   });
+
+
 
   function getPackhouses_getClasses(){
     for (var i = 0; i < currentData.Items.length; i++) {
@@ -108,6 +117,8 @@ $( document ).ready(function() {
       var yyyy = oneWeekAgo.getFullYear();
       var start = dd+' '+mm+' '+yyyy;
       $('#startDate').val(start);
+
+      console.log("setUp start:" + start + " end: "+ end);
 
       startDateArray = $('#startDate').val().split(" ");
       endDateArray = $('#endDate').val().split(" ");
@@ -440,17 +451,13 @@ $( document ).ready(function() {
 
   //*****************************************************************************/
 
-
-  $('.input-daterange').datepicker({
-      format: 'dd MM yyyy'
-  }).on("change", function (e) {
-      sortData();
-  });
-
   function withinDate(d, m, y) {
 
       startDateArray = $('#startDate').val().split(" ");
       endDateArray = $('#endDate').val().split(" ");
+
+
+      console.log("withinDate start:" + startDateArray + " end: "+ endDateArray + " current" + d + m + y);
 
       var startDay = parseInt(startDateArray[0]);
       var startMonth2 = monthNames.indexOf(startDateArray[1]) + 1;
@@ -468,11 +475,6 @@ $( document ).ready(function() {
       var endMonth = parseInt(endMonth2);
       var endYear = parseInt(endDateArray[2]);
 
-      //mm dd yy
-      var dateFrom = "01/08/2016";
-      var dateTo = "01/10/2016";
-      var dateCheck = "01/09/2016";
-
       var d1 = [startMonth, startDay, startYear];
       var d2 = [endMonth, endDay, endYear];
       var c = [m, d, y];
@@ -481,7 +483,7 @@ $( document ).ready(function() {
       var to   = new Date(d2);
       var check = new Date(c);
 
-      return(check > from && check < to);
+      return(check >= from && check <= to);
   }
 
 });
