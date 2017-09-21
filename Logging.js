@@ -92,6 +92,9 @@ $(document).ready(function() {
                 currentData = JSON.parse(data.Payload);
                 getCustomers(currentData.Items);
                 getPackhouses(currentData.Items);
+                getSelectedCustomersAndPackhouses();
+                retrieveData(filters);
+
             }
         });
     }
@@ -144,13 +147,9 @@ $(document).ready(function() {
         var html = "<h4 class='log-sub-heading'>Packhouses:</h4>";
         for (var i = 0; i < packhouses.length; i++) {
             var currentPackhouse = packhouses[i];
-
             html = html + "<div class='checkbox'><label><input checked class='packhouse_checkbox' type='checkbox' name='Customer' value='" + currentPackhouse + "'>" + currentPackhouse + " </label> </div>"
-            packhousechecklist.html(html);
         }
-
-        getSelectedCustomersAndPackhouses();
-        retrieveData(filters);
+        packhousechecklist.html(html);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -222,10 +221,11 @@ $(document).ready(function() {
 
     }
 
-    // Refresh packhouse dropdowns based on which customers are selected. 
+    // Refresh packhouse dropdowns based on which customers are selected.
     $('#customer-check-list').click(function() {
         getPackhouses();
     });
+
 
 
     // Function to update the log when the update logs button is clicked -----------------------------------------------

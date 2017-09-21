@@ -52,18 +52,21 @@ $( document ).ready(function() {
                     iconUrl: 'icons/green_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [0,-30]
                 });
 
     var orangeIcon = L.icon({
                     iconUrl: 'icons/orange_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [0,-30]
                 });
 
     var redIcon = L.icon({
                     iconUrl: 'icons/red_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+                    popupAnchor: [0,-30]
                 });
 
     // AWS Lambda call
@@ -100,9 +103,9 @@ $( document ).ready(function() {
             packhouse = packhouses[item];
 
             var util = packhouse["Line 1 Cupfill"];
-            if (util < 0.3){
+            if (util < 40){
                 icon = redIcon;
-            } else if (util < 0.7){
+            } else if (util < 70){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
@@ -127,13 +130,13 @@ $( document ).ready(function() {
             marker.bindPopup(list);
 
             popup = L.popup()
-                .setLatLng([packhouse.Latitude, packhouse.Longitude])
+                .setLatLng(L.latLng(packhouse.Latitude + 150, packhouse.Longitude + 100))
                 .setContent(list)
-                .openOn(mymap);
+//                .openOn(mymap);
 
             oms.addMarker(marker);
               popup.setContent(marker.desc);
-              popup.setLatLng(marker.getLatLng());
+              popup.setLatLng(L.latLng(packhouse.Latitude + 150, packhouse.Longitude + 100));
             oms.addMarker(marker);
 
         }
