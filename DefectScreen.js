@@ -168,8 +168,7 @@ $( document ).ready(function() {
       mm = parseInt(dateArr[1]);
       dd = parseInt(dateArr[2]);
 
-
-      if (withinDate(dd, mm, dd) && (selectedFruitVariety == fruitVariety)){
+      if (withinDate(dd, mm, yy) && (selectedFruitVariety == fruitVariety)){
 
         if (packhouse == packhouse1_Name) {
           currTally = packhouse1_Data;
