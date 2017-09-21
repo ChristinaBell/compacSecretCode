@@ -34,6 +34,7 @@ $( document ).ready(function() {
   var selectedClass;
   var selectedFruitVariety;
   var currentData;
+  var fruitDate;
 
   var isPercentageData = true;
   var yAxisLabel = "Percentage of Fruit of each grade";
@@ -61,7 +62,9 @@ $( document ).ready(function() {
 
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
       if (packhouses.indexOf(packhouse) == -1){
+        if (packhouse != null) {
          packhouses.push(packhouse);
+       }
       }
 
       var actualGrade = currentItem.payload.Data.SampledGrade;
@@ -83,6 +86,34 @@ $( document ).ready(function() {
   }
 
   function setUp(){
+      monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December" ];
+
+      // set the end date of the date picker to be the current date
+      var today = new Date();
+      var dd = today.getDate();
+      if (dd < 10){
+          dd = "0" + dd;
+      }
+      var mm =  monthNames[today.getMonth()];
+      var yyyy = today.getFullYear();
+      var end = dd+' '+mm+' '+yyyy;
+      $('#endDate').val(end);
+
+      // set the start date of the date picker to be a week ago by default
+      var oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
+      var dd = oneWeekAgo.getDate();
+      var mm = monthNames[oneWeekAgo.getMonth()];
+      var yyyy = oneWeekAgo.getFullYear();
+      var start = dd+' '+mm+' '+yyyy;
+      $('#startDate').val(start);
+
+      startDateArray = $('#startDate').val().split(" ");
+      endDateArray = $('#endDate').val().split(" ");
+
+
+
       $(".title-row h2").html("What the " + commodities[0] + " were at the " + classes[0] + " outlets.");
       selectedClass = classes[0];
       selectedFruitVariety = commodities[0];
@@ -121,9 +152,18 @@ $( document ).ready(function() {
       var visionGrade = currentItem.payload.Data.VisionGrade;
       var fruitVariety = currentItem.payload.Data.PackRun.FruitVariety;
       var packhouse = currentItem.payload.Data.PackRun.Packhouse;
+      var fruitDate = currentItem.payload.Data.PackRun.StartTime;
+
+
+
+      dateStr = fruitDate.split("T");
+      dateArr = dateStr[0].split("-");
+      yy = parseInt(dateArr[0]);
+      mm = parseInt(dateArr[1]);
+      dd = parseInt(dateArr[2]);
 
       // See if we've got the right fruit type and vision grade for particular data entry. To then add to the tallies.
-      if ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade)){
+      if ((withinDate(dd, mm, yy)) && ((selectedFruitVariety == fruitVariety) && (selectedClass == visionGrade))){
 
         if (packhouse == packhouse1_Name) {
           currTally = packhouse1_Data;
@@ -402,43 +442,46 @@ $( document ).ready(function() {
 
 
   $('.input-daterange').datepicker({
-      format: 'dd-mm-yyyy'
+      format: 'dd MM yyyy'
+  }).on("change", function (e) {
+      sortData();
   });
 
-  var initStartDate = document.getElementById("startDate").value;
-  var initEndDate = document.getElementById("endDate").value;
+  function withinDate(d, m, y) {
 
+      startDateArray = $('#startDate').val().split(" ");
+      endDateArray = $('#endDate').val().split(" ");
 
+      var startDay = parseInt(startDateArray[0]);
+      var startMonth2 = monthNames.indexOf(startDateArray[1]) + 1;
+      if (startMonth2 < 10){
+          startMonth2 = "0" + startMonth2;
+      }
+      var startMonth = parseInt(startMonth2);
+      var startYear = parseInt(startDateArray[2]);
 
+      var endDay = parseInt(endDateArray[0]);
+      var endMonth2 = monthNames.indexOf(endDateArray[1]) + 1;
+      if (endMonth2 < 10){
+          endMonth2 = "0" + endMonth2;
+      }
+      var endMonth = parseInt(endMonth2);
+      var endYear = parseInt(endDateArray[2]);
 
-  // function withinDate(){
-  //
-  //
-  //   var startDay = parseInt(startDate[0]);
-  //   var startMonth = parseInt(startDate[1]);
-  //   var startYear = parseInt(startDate[3]);
-  //
-  //   var endDay = parseInt(endDate[0]);
-  //   var endMonth = parseInt(endDate[1]);
-  //   var endYear = parseInt(endDate[2]);
-  //
-  //   var selectedDate;
-  //
-  //
-  //
-  // }
+      //mm dd yy
+      var dateFrom = "01/08/2016";
+      var dateTo = "01/10/2016";
+      var dateCheck = "01/09/2016";
 
-  var startDate = initStartDate.split("-");
-  var endDate = initEndDate.split("-");
+      var d1 = [startMonth, startDay, startYear];
+      var d2 = [endMonth, endDay, endYear];
+      var c = [m, d, y];
 
-  var start = startDate.join(" ");
+      var from = new Date(d1);  // -1 because months are from 0 to 11
+      var to   = new Date(d2);
+      var check = new Date(c);
 
-  var date = new Date(initStartDate);
-
-  console.log(date);
-  console.log(start);
-
-
-
+      return(check > from && check < to);
+  }
 
 });
