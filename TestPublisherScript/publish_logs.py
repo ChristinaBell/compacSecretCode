@@ -90,7 +90,7 @@ def generate(batches=10, bins = 5, fruit=10):
                 error = re.compile("^\s*\d+\)\s+\((\w+)\)((\s|\d|-|:|\.)+)\t*(.+)")
 
                 for line in content:
-
+                    time.sleep(10)
                     if error.match(line):
                         match = error.match(line)
                         logType = (match.group(1))
@@ -101,7 +101,7 @@ def generate(batches=10, bins = 5, fruit=10):
                             "LogType": logType,
                             "LogMessage": msg,
                             "Date": date,
-                            "Machine": "Sizer",
+                            "Machine": "Vision",
                             "Packhouse": "Zirkle Selah",
                             "Customer": "Zirkle Fruit Co"
                         }
@@ -117,7 +117,7 @@ def publish_log(sizer_log_msg):
     client.publish(topic='sizer/log',
                    qos=qos_setting,
                    payload=json_s.encode('utf-8'))
-    print("pub..")
+    print("pub pub..")
 
 
 CLIENT_CLASS = mqtt.Client #TestClient  # or mqtt.Client

@@ -146,7 +146,7 @@ def publish_fruit():
     #client.loop()
 
 
-fruit_id_seed = 123459876
+fruit_id_seed = 800
 
 fruit_msg = {
     "ID": str(fruit_id_seed),
@@ -163,6 +163,7 @@ fruit_msg = {
         "WeightGrams": "363.35",
         "Size": "36",
         'DatasetId': "0",
+        "Defects": "bruise",
         "VisionGrade": "Class 2",
         "SampledGrade": "Class 2",
         "CaptureFilename": 'TODO: capx_file_name goes here',
@@ -171,8 +172,9 @@ fruit_msg = {
             "FruitVariety": "Kiwi Green",
             "Name": batch_name,
             "Grower": "GSKL3737",
-            "StartTime": "2017-02-21T14:01:56.339551+13:00",
-            "EndTime": "2017-02-21T16:12:35.235354+13:00"
+            "Packhouse": "EastPack Quarry Road",
+            "StartTime": "2017-09-20T14:01:56.339551+13:00",
+            "EndTime": "2017-09-20T16:12:35.235354+13:00"
         }
     },
     "Status": "200",
@@ -256,12 +258,12 @@ def generate(batches=10, bins = 5, fruit=10):
         print('batch ' + str(i + 1))
         for bin in range(bins):
             for f in range(fruit):
-                time.sleep(5)
+                # time.sleep(5)
                 new_fruit()
                 print(f, )
                 publish_fruit()
         print()
-        time.sleep(10)
+        # time.sleep(10)
         end_batch()
     print('Done')
     print()
