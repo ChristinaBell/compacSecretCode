@@ -103,9 +103,9 @@ $( document ).ready(function() {
             packhouse = packhouses[item];
 
             var util = packhouse["Line 1 Cupfill"];
-            if (util < 0.3){
+            if (util < 40){
                 icon = redIcon;
-            } else if (util < 0.7){
+            } else if (util < 70){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
