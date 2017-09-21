@@ -265,7 +265,7 @@ $(document).ready(function() {
 
         // update the filter values
         filters.ErrorType = errorTypes;
-        filters.softwareTypes = softwareTypes;
+        filters.SoftwareType = softwareTypes;
 
         startDateArray = $('#startDate').val().split(" ");
         endDateArray = $('#endDate').val().split(" ");
