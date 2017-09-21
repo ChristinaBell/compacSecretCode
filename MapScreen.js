@@ -52,21 +52,21 @@ $( document ).ready(function() {
                     iconUrl: 'icons/green_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    popupAnchor: [20,-25]
+                    popupAnchor: [0,-30]
                 });
 
     var orangeIcon = L.icon({
                     iconUrl: 'icons/orange_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    popupAnchor: [20,20]
+                    popupAnchor: [0,-30]
                 });
 
     var redIcon = L.icon({
                     iconUrl: 'icons/red_pin.png',
                     iconSize:     [25, 40], // size of the icon
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
-                    popupAnchor: [20,20]
+                    popupAnchor: [0,-30]
                 });
 
     // AWS Lambda call
@@ -103,9 +103,9 @@ $( document ).ready(function() {
             packhouse = packhouses[item];
 
             var util = packhouse["Line 1 Cupfill"];
-            if (util < 0.3){
+            if (util < 40){
                 icon = redIcon;
-            } else if (util < 0.7){
+            } else if (util < 70){
                 icon = orangeIcon;
             } else {
                 icon = greenIcon;
