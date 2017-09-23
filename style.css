@@ -1,9 +1,5 @@
 
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-}
-
+/************************************** General *******************************/
 /* Add a gray background color and some padding to the footer */
 footer {
   background-color: #f2f2f2;
@@ -19,6 +15,11 @@ h2, h1, h3 {
   font-weight: bold;
 }
 
+
+/******************************************************************************/
+
+
+/************************************** Navbar ********************************/
 /* logo */
 .home_nav img {
   padding: 11px;
@@ -26,29 +27,31 @@ h2, h1, h3 {
 
 }
 
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
 .navbar-inverse {
     box-shadow: 0px 2px 12px rgba(68, 83, 91, 0.7);
 }
 
-.commodities {
-   color: #555;
+/******************************************************************************/
+
+
+/************************************** Home Page *****************************/
+#home-page-container .row  {
+  width: 100%;
+}
+
+.blue-box{
+  display: none;
 }
 
 #main-row {
   margin: 0px;
 }
 
-#home-page-container .row  {
-  width: 100%;
-}
-
-.datepicker table tr td, .datepicker table tr th {
-  border-radius: 0px!important;
-}
-
-.blue-box{
-  display: none;
-}
 .word-part {
   padding: 0px 20px 20px 20px;
   margin: auto;
@@ -103,23 +106,17 @@ h2, h1, h3 {
     margin: 30px 0px 50px 0px;
   }
 }
+/******************************************************************************/
 
 
-
-
-
-
-
-
-
-
-
-#map-container{
-   height: 680px;
+/**************************************Graphing Pages *************************/
+.commodities {
+   color: #555;
 }
 
-
-/******************************* GRAPHING STYLING *****************************/
+.datepicker table tr td, .datepicker table tr th {
+  border-radius: 0px!important;
+}
 
 .grade-filter .form-control {
     border-radius: 3px!important;
@@ -274,10 +271,14 @@ h2, h1, h3 {
 /******************************************************************************/
 
 
+/************************************** Utilisation Map ***********************/
+#map-container{
+   height: 680px;
+}
+/******************************************************************************/
 
 
-/************************************* LOGGING *****************************************/
-
+/************************************* LOGGING ********************************/
 #logging-table{
     white-space: pre-wrap; /* css-3 */
     white-space: -moz-pre-wrap; /* Mozilla, since 1999 */

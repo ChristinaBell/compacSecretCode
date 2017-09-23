@@ -17,8 +17,7 @@ $( document ).ready(function() {
     LogType : 'None'
   };
 
-  // Create variable to hold data returned by the Lambda function
-
+  // Variables for the class
   var classes = [];
   var packhouses = [];
   var commodities = [];
@@ -40,9 +39,10 @@ $( document ).ready(function() {
 
   var isPercentageData = true;
   var yAxisLabel = "Percentage of Fruit of each grade";
-
   var isFirstGraph = true;
 
+
+  // Date picker
   $('.input-daterange').datepicker({
       format: 'dd MM yyyy'
   }).on("change", function (e) {
@@ -64,7 +64,7 @@ $( document ).ready(function() {
   });
 
 
-
+  // Getting the packhouses from the data and collating them
   function getPackhouses_getClasses(){
     for (var i = 0; i < currentData.Items.length; i++) {
       var currentItem = currentData.Items[i];
@@ -94,6 +94,7 @@ $( document ).ready(function() {
     }
   }
 
+  // Setting up the date format and filling in the visible dropdown labels.
   function setUp(){
       monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December" ];
@@ -150,6 +151,7 @@ $( document ).ready(function() {
       $(".btn-commodity-filter:first-child").val(selectedFruitVariety);
   }
 
+  // Sorting the data to populate the graph
   function sortData(){
     //initialise the packhouse data arrays
     packhouse1_Data = new Array(classes.length+1).join('0').split('').map(parseFloat);
@@ -203,7 +205,7 @@ $( document ).ready(function() {
     drawGraph();
   }
 
-  // changing the data to
+  // changing the data to percentage for the data visualisation
   function makePercentage(packhouses){
     for (var z = 0; z < packhouses.length; z++) {
       var currentPercentageData = packhouses[z];
@@ -304,7 +306,7 @@ $( document ).ready(function() {
     });
   }
 
-  //******************************* The dropdown js ******************************/
+  //******************************* The dropdown js ***************************/
   function fillinDropdowns(){
     $('#packhouse1Filter').empty();
     $('#packhouse2Filter').empty();
@@ -313,7 +315,7 @@ $( document ).ready(function() {
     $('#classFilter').empty()
 
 
-
+    // Populating in the dropdowns for page.
     var filter = document.getElementById("classFilter");
           for (var m = 0; m < classes.length; m++){
               var currentClass = classes[m];
@@ -367,39 +369,39 @@ $( document ).ready(function() {
               }
           }
 
-      var packhouse3Filter = document.getElementById("packhouse3Filter");
-            for (var iP3 = 0; iP3 < packhouses.length; iP3++){
-                var currentPackhouse = packhouses[iP3];
+    var packhouse3Filter = document.getElementById("packhouse3Filter");
+          for (var iP3 = 0; iP3 < packhouses.length; iP3++){
+              var currentPackhouse = packhouses[iP3];
 
-                if (currentPackhouse != packhouse1_Name) {
-                  if (currentPackhouse != packhouse2_Name) {
-                    if (currentPackhouse != packhouse3_Name) {
-                      var li = document.createElement("li");
-                      var link = document.createElement("a");
-                      var text = document.createTextNode(currentPackhouse);
-                      link.appendChild(text);
-                      link.href = "#";
-                      li.appendChild(link);
-                      packhouse3Filter.appendChild(li);
-                    }
+              if (currentPackhouse != packhouse1_Name) {
+                if (currentPackhouse != packhouse2_Name) {
+                  if (currentPackhouse != packhouse3_Name) {
+                    var li = document.createElement("li");
+                    var link = document.createElement("a");
+                    var text = document.createTextNode(currentPackhouse);
+                    link.appendChild(text);
+                    link.href = "#";
+                    li.appendChild(link);
+                    packhouse3Filter.appendChild(li);
                   }
                 }
-            }
+              }
+          }
 
-      var gradeCommodity = document.getElementById("gradeCommodity");
-            for (var iC = 0; iC < commodities.length; iC++){
-                var currentCommodity = commodities[iC];
+    var gradeCommodity = document.getElementById("gradeCommodity");
+          for (var iC = 0; iC < commodities.length; iC++){
+              var currentCommodity = commodities[iC];
 
-                if (currentCommodity != selectedFruitVariety) {
-                  var li = document.createElement("li");
-                  var link = document.createElement("a");
-                  var text = document.createTextNode(currentCommodity);
-                  link.appendChild(text);
-                  link.href = "#";
-                  li.appendChild(link);
-                  gradeCommodity.appendChild(li);
-                }
-            }
+              if (currentCommodity != selectedFruitVariety) {
+                var li = document.createElement("li");
+                var link = document.createElement("a");
+                var text = document.createTextNode(currentCommodity);
+                link.appendChild(text);
+                link.href = "#";
+                li.appendChild(link);
+                gradeCommodity.appendChild(li);
+              }
+          }
   }
 
   // Dropdown on click functions
@@ -449,8 +451,10 @@ $( document ).ready(function() {
 
 
 
-  //*****************************************************************************/
+  //***************************************************************************/
 
+
+  //************************ Check if input date is within the range  *********/
   function withinDate(d, m, y) {
 
       startDateArray = $('#startDate').val().split(" ");
