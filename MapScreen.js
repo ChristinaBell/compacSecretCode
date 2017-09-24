@@ -1,7 +1,7 @@
 
 $( document ).ready(function() {
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ------------------------------- Set up Leaflet API --------------------------------------------------------------
 
     // Instantiate the Leaflet maps API - centering around NZ
     var mymap = L.map('map-container', {
@@ -23,7 +23,7 @@ $( document ).ready(function() {
 
 
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------Add Legend to map --------------------------------------------------------------
 
     var legend = L.control({position: 'bottomright'});
 
@@ -44,8 +44,10 @@ $( document ).ready(function() {
 
     return div;
     };
-
     legend.addTo(mymap);
+
+
+    // --------------------------------- Set up markers  --------------------------------------------------------------
 
     // Define the red, green and orange pins for representing the proportion of utilisation
     var greenIcon = L.icon({
@@ -68,6 +70,8 @@ $( document ).ready(function() {
                     iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
                     popupAnchor: [0,-30]
                 });
+
+   // --------------------------------- Make Lambda call to retrieve pack houses ---------------------------------------
 
     // AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
@@ -97,11 +101,16 @@ $( document ).ready(function() {
         }
     });
 
+    // ---------------------------------Add a pin per pack house to the map --------------------------------------------
+
     // Function to add pins to map
     function updateMap(packhouses){
         for (item in packhouses){
             packhouse = packhouses[item];
 
+            // If utilisation is over 70 set the pin to be green
+            // Otherwise if the utilisation is under 40 set it to be red
+            // If it is between 40 - 70 set it to be orange
             var util = packhouse["Line 1 Cupfill"];
             if (util < 40){
                 icon = redIcon;
@@ -125,10 +134,12 @@ $( document ).ready(function() {
                 packhouse.Longitude = packhouse.Longitude + 360;
             }
 
+            // Add the marker at the pack house lat and long
             marker = L.marker([packhouse.Latitude, packhouse.Longitude], {icon: icon}).addTo(mymap);
 
             marker.bindPopup(list);
 
+            // Add the popup to the location
             popup = L.popup()
                 .setLatLng(L.latLng(packhouse.Latitude + 150, packhouse.Longitude + 100))
                 .setContent(list)
@@ -143,18 +154,5 @@ $( document ).ready(function() {
         mymap.closePopup();
         mymap.panTo(new L.LatLng(5, 190.7633));
     }
-
-
-//    mymap.on('popupopen', function() {
-//        $('.popup-content').click(function() {
-//            customer =  $(this).find('.popup-customer').text();
-//            packhouse =  $(this).find('.popup-packhouse').text();
-//            current_location = window.location.toString();
-//            lastIndex = current_location.lastIndexOf('/');
-//            relative_location = current_location.substr(0, lastIndex);
-//            window.location = relative_location + '/DashboardPage.html?customer=' + customer + "&packhouse=" + packhouse;
-//        });
-//    });
-
 
 });
