@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!------------------------------This file defines the structure for the logging screen------------------------------->
+
 <html lang="en">
 <head>
     <title>Compac Machine Performance </title>
@@ -21,8 +24,6 @@
     <!--date picker-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-
 
 </head>
 <body>
@@ -55,6 +56,8 @@
 </nav>
 <!------------------------------------------------------------------------------------------------------------------->
 
+<!----------------------------------- Logging page filter panel ----------------------------------------------------->
+
 <div id="log-filter-collapse-panel" class="panel-group">
     <div class="logging-filter panel panel-default">
         <div id="logging-filter-panel" data-toggle="collapse" href="#collapse1" class="panel-heading">
@@ -65,13 +68,17 @@
         </div>
         <div id="collapse1" class="panel-collapse collapse">
             <div class="logging-panel-body panel-body">
+
+                <!--Customer check boxes  (these are dynamically filled) -->
                 <div id="customer-check-list" class="col-md-15 col-xs-3">
                     <h5>Customer:</h5>
                 </div>
+                <!--Pack house check boxes  (these are dynamically filled) -->
                 <div id="packhouse-check-list" class="col-md-15 col-xs-3">
                     <h4>Packhouse:</h4>
                 </div>
 
+                <!--Error type check boxes -->
                 <div class="col-md-15 col-xs-3">
                     <h4 class="log-sub-heading">Error Type:</h4>
                     <div class="checkbox">
@@ -83,8 +90,8 @@
                     <br>
                 </div>
 
+                <!--Machine type check boxes -->
                 <div class="col-md-15 col-xs-3">
-
                     <h4 class="log-sub-heading">Software:</h4>
                     <div class="checkbox">
                         <label><input checked id="visionCheckBox" type="checkbox" name="Vision" value="Vision"> Vision </label>
@@ -101,6 +108,7 @@
 
                 </div>
 
+                <!--Machine type check boxes -->
                 <div class="col-md-15 col-xs-3" id="date-range-div">
                     <h4 class="log-sub-heading">Date Range:</h4>
                     <div id="log-date-range-filter" class="input-group input-daterange">
@@ -111,6 +119,8 @@
 
                 </div>
             </div>
+
+            <!-- Footer with update logging table button -->
             <div class="panel-footer" id="logging-filter-footer">
                 <center>
                 <button id="update_logs" class="btn btn-primary">Update Results</button>
@@ -119,6 +129,10 @@
         </div>
     </div>
 </div>
+
+<!------------------------------------------------------------------------------------------------------------------->
+
+<!----------------------------------- Logging page content panel ----------------------------------------------------->
 
 <div id="log-page-content">
     <div id="log-table-container" >
@@ -137,8 +151,6 @@
             </tr>
             </thead>
             <tbody>
-
-
             </tbody>
         </table>
     </div>
@@ -146,3 +158,6 @@
 
 </body>
 </html>
+
+<!------------------------------------------------------------------------------------------------------------------->
+

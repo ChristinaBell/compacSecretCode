@@ -1,11 +1,12 @@
 $(document).ready(function() {
 
 
-    // Define logging filers
+    // Define logging filters for error types
     var ERRORTYPE = {
         "ERROR": "ERROR",
         "WARNING": "WARNING"
     }
+    // Define the logging filter for software types
     var SOFTWARE = {
         "VISION": "VISION",
         "SIZER": "SIZER",
@@ -14,6 +15,8 @@ $(document).ready(function() {
     }
 
     // -----------------------------------  Fill the log for the first time --------------------------------------------
+
+    // Create a global variable for the filtering of log file
     filters = {
         "ErrorType": [ERRORTYPE.ERROR, ERRORTYPE.WARNING],
         "SoftwareType": ["SIZER", "VISION"],
@@ -23,29 +26,32 @@ $(document).ready(function() {
         "Packhouses": []
     };
 
+    // Define a global variable to determine whether the date range has been changed.
+    // Used to determine whether a call to AWS Lambda must be made or if a subset of the current data can be used.
     var dateChangedBoolean = false;
     var logResults;
 
 
-    //  ----------------------------------------------------------------------------------------------------------------
+    //  ----------------------------------Connect to AWS Lambda---------------------------------------------------------
 
-
-    // AWS Lambda call
+    // Set up AWS Lambda call
     AWS.config.region = 'ap-southeast-2'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: 'ap-southeast-2:4d0f8a86-6998-44d5-b05b-953269d29426',
     });
     setupPage();
 
+    // Set up the date range picker to format the to have the month as a word not a number
     $('.input-daterange').datepicker({
         format : "dd MM yyyy "
     }).on("change", function (e) {
-            dateChangedBoolean = true;
+            dateChangedBoolean = true;  //
     });
 
-    // -----------------------------------  Set up filters dyanically --------------------------------------------------
+    // -----------------------------------  Set up filters dynamically --------------------------------------------------
     function setupPage() {
 
+        // Set up month name array to convert names to indexes
         monthNames = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December" ];
 
@@ -72,19 +78,23 @@ $(document).ready(function() {
         startDateArray = $('#startDate').val().split(" ");
         endDateArray = $('#endDate').val().split(" ");
 
+        // Set the filter to have the month as a number rather than name - using the month name array
         filters.StartDate = (startDateArray[0] + "-" + (monthNames.indexOf(startDateArray[1]) + 1) + "-" + startDateArray[2]).trim();
         filters.EndDate = (endDateArray[0] + "-" + (monthNames.indexOf(endDateArray[1]) + 1) + "-" + endDateArray[2]).trim();
 
+        // Set the parameters of the lambda function
         var pullParams = {
             FunctionName: 'readPackhouseLocations',
             InvocationType: 'RequestResponse',
             LogType: 'None'
         };
 
+        // Connect the Lambda function and invoke it
         var lambda = new AWS.Lambda({
             region: 'ap-southeast-2',
             apiVersion: '2015-03-31'
         });
+        // If there is no error with the function then update the logs with the data retrieved
         lambda.invoke(pullParams, function(error, data) {
             if (error) {
                 prompt(error);
@@ -94,11 +104,11 @@ $(document).ready(function() {
                 getPackhouses(currentData.Items);
                 getSelectedCustomersAndPackhouses();
                 retrieveData(filters);
-
             }
         });
     }
 
+    // Get all the customers from the database using the list of pack houses
     function getCustomers(currentData) {
         var packhouses = [];
         for (item in currentData) {
@@ -111,6 +121,7 @@ $(document).ready(function() {
         updateCustomerList(packhouses);
     }
 
+    // Dynamically update the possible customer options from the list of pack houses returned from the database
     function updateCustomerList(packhouses) {
         var customerchecklist = $("#customer-check-list");
 
@@ -122,6 +133,7 @@ $(document).ready(function() {
         }
     }
 
+    // Get a list of all the pack houses from the database
     function getPackhouses() {
         checkedPackhouses = $('.customer_checkbox:checkbox:checked');
 
@@ -142,6 +154,7 @@ $(document).ready(function() {
         updatePackhouseList(packhouses);
     }
 
+    // Dynamically update the possible select options depending on the pack houses returned from the database
     function updatePackhouseList(packhouses) {
         var packhousechecklist = $("#packhouse-check-list");
         var html = "<h4 class='log-sub-heading'>Packhouses:</h4>";
@@ -152,7 +165,7 @@ $(document).ready(function() {
         packhousechecklist.html(html);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------Invoke the Lambda to retrieve logs -----------------------------------------------
 
 
 
@@ -171,13 +184,12 @@ $(document).ready(function() {
             Payload: JSON.stringify(filters),
             LogType: 'None'
         };
-
+        // Reload table with results from S3 lambda function call if there is no error
         lambda.invoke(pullParams, function(error, data) {
             if (error) {
                 prompt(error);
             } else {
                 logResults = JSON.parse(data.Payload);
-                // Reload table with results from S3 lambda function call
                 reloadTable(logResults);
             }
         });
@@ -291,35 +303,40 @@ $(document).ready(function() {
         }
     });
 
+    // Function to get the selected customers and pack houses in the filter drop down check boxes
     function getSelectedCustomersAndPackhouses(){
         var customersChecked = [];
         var packhousesChecked = [];
 
+        // get customers selected in the customer filter checkbox
         customerCheckboxes = $('.customer_checkbox:checkbox:checked');
         for (var i = 0; i < customerCheckboxes.length; i++) {
             customersChecked.push(customerCheckboxes[i].value);
         }
+        // For each selected customer add the name to a list and convert to uppercase.
         customersChecked = $.map(customersChecked, $.trim);
         $.each(customersChecked, function(index, item) {
             customersChecked[index] = item.toUpperCase();
         });
 
+        // get customers selected in the pack house filter checkbox
         packhouseCheckboxes = $('.packhouse_checkbox:checkbox:checked');
         for (var i = 0; i < packhouseCheckboxes.length; i++) {
             packhousesChecked.push(packhouseCheckboxes[i].value);
         }
+        // For each selected pack house add the name to a list and convert to uppercase.
         packhousesChecked = $.map(packhousesChecked, $.trim);
         $.each(packhousesChecked, function(index, item) {
             packhousesChecked[index] = item.toUpperCase();
         });
 
+        // Update the global filter variable values for pack houses and customers
         filters.Customers = customersChecked;
         filters.Packhouses = packhousesChecked;
     }
 
 
-//    collapse panel caret direction
-
+//  Change caret direction when filter is collapsed in or out
     $("#logging-filter-panel").click(function() {
         if ($("#filter-logs-collapse-caret").hasClass("fa-angle-down")){
             $("#filter-logs-collapse-caret").removeClass("fa-angle-down");
@@ -329,8 +346,5 @@ $(document).ready(function() {
             $("#filter-logs-collapse-caret").addClass("fa-angle-down");
         }
     });
-
-
-
 
 });
